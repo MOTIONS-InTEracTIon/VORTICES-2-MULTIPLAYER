@@ -27,9 +27,19 @@ namespace Vortices
         // A function for every logging type
         public void LogSessionStatus(string status)
         {
+            if (!File.Exists(filePath))
+            {
+                Debug.LogError("LoggingController no está inicializado.");
+                Debug.Log("Inicializando LoggingController");
+                Initialize();
+            }
+            else
+            {
+                Debug.Log("LoggingController ya inicializado.");
+            }
             // Check if input is valid
             // Status check
-            if(!(status == "Start") && !(status == "Stop"))
+            if (!(status == "Start") && !(status == "Stop"))
             {
                 Debug.Log("Status input is not valid");
                 return;
@@ -54,7 +64,9 @@ namespace Vortices
             }
 
             // Entry is ready, write it to file
+            Debug.Log("WriteToLog de LogSessionStatus antes");
             WriteToLog(newEntry);
+            Debug.Log("WriteToLog de LogSessionStatus despues");
         }
 
         public void LogMovement(string movementDir)
@@ -80,7 +92,9 @@ namespace Vortices
             newEntry.type = "Element Movement";
             newEntry.detail = movementDir + ";";
             // Entry is ready, write it to file
+            Debug.Log("WriteToLog de LogMovement antes");
             WriteToLog(newEntry);
+            Debug.Log("WriteToLog de LogMovement despues");
         }
 
         public IEnumerator LogTeleportation()
@@ -94,7 +108,9 @@ namespace Vortices
             Vector3 newPosition = GameObject.Find("XR Origin").transform.position;
             newEntry.detail = "New position: " + "(" + newPosition.x + "," + newPosition.y + "," + newPosition.z + ")" + ";";
             // Entry is ready, write it to file
+            Debug.Log("WriteToLog de LogTeleportation antes");
             WriteToLog(newEntry);
+            Debug.Log("WriteToLog de LogTeleportation despues");
         }
 
         public void LogSelection(string selectedUrl, bool wasSelected)
@@ -120,7 +136,9 @@ namespace Vortices
             newEntry.detail += "Url: " + selectedUrl;
 
             // Entry is ready, write it to file
+            Debug.Log("WriteToLog de LogSelection antes");
             WriteToLog(newEntry);
+            Debug.Log("WriteToLog de LogSelection despues");
         }
 
         public void LogCategory(string categorizedUrl, bool categoryAdded, string categoryName)
@@ -147,7 +165,9 @@ namespace Vortices
 
 
             // Entry is ready, write it to file
+            Debug.Log("WriteToLog de LogCategory antes");
             WriteToLog(newEntry);
+            Debug.Log("WriteToLog de LogCategory despues");
         }
 
         public void LogUrlChanged(string finalUrl)
@@ -164,7 +184,9 @@ namespace Vortices
             newEntry.detail += "Url: " + finalUrl;
 
             // Entry is ready, write it to file
+            Debug.Log("WriteToLog de LogUrlChanged antes");
             WriteToLog(newEntry);
+            Debug.Log("WriteToLog de LogUrlChanged despues");
         }
 
 

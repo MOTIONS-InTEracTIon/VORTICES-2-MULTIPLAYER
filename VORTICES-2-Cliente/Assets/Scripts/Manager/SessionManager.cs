@@ -132,7 +132,19 @@ namespace Vortices
             // Actualizar SessionManager con los datos recibidos
             sessionName = msg.sessionName;
             userId = msg.userId;
-            environmentName = msg.environmentName;
+            // Normalizar el nombre del entorno
+            if (msg.environmentName == "Circular Environment")
+            {
+                environmentName = "Circular";
+            }
+            else if (msg.environmentName == "Museum Environment")
+            {
+                environmentName = "Museum";
+            }
+            else
+            {
+                environmentName = msg.environmentName;
+            }
             isOnlineSession = msg.isOnlineSession;
             displayMode = msg.displayMode;
             browsingMode = msg.browsingMode;
@@ -140,6 +152,7 @@ namespace Vortices
             dimension = msg.dimension;
             elementPaths = msg.elementPaths;
 
+            Debug.Log("Session Manager seteado al Crear Sesion");
             // Actualizar categorías en el controlador
             categoryController.UpdateCategoriesList(msg.categories);
         }
@@ -247,6 +260,11 @@ namespace Vortices
                     Debug.LogError("El cliente no está conectado al servidor. Intentando conectar...");
                     NetworkManager.singleton.networkAddress = "127.0.0.1"; // Cambia por la IP del servidor si no es local
                     NetworkManager.singleton.StartClient();
+                    actualTransitionManager = GameObject.FindObjectOfType<SceneTransitionManager>(true);
+                    categoryController = GameObject.FindObjectOfType<CategoryController>(true);
+                    elementCategoryController = GameObject.FindObjectOfType<ElementCategoryController>(true);
+                    loggingController = GameObject.FindObjectOfType<LoggingController>(true);
+                    righthandTools = GameObject.FindObjectOfType<RighthandTools>(true);
 
                     // Esperar hasta que el cliente se conecte o exceda el tiempo de espera
                     float timeout = 10f;
@@ -338,7 +356,57 @@ namespace Vortices
         public IEnumerator StopSessionCoroutine()
         {
             sessionLaunchRunning = true;
+
+            if (NetworkClient.isConnected)
+            {
+                Debug.Log("El cliente está conectado a una sesión. Desconectando...");
+                NetworkClient.Disconnect();
+
+                // Esperar a que el cliente se desconecte
+                float timeout = 5f; // Tiempo máximo para desconectar
+                while (NetworkClient.isConnected && timeout > 0f)
+                {
+                    timeout -= Time.deltaTime;
+                    yield return null;
+                }
+
+                if (NetworkClient.isConnected)
+                {
+                    Debug.LogError("No se pudo desconectar del servidor dentro del tiempo de espera.");
+                    yield break;
+                }
+                else
+                {
+                    Debug.Log("Desconectado del servidor con éxito.");
+                }
+            }
+            else
+            {
+                Debug.Log("El cliente no está conectado a ninguna sesión.");
+            }
+
             actualTransitionManager = GameObject.Find("TransitionManager").GetComponent<SceneTransitionManager>();
+            righthandTools = GameObject.FindObjectOfType<RighthandTools>(true);
+
+            if (actualTransitionManager == null)
+            {
+                Debug.LogError("No se encontro el actualTransitionManager");
+            }
+            else
+            {
+                Debug.Log("Se encontro el actualTransitionManager");
+            }
+
+            if (righthandTools == null)
+            {
+                Debug.LogError("righthandTools no está asignado. Verifica su inicialización.");
+                yield break; // Salimos del coroutine para evitar más errores
+            }
+            else
+            {
+                Debug.Log("righthandTools está asignado correctamente.");
+            }
+
             Fade toolsFader = righthandTools.GetComponent<Fade>();
             yield return StartCoroutine(toolsFader.FadeOutCoroutine());
 
@@ -348,6 +416,15 @@ namespace Vortices
             yield return new WaitForSeconds(initializeTime);
 
             categorySelector = GameObject.FindObjectOfType<CategorySelector>(true);
+
+            if(categorySelector == null)
+            {
+                Debug.LogError("No se encontro el categorySelector");
+            }
+            else
+            {
+                Debug.Log("categoriSelector encontrado");
+            }
 
             sessionLaunchRunning = false;
         }
@@ -417,12 +494,26 @@ namespace Vortices
             // Configurar datos en el SessionManager
             sessionName = msg.sessionData.sessionName;
             userId = msg.sessionData.userId;
-            environmentName = msg.sessionData.environmentName;
+            // Normalizar el nombre del entorno
+            if (msg.sessionData.environmentName == "Circular Environment")
+            {
+                environmentName = "Circular";
+            }
+            else if (msg.sessionData.environmentName == "Museum Environment")
+            {
+                environmentName = "Museum";
+            }
+            else
+            {
+                environmentName = msg.sessionData.environmentName;
+            }
             browsingMode = msg.sessionData.browsingMode;
             elementPaths = msg.sessionData.elementPaths;
             displayMode = msg.sessionData.displayMode;
             volumetric = msg.sessionData.volumetric;
             dimension = msg.sessionData.dimension;
+
+            Debug.Log("Session Manager seteado al Unirse a una Sesion");
 
         }
 

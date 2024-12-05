@@ -20,9 +20,25 @@ namespace Vortices
 
         private void Start()
         {
-            sessionManager = GameObject.Find("SessionManager").GetComponent<SessionManager>();
+            StartCoroutine(FindSessionManager());
+
+        }
+
+        private IEnumerator FindSessionManager()
+        {
+            while (sessionManager == null)
+            {
+                sessionManager = FindObjectOfType<SessionManager>();
+                if (sessionManager == null)
+                {
+                    Debug.LogWarning("SessionManager no encontrado, esperando...");
+                    yield return null; // Espera un frame antes de intentar de nuevo.
+                }
+            }
+
+            Debug.Log("SessionManager asignado correctamente en InfoPanel.");
             spawnController = GameObject.FindObjectOfType<SpawnController>(true);
-            SessionManager.instance.inputController.RestartInputs();
+            sessionManager.inputController.RestartInputs();
             StartCoroutine(WaitForInit());
         }
 
@@ -44,6 +60,7 @@ namespace Vortices
         {
             // Stop the logger
             sessionManager.loggingController.LogSessionStatus("Stop");
+            Debug.Log("Se presiono el boton Stop");
             StartCoroutine(spawnController.StopSession());
         }
 

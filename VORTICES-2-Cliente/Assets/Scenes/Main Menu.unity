@@ -17307,6 +17307,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd58f9e1b73b8164dbc7b2143f9ad17e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sessionManager: {fileID: 1936390244}
   placementCircularBasePrefabs:
   - {fileID: 2350696912613660619, guid: f0ab360914b537f4184fbbf10b941879, type: 3}
   - {fileID: 432916518892542207, guid: e1d61db8ffdbd8f40a147a56f8e2a3d0, type: 3}

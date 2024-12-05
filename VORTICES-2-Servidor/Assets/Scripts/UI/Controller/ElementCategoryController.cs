@@ -5,6 +5,7 @@ using UnityEngine;
 using System.IO;
 using System.Linq;
 using Unity.VisualScripting;
+using Mirror;
 
 namespace Vortices
 { 
@@ -25,7 +26,17 @@ namespace Vortices
 
         private void Start()
         {
-            sessionManager = GameObject.Find("SessionManager").GetComponent<SessionManager>();
+            if(NetworkServer.active && !NetworkClient.active)
+            {
+                Debug.Log("ElementCategoryController desactivado en el servidor.");
+                return;
+            }
+
+            sessionManager = GameObject.Find("SessionManager")?.GetComponent<SessionManager>();
+            if (sessionManager == null)
+            {
+                Debug.Log("SessionManager no encontrado en la escena.");
+            }
         }
 
         public void Initialize()

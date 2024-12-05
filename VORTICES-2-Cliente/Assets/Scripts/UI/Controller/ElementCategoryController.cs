@@ -31,6 +31,7 @@ namespace Vortices
         public void Initialize()
         {
             allSessionElementCategory = new List<SessionElementCategory>(); // All sessions
+            Debug.Log("ElementCategoryController inicializado.");
             elementCategoriesList = new List<ElementCategory>();
             elementGameObjects = new List<Element>();
 
@@ -136,6 +137,10 @@ namespace Vortices
 
         private void UpdateSessionCategoryList(List<ElementCategory> updatedElementCategoryList)
         {
+            if(allSessionElementCategory == null)
+            {
+                Initialize();
+            }
             SessionElementCategory oldSessionElementCategory = allSessionElementCategory.FirstOrDefault<SessionElementCategory>(session => session.sessionName == this.sessionName && session.userId == this.userId);
             if(oldSessionElementCategory != null)
             {

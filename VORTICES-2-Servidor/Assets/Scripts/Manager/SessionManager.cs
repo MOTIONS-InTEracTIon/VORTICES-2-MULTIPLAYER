@@ -83,6 +83,7 @@ namespace Vortices
 
         private void Start()
         {
+            Debug.Log("Se inicia el Session Manager");
             if (instance != null)
             {
                 Destroy(gameObject);

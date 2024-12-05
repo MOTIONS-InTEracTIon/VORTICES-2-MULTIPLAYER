@@ -7,7 +7,6 @@ using System.Linq;
 using UnityEngine.UI;
 using TMPro;
 
-using System.Linq;
 using System;
 
 namespace Vortices
