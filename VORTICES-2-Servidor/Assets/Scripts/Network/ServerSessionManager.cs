@@ -36,6 +36,28 @@ public class ServerSessionManager : NetworkBehaviour
         Debug.Log("ServerSessionManager inicializado.");
     }
 
+    private void Start()
+    {
+        // Iniciar la rutina para monitorear conexiones activas
+        StartCoroutine(MonitorClientConnections());
+    }
+
+    private IEnumerator MonitorClientConnections()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(5f); // Revisa cada 5 segundos
+
+            // Si no hay conexiones activas
+            if (NetworkServer.connections.Count == 0 || !NetworkServer.connections.Any(c => c.Value.isAuthenticated))
+            {
+                Debug.Log("Todos los clientes están desconectados.");
+                HandleAllClientsDisconnected();
+            }
+        }
+    }
+
+
     public override void OnStartServer()
     {
         base.OnStartServer();
@@ -44,6 +66,7 @@ public class ServerSessionManager : NetworkBehaviour
         // Registrar handlers
         NetworkServer.RegisterHandler<CreateSessionMessage>(HandleCreateSessionMessage);
         NetworkServer.RegisterHandler<RequestActiveSessionMessage>(HandleRequestActiveSessionMessage);
+
     }
 
 
@@ -220,6 +243,19 @@ public class ServerSessionManager : NetworkBehaviour
         });
     }
 
+    public void HandleAllClientsDisconnected()
+    {
+        if (activeSessions.Count > 0)
+        {
+            Debug.Log("Eliminando todas las sesiones activas porque no hay clientes conectados.");
+            activeSessions.Clear();
+            Debug.Log("Todas las sesiones han sido eliminadas.");
+        }
+        else
+        {
+            Debug.Log("No hay sesiones activas que eliminar.");
+        }
+    }
 
 
     #endregion

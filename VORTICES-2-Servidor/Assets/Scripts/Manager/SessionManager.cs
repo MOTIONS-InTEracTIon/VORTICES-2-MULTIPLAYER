@@ -106,6 +106,7 @@ namespace Vortices
 
         #region UI Handling
 
+
         private void Update()
         {
             if (EventSystem.current.currentSelectedGameObject != null)

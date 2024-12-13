@@ -258,7 +258,7 @@ namespace Vortices
                 if (!NetworkClient.isConnected)
                 {
                     Debug.LogError("El cliente no está conectado al servidor. Intentando conectar...");
-                    NetworkManager.singleton.networkAddress = "127.0.0.1"; // Cambia por la IP del servidor si no es local
+                    NetworkManager.singleton.networkAddress = "192.168.31.72"; // Cambia por la IP del servidor si no es local
                     NetworkManager.singleton.StartClient();
                     actualTransitionManager = GameObject.FindObjectOfType<SceneTransitionManager>(true);
                     categoryController = GameObject.FindObjectOfType<CategoryController>(true);
@@ -426,7 +426,33 @@ namespace Vortices
                 Debug.Log("categoriSelector encontrado");
             }
 
+            ResetSessionManager();
+
             sessionLaunchRunning = false;
+        }
+
+        private void ResetSessionManager()
+        {
+            Debug.Log("Reiniciando SessionManager...");
+
+            // Restablecer valores del SessionManager
+            sessionName = string.Empty;
+            userId = 0;
+            environmentName = string.Empty;
+            displayMode = null;
+            volumetric = false;
+            dimension = Vector3Int.zero;
+            elementPaths?.Clear();
+            categoryController.UpdateCategoriesList(null);
+            isOnlineSession = false;
+            browsingMode = string.Empty;
+
+            // Reiniciar controladores auxiliares si es necesario
+            categoryController?.Initialize();
+            elementCategoryController?.Initialize();
+            loggingController?.Initialize();
+
+            Debug.Log("SessionManager reiniciado con éxito.");
         }
 
         public void JoinSession(string ipAddress)

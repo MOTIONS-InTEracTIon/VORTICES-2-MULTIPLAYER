@@ -12,3 +12,8 @@ public struct ActiveSessionResponseMessage : NetworkMessage
     public bool success;
     public SessionData sessionData;
 }
+
+public struct SessionEndedMessage : NetworkMessage
+{
+    public string reason; // Razón de la finalización de la sesión
+}
