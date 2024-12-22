@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
 using Mirror;
+using UnityEngine.UI;
+
 
 public class NewChatManager : NetworkBehaviour
 {
@@ -15,15 +16,17 @@ public class NewChatManager : NetworkBehaviour
 
     private void Start()
     {
-        // Ocultar el canvas al inicio
-        chatCanvas.SetActive(false);
+        // Solo desactivar el ChatCanvas si no es el servidor
+        if (!isServer)
+        {
+            chatCanvas.SetActive(false);
+        }
 
-        Debug.Log("NewChatManager inicializado en: " + gameObject.name);
+        Debug.Log($"[NewChatManager] Inicializado en: {gameObject.name}. Es servidor: {isServer}");
 
         // Vincular el botón de enviar
         sendButton.onClick.AddListener(OnSendButtonPressed);
     }
-
 
     public void ToggleChat()
     {
@@ -35,30 +38,51 @@ public class NewChatManager : NetworkBehaviour
     // Llamado cuando se presiona el botón de enviar
     public void OnSendButtonPressed()
     {
-        if (string.IsNullOrEmpty(chatInputField.text)) return;
+        if (chatInputField == null || string.IsNullOrEmpty(chatInputField.text))
+        {
+            Debug.LogWarning("[NewChatManager] No se puede enviar un mensaje vacío.");
+            return;
+        }
 
-        CmdSendMessage(chatInputField.text);
-        chatInputField.text = ""; // Limpiar el campo de texto
+        string message = chatInputField.text;
+
+        // Obtener el jugador local con autoridad
+        GameObject playerObject = NetworkClient.localPlayer?.gameObject;
+        if (playerObject == null)
+        {
+            Debug.LogError("[NewChatManager] Objeto jugador local no encontrado.");
+            return;
+        }
+
+        // Obtener el controlador de chat del jugador
+        PlayerChatController playerChatController = playerObject.GetComponent<PlayerChatController>();
+        if (playerChatController == null)
+        {
+            Debug.LogError("[NewChatManager] PlayerChatController no encontrado en el jugador.");
+            return;
+        }
+
+        // Enviar el mensaje al servidor
+        Debug.Log($"[NewChatManager] Mensaje preparado para enviar: {message}");
+        playerChatController.CmdSendMessageToChat(NetworkClient.localPlayer.connectionToServer.connectionId, message);
+
+        // Limpiar el campo de texto
+        chatInputField.text = "";
     }
 
-    [Command]
-    private void CmdSendMessage(string message)
-    {
-        Debug.Log($"[NewChatManager] Recibido mensaje del cliente {connectionToClient.connectionId}: {message}");
-
-        // Propagar el mensaje a todos los clientes conectados
-        RpcReceiveMessage(connectionToClient.connectionId, message);
-    }
 
     [ClientRpc]
-    private void RpcReceiveMessage(int senderId, string message)
+    public void RpcReceiveMessage(int senderId, string message)
     {
+        Debug.Log($"[NewChatManager] Mensaje recibido de {senderId}: {message}");
+
         if (chatDisplay != null)
         {
             chatDisplay.text += $"{senderId}: {message}\n";
         }
-
-        Debug.Log($"[NewChatManager] Mensaje recibido: {senderId}: {message}");
+        else
+        {
+            Debug.LogError("[NewChatManager] chatDisplay no está asignado.");
+        }
     }
 }
-

@@ -568,62 +568,81 @@ namespace Vortices
         {
             Debug.Log("[OnChatToggleChanged] Iniciando búsqueda de NewChatManager...");
 
-            // Comprobamos el SessionManager
-            if (sessionManager == null)
+            if (chatManager == null)
             {
-                Debug.LogError("[OnChatToggleChanged] SessionManager no está asignado.");
+                GameObject chatCanvas = null;
+
+                // Buscar entre objetos desactivados
+                GameObject[] allObjects = Resources.FindObjectsOfTypeAll<GameObject>();
+                foreach (GameObject obj in allObjects)
+                {
+                    if (obj.name == "ChatCanvas(Clone)" && obj.hideFlags == HideFlags.None)
+                    {
+                        chatCanvas = obj;
+                        Debug.Log("[OnChatToggleChanged] ChatCanvas encontrado entre objetos desactivados.");
+                        break;
+                    }
+                }
+
+                if (chatCanvas == null)
+                {
+                    Debug.LogError("[OnChatToggleChanged] ChatCanvas global no encontrado.");
+                    return;
+                }
+
+                // Obtener el NewChatManager del ChatCanvas
+                chatManager = chatCanvas.GetComponent<NewChatManager>();
+                if (chatManager == null)
+                {
+                    Debug.LogError("[OnChatToggleChanged] NewChatManager no encontrado en el ChatCanvas.");
+                    return;
+                }
+
+                Debug.Log("[OnChatToggleChanged] NewChatManager asignado correctamente.");
+            }
+
+            // Alternar el chat
+            chatManager.ToggleChat();
+        }
+
+
+        public void OnSendButtonPressed()
+        {
+            if (chatManager == null)
+            {
+                Debug.LogError("[RightHandTools] NewChatManager no está asignado.");
                 return;
             }
 
-            // Si el ChatManager aún no está asignado, intentamos buscarlo
-            if (chatManager == null)
+            // Obtener el mensaje desde el campo de texto del chat
+            string message = chatManager.chatInputField.text;
+            if (string.IsNullOrEmpty(message))
             {
-                Debug.LogWarning("[OnChatToggleChanged] chatManager es nulo. Intentando encontrar ChatCanvas en la escena...");
-
-                // Probar con GameObject.FindWithTag
-                GameObject chatCanvas = GameObject.FindWithTag("ChatCanvas");
-
-                // Si no lo encuentra, buscar entre objetos desactivados
-                if (chatCanvas == null)
-                {
-                    Debug.LogWarning("[OnChatToggleChanged] ChatCanvas no se encontró mediante tag. Intentando buscar entre objetos desactivados...");
-
-                    GameObject[] allObjects = Resources.FindObjectsOfTypeAll<GameObject>();
-                    foreach (GameObject obj in allObjects)
-                    {
-                        if (obj.name == "ChatCanvas(Clone)" || obj.tag == "ChatCanvas")
-                        {
-                            chatCanvas = obj;
-                            Debug.Log("[OnChatToggleChanged] ChatCanvas encontrado entre objetos desactivados: " + obj.name);
-                            break;
-                        }
-                    }
-                }
-
-                // Si lo encontramos, asignar el NewChatManager
-                if (chatCanvas != null)
-                {
-                    chatManager = chatCanvas.GetComponent<NewChatManager>();
-                    if (chatManager != null)
-                    {
-                        Debug.Log("[OnChatToggleChanged] NewChatManager encontrado y asignado.");
-                    }
-                    else
-                    {
-                        Debug.LogError("[OnChatToggleChanged] NewChatManager no está asignado en ChatCanvas.");
-                        return;
-                    }
-                }
-                else
-                {
-                    Debug.LogError("[OnChatToggleChanged] ChatCanvas no se encontró incluso entre objetos desactivados.");
-                    return;
-                }
+                Debug.LogWarning("[RightHandTools] No se puede enviar un mensaje vacío.");
+                return;
             }
 
-            chatManager.ToggleChat();
-            
+            // Buscar el jugador local (tiene autoridad)
+            GameObject playerObject = NetworkClient.localPlayer?.gameObject;
+            if (playerObject == null)
+            {
+                Debug.LogError("[RightHandTools] Objeto jugador local no encontrado.");
+                return;
+            }
+
+            // Obtener el script del jugador
+            PlayerChatController playerChatController = playerObject.GetComponent<PlayerChatController>();
+            if (playerChatController == null)
+            {
+                Debug.LogError("[RightHandTools] PlayerChatController no encontrado en el jugador.");
+                return;
+            }
+
+            // Enviar el comando para propagar el mensaje
+            playerChatController.CmdSendMessageToChat(NetworkClient.localPlayer.connectionToServer.connectionId, message);
+            chatManager.chatInputField.text = ""; // Limpiar el input
         }
+
 
         #endregion
     }

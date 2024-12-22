@@ -84,7 +84,6 @@ public class ServerSessionManager : NetworkBehaviour
         // Registrar handlers
         NetworkServer.RegisterHandler<CreateSessionMessage>(HandleCreateSessionMessage);
         NetworkServer.RegisterHandler<RequestActiveSessionMessage>(HandleRequestActiveSessionMessage);
-        NetworkServer.RegisterHandler<ChatMessage>(OnChatMessageReceived);
 
     }
 
@@ -274,11 +273,6 @@ public class ServerSessionManager : NetworkBehaviour
         {
             //Debug.Log("No hay sesiones activas que eliminar.");
         }
-    }
-
-    private void OnChatMessageReceived(NetworkConnection conn, ChatMessage message)
-    {
-        Debug.Log($"Mensaje recibido de {conn.connectionId}: {message.content}");
     }
 
     #endregion

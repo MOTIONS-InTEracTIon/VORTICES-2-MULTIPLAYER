@@ -20,6 +20,33 @@ public class CustomNetworkManager : NetworkManager
         Debug.Log("CustomNetworkManager - Start");
     }
 
+    public override void OnStartServer()
+    {
+        base.OnStartServer();
+
+        if (chatCanvasPrefab != null)
+        {
+            // Crear el ChatCanvas
+            GameObject chatInstance = Instantiate(chatCanvasPrefab);
+            
+            // Activar el ChatCanvas en el servidor
+            chatInstance.SetActive(true);
+            
+            // Marcarlo como persistente entre escenas
+            DontDestroyOnLoad(chatInstance);
+            
+            // Sincronizar con los clientes
+            NetworkServer.Spawn(chatInstance);
+            Debug.Log("[ChatCanvas] ChatCanvas global creado, activado y marcado como persistente.");
+        }
+        else
+        {
+            Debug.LogError("[ChatCanvas] ChatCanvasPrefab no está asignado.");
+        }
+    }
+
+
+
     public override void OnServerAddPlayer(NetworkConnectionToClient conn)
     {
         Debug.Log($"[OnServerAddPlayer] Añadiendo jugador con connId: {conn.connectionId}...");
@@ -35,31 +62,21 @@ public class CustomNetworkManager : NetworkManager
 
         NetworkServer.AddPlayerForConnection(conn, player);
         Debug.Log("[OnServerAddPlayer] Jugador añadido a la conexión del cliente.");
-        
-        // Spawnear el ChatCanvas
-        if (chatCanvasPrefab != null)
+
+        // Buscar el ChatCanvas global
+        GameObject chatCanvas = GameObject.FindWithTag("ChatCanvas");
+        if (chatCanvas != null)
         {
-            Debug.Log("[ChatCanvas] Intentando spawnear ChatCanvas...");
-
-            GameObject chatInstance = Instantiate(chatCanvasPrefab);
-
-            if (chatInstance == null)
-            {
-                Debug.LogError("[ChatCanvas] No se pudo instanciar el ChatCanvasPrefab.");
-                return;
-            }
-
-            Debug.Log("[ChatCanvas] ChatCanvasPrefab instanciado correctamente.");
-
-            NetworkServer.Spawn(chatInstance, conn);
-
-            Debug.Log("[ChatCanvas] ChatCanvas spawneado exitosamente para connId=" + conn.connectionId);
+           Debug.Log("[ChatCanvas] Se encontró el ChatCanvas en el servidor.");
         }
         else
         {
-            Debug.LogError("[ChatCanvas] ChatCanvasPrefab no asignado en el NetworkManager.");
+            Debug.LogError("[ChatCanvas] No se encontró el ChatCanvas en el servidor.");
         }
     }
+
+
+
 
 
 }
