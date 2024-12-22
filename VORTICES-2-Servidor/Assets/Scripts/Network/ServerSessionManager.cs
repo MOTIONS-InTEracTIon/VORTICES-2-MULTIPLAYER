@@ -17,14 +17,14 @@ public class ServerSessionManager : NetworkBehaviour
         {
             if (_instance == null)
             {
-                Debug.LogError("ServerSessionManager no está en la escena.");
+                Debug.LogError("ServerSessionManager no estï¿½ en la escena.");
             }
             return _instance;
         }
     }
 
     private void Awake()
-    {
+    {   
         if (_instance != null)
         {
             Destroy(gameObject);
@@ -34,6 +34,24 @@ public class ServerSessionManager : NetworkBehaviour
         _instance = this;
         DontDestroyOnLoad(gameObject);
         Debug.Log("ServerSessionManager inicializado.");
+        NetworkManager activeManager = NetworkManager.singleton;
+        if (activeManager == null)
+        {
+            Debug.LogWarning("No hay un NetworkManager activo.");
+        }
+        else
+        {
+            Debug.Log($"NetworkManager activo: {activeManager.name}, tipo: {activeManager.GetType()}");
+
+            if (activeManager is CustomNetworkManager)
+            {
+                Debug.Log("El NetworkManager activo es CustomNetworkManager.");
+            }
+            else
+            {
+                Debug.LogWarning("El NetworkManager activo NO es CustomNetworkManager.");
+            }
+        }
     }
 
     private void Start()
@@ -51,7 +69,7 @@ public class ServerSessionManager : NetworkBehaviour
             // Si no hay conexiones activas
             if (NetworkServer.connections.Count == 0 || !NetworkServer.connections.Any(c => c.Value.isAuthenticated))
             {
-                Debug.Log("Todos los clientes están desconectados.");
+                //Debug.Log("Todos los clientes estï¿½n desconectados.");
                 HandleAllClientsDisconnected();
             }
         }
@@ -66,6 +84,7 @@ public class ServerSessionManager : NetworkBehaviour
         // Registrar handlers
         NetworkServer.RegisterHandler<CreateSessionMessage>(HandleCreateSessionMessage);
         NetworkServer.RegisterHandler<RequestActiveSessionMessage>(HandleRequestActiveSessionMessage);
+        NetworkServer.RegisterHandler<ChatMessage>(OnChatMessageReceived);
 
     }
 
@@ -74,15 +93,15 @@ public class ServerSessionManager : NetworkBehaviour
 
     private void HandleCreateSessionMessage(NetworkConnectionToClient conn, CreateSessionMessage msg)
     {
-        Debug.Log($"Recibido mensaje para crear sesión: {msg.sessionName}");
+        Debug.Log($"Recibido mensaje para crear sesiï¿½n: {msg.sessionName}");
 
         // Log de los datos iniciales del mensaje
         Debug.Log($"Datos iniciales del mensaje:\n" +
                   $"- ElementPaths: {string.Join(", ", msg.elementPaths ?? new List<string>())}\n" +
-                  $"- Categorías: {string.Join(", ", msg.categories ?? new List<string>())}");
+                  $"- Categorï¿½as: {string.Join(", ", msg.categories ?? new List<string>())}");
 
-        // Log de los datos de la sesión recibidos
-        Debug.Log($"Datos de la sesión recibidos:\n" +
+        // Log de los datos de la sesiï¿½n recibidos
+        Debug.Log($"Datos de la sesiï¿½n recibidos:\n" +
                   $"- Nombre: {msg.sessionName}\n" +
                   $"- Usuario ID: {msg.userId}\n" +
                   $"- Entorno: {msg.environmentName}\n" +
@@ -90,13 +109,13 @@ public class ServerSessionManager : NetworkBehaviour
                   $"- Volumetric: {msg.volumetric}\n" +
                   $"- Dimension: {msg.dimension}\n" +
                   $"- ElementPaths: {string.Join(", ", msg.elementPaths)}\n" +
-                  $"- Categorías: {string.Join(", ", msg.categories)}\n" +
-                  $"- Modo de navegación: {msg.browsingMode}");
+                  $"- Categorï¿½as: {string.Join(", ", msg.categories)}\n" +
+                  $"- Modo de navegaciï¿½n: {msg.browsingMode}");
 
-        // Verificar si ya existe la sesión
+        // Verificar si ya existe la sesiï¿½n
         if (activeSessions.ContainsKey(msg.sessionName))
         {
-            Debug.LogWarning($"Sesión '{msg.sessionName}' ya existe.");
+            Debug.LogWarning($"Sesiï¿½n '{msg.sessionName}' ya existe.");
             Debug.Log("[Server] Enviando mensaje: SessionCreatedMessage");
 
 
@@ -123,7 +142,7 @@ public class ServerSessionManager : NetworkBehaviour
             return;
         }
 
-        // Crear y guardar la sesión
+        // Crear y guardar la sesiï¿½n
         var sessionData = new SessionData
         {
             sessionName = msg.sessionName,
@@ -139,7 +158,7 @@ public class ServerSessionManager : NetworkBehaviour
         };
         activeSessions[msg.sessionName] = sessionData;
 
-        Debug.Log($"Sesión '{msg.sessionName}' creada con éxito.");
+        Debug.Log($"Sesiï¿½n '{msg.sessionName}' creada con ï¿½xito.");
 
         Debug.Log($"SessionData creado:\n" +
                   $"- Nombre: {sessionData.sessionName}\n" +
@@ -148,7 +167,7 @@ public class ServerSessionManager : NetworkBehaviour
                   $"- DisplayMode: {sessionData.displayMode}\n" +
                   $"- Volumetric: {sessionData.volumetric}\n" +
                   $"- Dimension: {sessionData.dimension}\n" +
-                  $"- Categorías: {string.Join(", ", sessionData.categories)}\n" +
+                  $"- Categorï¿½as: {string.Join(", ", sessionData.categories)}\n" +
                   $"- ElementPaths: {string.Join(", ", sessionData.elementPaths)}");
 
         Debug.Log("[Server] Enviando mensaje: SessionCreatedMessage");
@@ -178,7 +197,7 @@ public class ServerSessionManager : NetworkBehaviour
 
     private void HandleRequestActiveSessionMessage(NetworkConnectionToClient conn, RequestActiveSessionMessage msg)
     {
-        Debug.Log($"Servidor recibió RequestActiveSessionMessage del cliente {conn.connectionId}.");
+        Debug.Log($"Servidor recibiï¿½ RequestActiveSessionMessage del cliente {conn.connectionId}.");
 
         if (activeSessions.Count == 0)
         {
@@ -191,7 +210,7 @@ public class ServerSessionManager : NetworkBehaviour
         }
 
         var sessionData = activeSessions.Values.First();
-        Debug.Log($"Enviando datos de la sesión activa al cliente {conn.connectionId}: {sessionData.sessionName}");
+        Debug.Log($"Enviando datos de la sesiï¿½n activa al cliente {conn.connectionId}: {sessionData.sessionName}");
         Debug.Log("[Server] Enviando mensaje: ActiveSessionResponseMessage");
 
 
@@ -204,7 +223,7 @@ public class ServerSessionManager : NetworkBehaviour
     }
 
 
-    // Comando para unirse a una sesión existente
+    // Comando para unirse a una sesiï¿½n existente
     [Command]
     public void CmdJoinSession(NetworkConnectionToClient conn)
     {
@@ -218,15 +237,15 @@ public class ServerSessionManager : NetworkBehaviour
             return;
         }
 
-        // Selecciona la primera sesión activa (puedes cambiar esto si necesitas algo más específico)
+        // Selecciona la primera sesiï¿½n activa (puedes cambiar esto si necesitas algo mï¿½s especï¿½fico)
         var sessionData = activeSessions.Values.First();
 
-        Debug.Log($"Cliente {conn.connectionId} unido a la sesión '{sessionData.sessionName}'.");
+        Debug.Log($"Cliente {conn.connectionId} unido a la sesiï¿½n '{sessionData.sessionName}'.");
 
         Debug.Log("[Server] Enviando mensaje: SessionCreatedMessage");
 
 
-        // Enviar los datos de la sesión al cliente
+        // Enviar los datos de la sesiï¿½n al cliente
         conn.Send(new SessionCreatedMessage
         {
             success = true,
@@ -253,16 +272,20 @@ public class ServerSessionManager : NetworkBehaviour
         }
         else
         {
-            Debug.Log("No hay sesiones activas que eliminar.");
+            //Debug.Log("No hay sesiones activas que eliminar.");
         }
     }
 
+    private void OnChatMessageReceived(NetworkConnection conn, ChatMessage message)
+    {
+        Debug.Log($"Mensaje recibido de {conn.connectionId}: {message.content}");
+    }
 
     #endregion
 
-    #region Sincronización con el Cliente
+    #region Sincronizaciï¿½n con el Cliente
 
-    // Notificar al cliente que la sesión fue creada exitosamente
+    // Notificar al cliente que la sesiï¿½n fue creada exitosamente
     [TargetRpc]
     private void TargetNotifySessionCreated(NetworkConnection target, SessionData sessionData)
     {
@@ -271,17 +294,17 @@ public class ServerSessionManager : NetworkBehaviour
             sessionData.categories = new List<string>(); // Asegurarse de que no sea nulo
         }
 
-        Debug.Log($"Sesión '{sessionData.sessionName}' creada en el cliente.");
-        Debug.Log($"Datos enviados: Nombre: {sessionData.sessionName}, Usuario ID: {sessionData.userId}, Entorno: {sessionData.environmentName}, Categorías: {string.Join(", ", sessionData.categories)}");
+        Debug.Log($"Sesiï¿½n '{sessionData.sessionName}' creada en el cliente.");
+        Debug.Log($"Datos enviados: Nombre: {sessionData.sessionName}, Usuario ID: {sessionData.userId}, Entorno: {sessionData.environmentName}, Categorï¿½as: {string.Join(", ", sessionData.categories)}");
     }
 
 
-    // Notificar al cliente que se unió exitosamente a una sesión
+    // Notificar al cliente que se uniï¿½ exitosamente a una sesiï¿½n
     [TargetRpc]
     private void TargetNotifySessionJoined(NetworkConnection target, SessionData sessionData)
     {
-        Debug.Log($"Cliente unido a la sesión '{sessionData.sessionName}'.");
-        // Aquí puedes sincronizar datos de la sesión con el cliente.
+        Debug.Log($"Cliente unido a la sesiï¿½n '{sessionData.sessionName}'.");
+        // Aquï¿½ puedes sincronizar datos de la sesiï¿½n con el cliente.
     }
 
     // Notificar al cliente de un error
@@ -289,7 +312,7 @@ public class ServerSessionManager : NetworkBehaviour
     private void TargetNotifyError(NetworkConnection target, string errorMessage)
     {
         Debug.LogError($"Error enviado al cliente: {errorMessage}");
-        // Aquí puedes mostrar un mensaje de error en el cliente.
+        // Aquï¿½ puedes mostrar un mensaje de error en el cliente.
     }
 
     #endregion

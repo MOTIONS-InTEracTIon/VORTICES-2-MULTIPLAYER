@@ -66,7 +66,7 @@ namespace Vortices
             Debug.Log($"Escena cargada: {scene.name}");
 
             // Verificar objetos registrados para spawn
-            Debug.Log("Objetos registrados para sincronización:");
+            Debug.Log("Objetos registrados para sincronizaciï¿½n:");
             foreach (var prefab in NetworkClient.prefabs.Values)
             {
                 Debug.Log($"Prefab registrado: {prefab.name}");
@@ -113,11 +113,11 @@ namespace Vortices
         {
             if (!msg.success)
             {
-                Debug.LogError("Error al crear la sesión en el servidor.");
+                Debug.LogError("Error al crear la sesiï¿½n en el servidor.");
                 return;
             }
             Debug.Log("[Client] Recibido mensaje SessionCreatedMessage");
-            Debug.Log("Datos de la sesión recibidos del servidor:");
+            Debug.Log("Datos de la sesiï¿½n recibidos del servidor:");
             Debug.Log($"- Nombre: {msg.sessionName}");
             Debug.Log($"- Usuario ID: {msg.userId}");
             Debug.Log($"- Entorno: {msg.environmentName}");
@@ -127,7 +127,7 @@ namespace Vortices
             Debug.Log($"- Volumetric: {msg.volumetric}");
             Debug.Log($"- Dimension: {msg.dimension}");
             Debug.Log($"- Element Paths: {string.Join(", ", msg.elementPaths)}");
-            Debug.Log($"- Categorías: {string.Join(", ", msg.categories)}");
+            Debug.Log($"- Categorï¿½as: {string.Join(", ", msg.categories)}");
 
             // Actualizar SessionManager con los datos recibidos
             sessionName = msg.sessionName;
@@ -153,7 +153,7 @@ namespace Vortices
             elementPaths = msg.elementPaths;
 
             Debug.Log("Session Manager seteado al Crear Sesion");
-            // Actualizar categorías en el controlador
+            // Actualizar categorï¿½as en el controlador
             categoryController.UpdateCategoriesList(msg.categories);
         }
 
@@ -257,8 +257,8 @@ namespace Vortices
             {
                 if (!NetworkClient.isConnected)
                 {
-                    Debug.LogError("El cliente no está conectado al servidor. Intentando conectar...");
-                    NetworkManager.singleton.networkAddress = "192.168.31.72"; // Cambia por la IP del servidor si no es local
+                    Debug.LogError("El cliente no estï¿½ conectado al servidor. Intentando conectar...");
+                    NetworkManager.singleton.networkAddress = "127.0.0.1"; // Cambia por la IP del servidor si no es local 192.168.31.72
                     NetworkManager.singleton.StartClient();
                     actualTransitionManager = GameObject.FindObjectOfType<SceneTransitionManager>(true);
                     categoryController = GameObject.FindObjectOfType<CategoryController>(true);
@@ -282,23 +282,23 @@ namespace Vortices
                     }
                 }
 
-                Debug.Log("Conexión establecida. Enviando datos de la sesión...");
+                Debug.Log("Conexiï¿½n establecida. Enviando datos de la sesiï¿½n...");
 
-                // Crear datos de la sesión
+                // Crear datos de la sesiï¿½n
                 SessionData sessionData = new SessionData
                 {
                     sessionName = sessionName,
                     userId = userId,
                     environmentName = environmentName,
                     elementPaths = elementPaths,
-                    categories = categoryController.GetCategories(), // Método para obtener las categorías seleccionadas
+                    categories = categoryController.GetCategories(), // Mï¿½todo para obtener las categorï¿½as seleccionadas
                     browsingMode = "Online" // Ignoramos archivos por ahora
                 };
 
                 // Enviar datos al servidor
                 yield return SendSessionDataToServer(sessionData);
 
-                // Esperar confirmación del servidor (si se implementa)
+                // Esperar confirmaciï¿½n del servidor (si se implementa)
                 Debug.Log("Datos enviados al servidor.");
                 yield break;
             }
@@ -330,11 +330,11 @@ namespace Vortices
         {
             if (!NetworkClient.isConnected)
             {
-                Debug.LogError("El cliente no está conectado al servidor. No se puede enviar la sesión.");
+                Debug.LogError("El cliente no estï¿½ conectado al servidor. No se puede enviar la sesiï¿½n.");
                 yield break;
             }
 
-            Debug.Log("Enviando datos de sesión al servidor...");
+            Debug.Log("Enviando datos de sesiï¿½n al servidor...");
             NetworkClient.Send(new CreateSessionMessage
             {
                 sessionName = sessionName,
@@ -359,11 +359,11 @@ namespace Vortices
 
             if (NetworkClient.isConnected)
             {
-                Debug.Log("El cliente está conectado a una sesión. Desconectando...");
+                Debug.Log("El cliente estï¿½ conectado a una sesiï¿½n. Desconectando...");
                 NetworkClient.Disconnect();
 
                 // Esperar a que el cliente se desconecte
-                float timeout = 5f; // Tiempo máximo para desconectar
+                float timeout = 5f; // Tiempo mï¿½ximo para desconectar
                 while (NetworkClient.isConnected && timeout > 0f)
                 {
                     timeout -= Time.deltaTime;
@@ -377,12 +377,12 @@ namespace Vortices
                 }
                 else
                 {
-                    Debug.Log("Desconectado del servidor con éxito.");
+                    Debug.Log("Desconectado del servidor con ï¿½xito.");
                 }
             }
             else
             {
-                Debug.Log("El cliente no está conectado a ninguna sesión.");
+                Debug.Log("El cliente no estï¿½ conectado a ninguna sesiï¿½n.");
             }
 
             actualTransitionManager = GameObject.Find("TransitionManager").GetComponent<SceneTransitionManager>();
@@ -399,12 +399,12 @@ namespace Vortices
 
             if (righthandTools == null)
             {
-                Debug.LogError("righthandTools no está asignado. Verifica su inicialización.");
-                yield break; // Salimos del coroutine para evitar más errores
+                Debug.LogError("righthandTools no estï¿½ asignado. Verifica su inicializaciï¿½n.");
+                yield break; // Salimos del coroutine para evitar mï¿½s errores
             }
             else
             {
-                Debug.Log("righthandTools está asignado correctamente.");
+                Debug.Log("righthandTools estï¿½ asignado correctamente.");
             }
 
             Fade toolsFader = righthandTools.GetComponent<Fade>();
@@ -452,7 +452,7 @@ namespace Vortices
             elementCategoryController?.Initialize();
             loggingController?.Initialize();
 
-            Debug.Log("SessionManager reiniciado con éxito.");
+            Debug.Log("SessionManager reiniciado con ï¿½xito.");
         }
 
         public void JoinSession(string ipAddress)
@@ -462,12 +462,12 @@ namespace Vortices
                 NetworkManager.singleton.networkAddress = ipAddress;
                 NetworkManager.singleton.StartClient();
 
-                // Esperar conexión y solicitar sesiones activas
+                // Esperar conexiï¿½n y solicitar sesiones activas
                 StartCoroutine(WaitForConnectionAndJoinSession());
             }
             else
             {
-                Debug.LogWarning("La dirección IP está vacía.");
+                Debug.LogWarning("La direcciï¿½n IP estï¿½ vacï¿½a.");
             }
         }
 
@@ -482,7 +482,7 @@ namespace Vortices
 
             if (NetworkClient.isConnected)
             {
-                Debug.Log("Conexión establecida. Verificando sesiones activas...");
+                Debug.Log("Conexiï¿½n establecida. Verificando sesiones activas...");
                 NetworkClient.Send(new RequestActiveSessionMessage());
             }
             else
@@ -510,11 +510,11 @@ namespace Vortices
                 msg.sessionData.elementPaths = new List<string>(); // Prevenir nulos
             }
 
-            Debug.Log("Sesión activa encontrada. Configurando datos:");
+            Debug.Log("Sesiï¿½n activa encontrada. Configurando datos:");
             Debug.Log($"- Nombre: {msg.sessionData.sessionName}");
             Debug.Log($"- Usuario ID: {msg.sessionData.userId}");
             Debug.Log($"- Entorno: {msg.sessionData.environmentName}");
-            Debug.Log($"- Categorías: {string.Join(", ", msg.sessionData.categories)}");
+            Debug.Log($"- Categorï¿½as: {string.Join(", ", msg.sessionData.categories)}");
             Debug.Log($"- Elementos: {string.Join(", ", msg.sessionData.elementPaths)}");
 
             // Configurar datos en el SessionManager

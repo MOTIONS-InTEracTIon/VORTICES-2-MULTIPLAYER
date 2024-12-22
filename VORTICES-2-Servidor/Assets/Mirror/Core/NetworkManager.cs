@@ -203,6 +203,7 @@ namespace Mirror
 
             // setup OnSceneLoaded callback
             SceneManager.sceneLoaded += OnSceneLoaded;
+            
         }
 
         // virtual so that inheriting classes' Start() can call base.Start() too
@@ -1288,6 +1289,7 @@ namespace Mirror
         // The default implementation for this function creates a new player object from the playerPrefab.
         public virtual void OnServerAddPlayer(NetworkConnectionToClient conn)
         {
+            Debug.Log("Usando el NEtworkManager noma");
             Transform startPos = GetStartPosition();
             GameObject player = startPos != null
                 ? Instantiate(playerPrefab, startPos.position, startPos.rotation)

@@ -15,5 +15,11 @@ public struct ActiveSessionResponseMessage : NetworkMessage
 
 public struct SessionEndedMessage : NetworkMessage
 {
-    public string reason; // Razón de la finalización de la sesión
+    public string reason; // Razï¿½n de la finalizaciï¿½n de la sesiï¿½n
 }
+
+public struct ChatMessage : NetworkMessage
+{
+    public string content;
+}
+

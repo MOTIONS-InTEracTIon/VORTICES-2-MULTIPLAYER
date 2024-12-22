@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Mirror;
 
 using System.Linq;
 using TMPro;
@@ -15,7 +16,8 @@ namespace Vortices
         Base = 0,   
         CategorizeEmpty = 1,
         Categorize = 2,
-        Sort = 3
+        Sort = 3,
+        Chat = 4
     }
 
     public class RighthandTools : MonoBehaviour
@@ -64,6 +66,7 @@ namespace Vortices
 
         // Auxiliary References
         private SessionManager sessionManager;
+        public NewChatManager chatManager;
 
 
         private void Update()
@@ -309,6 +312,7 @@ namespace Vortices
                 isChangePanelRunning = false;
             }
         }
+
 
         #endregion
 
@@ -559,6 +563,68 @@ namespace Vortices
                 }
             }
         }
+
+        public void OnChatToggleChanged(bool isOn)
+        {
+            Debug.Log("[OnChatToggleChanged] Iniciando búsqueda de NewChatManager...");
+
+            // Comprobamos el SessionManager
+            if (sessionManager == null)
+            {
+                Debug.LogError("[OnChatToggleChanged] SessionManager no está asignado.");
+                return;
+            }
+
+            // Si el ChatManager aún no está asignado, intentamos buscarlo
+            if (chatManager == null)
+            {
+                Debug.LogWarning("[OnChatToggleChanged] chatManager es nulo. Intentando encontrar ChatCanvas en la escena...");
+
+                // Probar con GameObject.FindWithTag
+                GameObject chatCanvas = GameObject.FindWithTag("ChatCanvas");
+
+                // Si no lo encuentra, buscar entre objetos desactivados
+                if (chatCanvas == null)
+                {
+                    Debug.LogWarning("[OnChatToggleChanged] ChatCanvas no se encontró mediante tag. Intentando buscar entre objetos desactivados...");
+
+                    GameObject[] allObjects = Resources.FindObjectsOfTypeAll<GameObject>();
+                    foreach (GameObject obj in allObjects)
+                    {
+                        if (obj.name == "ChatCanvas(Clone)" || obj.tag == "ChatCanvas")
+                        {
+                            chatCanvas = obj;
+                            Debug.Log("[OnChatToggleChanged] ChatCanvas encontrado entre objetos desactivados: " + obj.name);
+                            break;
+                        }
+                    }
+                }
+
+                // Si lo encontramos, asignar el NewChatManager
+                if (chatCanvas != null)
+                {
+                    chatManager = chatCanvas.GetComponent<NewChatManager>();
+                    if (chatManager != null)
+                    {
+                        Debug.Log("[OnChatToggleChanged] NewChatManager encontrado y asignado.");
+                    }
+                    else
+                    {
+                        Debug.LogError("[OnChatToggleChanged] NewChatManager no está asignado en ChatCanvas.");
+                        return;
+                    }
+                }
+                else
+                {
+                    Debug.LogError("[OnChatToggleChanged] ChatCanvas no se encontró incluso entre objetos desactivados.");
+                    return;
+                }
+            }
+
+            chatManager.ToggleChat();
+            
+        }
+
         #endregion
     }
 }

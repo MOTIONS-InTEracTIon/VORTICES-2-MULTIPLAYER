@@ -12,3 +12,9 @@ public struct ActiveSessionResponseMessage : NetworkMessage
     public bool success;
     public SessionData sessionData;
 }
+
+public struct ChatMessage : NetworkMessage
+{
+    public string senderName;
+    public string message;
+}
