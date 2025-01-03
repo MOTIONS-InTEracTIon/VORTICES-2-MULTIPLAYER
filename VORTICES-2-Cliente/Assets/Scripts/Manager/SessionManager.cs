@@ -258,7 +258,7 @@ namespace Vortices
                 if (!NetworkClient.isConnected)
                 {
                     Debug.LogError("El cliente no est� conectado al servidor. Intentando conectar...");
-                    NetworkManager.singleton.networkAddress = "127.0.0.1"; // Cambia por la IP del servidor si no es local 192.168.31.72
+                    NetworkManager.singleton.networkAddress = "192.168.31.72"; // Cambia por la IP del servidor si no es local 192.168.31.72
                     NetworkManager.singleton.StartClient();
                     actualTransitionManager = GameObject.FindObjectOfType<SceneTransitionManager>(true);
                     categoryController = GameObject.FindObjectOfType<CategoryController>(true);
@@ -461,7 +461,12 @@ namespace Vortices
             {
                 NetworkManager.singleton.networkAddress = ipAddress;
                 NetworkManager.singleton.StartClient();
-
+                actualTransitionManager = GameObject.FindObjectOfType<SceneTransitionManager>(true);
+                categoryController = GameObject.FindObjectOfType<CategoryController>(true);
+                elementCategoryController = GameObject.FindObjectOfType<ElementCategoryController>(true);
+                loggingController = GameObject.FindObjectOfType<LoggingController>(true);
+                righthandTools = GameObject.FindObjectOfType<RighthandTools>(true);
+                
                 // Esperar conexi�n y solicitar sesiones activas
                 StartCoroutine(WaitForConnectionAndJoinSession());
             }

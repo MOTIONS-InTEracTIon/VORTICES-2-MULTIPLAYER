@@ -606,42 +606,7 @@ namespace Vortices
         }
 
 
-        public void OnSendButtonPressed()
-        {
-            if (chatManager == null)
-            {
-                Debug.LogError("[RightHandTools] NewChatManager no está asignado.");
-                return;
-            }
-
-            // Obtener el mensaje desde el campo de texto del chat
-            string message = chatManager.chatInputField.text;
-            if (string.IsNullOrEmpty(message))
-            {
-                Debug.LogWarning("[RightHandTools] No se puede enviar un mensaje vacío.");
-                return;
-            }
-
-            // Buscar el jugador local (tiene autoridad)
-            GameObject playerObject = NetworkClient.localPlayer?.gameObject;
-            if (playerObject == null)
-            {
-                Debug.LogError("[RightHandTools] Objeto jugador local no encontrado.");
-                return;
-            }
-
-            // Obtener el script del jugador
-            PlayerChatController playerChatController = playerObject.GetComponent<PlayerChatController>();
-            if (playerChatController == null)
-            {
-                Debug.LogError("[RightHandTools] PlayerChatController no encontrado en el jugador.");
-                return;
-            }
-
-            // Enviar el comando para propagar el mensaje
-            playerChatController.CmdSendMessageToChat(NetworkClient.localPlayer.connectionToServer.connectionId, message);
-            chatManager.chatInputField.text = ""; // Limpiar el input
-        }
+        
 
 
         #endregion

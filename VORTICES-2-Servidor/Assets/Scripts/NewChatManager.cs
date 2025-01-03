@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using Mirror;
 using UnityEngine.UI;
+using Vortices;
 
 
 public class NewChatManager : NetworkBehaviour
@@ -46,7 +47,7 @@ public class NewChatManager : NetworkBehaviour
 
         string message = chatInputField.text;
 
-        // Obtener el jugador local con autoridad
+        // Obtener el jugador local
         GameObject playerObject = NetworkClient.localPlayer?.gameObject;
         if (playerObject == null)
         {
@@ -62,27 +63,40 @@ public class NewChatManager : NetworkBehaviour
             return;
         }
 
+        // Obtener el userId desde el SessionManager
+        string userId = FindObjectOfType<SessionManager>()?.userId.ToString();
+        if (string.IsNullOrEmpty(userId))
+        {
+            Debug.LogError("[NewChatManager] UserID no configurado.");
+            return;
+        }
+
         // Enviar el mensaje al servidor
-        Debug.Log($"[NewChatManager] Mensaje preparado para enviar: {message}");
-        playerChatController.CmdSendMessageToChat(NetworkClient.localPlayer.connectionToServer.connectionId, message);
+        Debug.Log($"[NewChatManager] Enviando mensaje: {message} de userId: {userId}");
+        playerChatController.CmdSendMessageToChat(userId, message);
 
         // Limpiar el campo de texto
         chatInputField.text = "";
     }
 
 
+
+
+
     [ClientRpc]
-    public void RpcReceiveMessage(int senderId, string message)
+    public void RpcReceiveMessage(string userId, string message)
     {
-        Debug.Log($"[NewChatManager] Mensaje recibido de {senderId}: {message}");
+        Debug.Log($"[NewChatManager] Mensaje recibido de {userId}: {message}");
 
         if (chatDisplay != null)
         {
-            chatDisplay.text += $"{senderId}: {message}\n";
+            chatDisplay.text += $"{userId}: {message}\n";
         }
         else
         {
             Debug.LogError("[NewChatManager] chatDisplay no está asignado.");
         }
     }
+
+
 }
