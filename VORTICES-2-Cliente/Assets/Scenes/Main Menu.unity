@@ -22142,6 +22142,7 @@ GameObject:
   - component: {fileID: 1488218968}
   - component: {fileID: 1488218965}
   - component: {fileID: 1488218969}
+  - component: {fileID: 1488218970}
   m_Layer: 0
   m_Name: NetworkManager
   m_TagString: Untagged
@@ -22221,6 +22222,22 @@ MonoBehaviour:
   - {fileID: 8039182486620635618, guid: b7097add0faf9de419085d27da4d5341, type: 3}
   timeInterpolationGui: 0
   chatCanvasPrefab: {fileID: 8039182486620635618, guid: b7097add0faf9de419085d27da4d5341, type: 3}
+--- !u!114 &1488218970
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1488218964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ccec6cc900e83f41aade135fe997e45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _key: 2GR7GgXAkw4SxzzkBDGubFAi9WMg2G10
+  _issuer: 46739-vorti-49893-udash
+  _domain: mtu1xp.vivox.com
+  _server: https://unity.vivox.com/appconfig/46739-vorti-49893-udash
 --- !u!4 &1489548049
 Transform:
   m_ObjectHideFlags: 0

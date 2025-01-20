@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
+using System.Threading.Tasks;
 
 using System.Linq;
 using UnityEngine.EventSystems;
@@ -63,22 +64,6 @@ namespace Vortices
 
         private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
-            Debug.Log($"Escena cargada: {scene.name}");
-
-            // Verificar objetos registrados para spawn
-            Debug.Log("Objetos registrados para sincronizaci�n:");
-            foreach (var prefab in NetworkClient.prefabs.Values)
-            {
-                Debug.Log($"Prefab registrado: {prefab.name}");
-            }
-
-            // Opcional: verificar objetos de la escena con NetworkIdentity
-            var networkObjects = GameObject.FindObjectsOfType<NetworkIdentity>();
-            foreach (var obj in networkObjects)
-            {
-                Debug.Log($"Objeto en escena con NetworkIdentity: {obj.name}, AssetId: {obj.assetId}");
-            }
-
             lastSelected = null; // Reset lastSelected when a new scene is loaded
         }
 
@@ -101,9 +86,7 @@ namespace Vortices
 
             // Registrar handlers en el cliente
             NetworkClient.RegisterHandler<SessionCreatedMessage>(HandleSessionCreatedMessage);
-            Debug.Log("Handler de SessionCreatedMessage registrado.");
             NetworkClient.RegisterHandler<ActiveSessionResponseMessage>(HandleActiveSessionResponse);
-            Debug.Log("Handler de ActiveSessionResponseMessage registrado.");
 
             instance = this;
             DontDestroyOnLoad(gameObject);
@@ -113,26 +96,12 @@ namespace Vortices
         {
             if (!msg.success)
             {
-                Debug.LogError("Error al crear la sesi�n en el servidor.");
                 return;
             }
-            Debug.Log("[Client] Recibido mensaje SessionCreatedMessage");
-            Debug.Log("Datos de la sesi�n recibidos del servidor:");
-            Debug.Log($"- Nombre: {msg.sessionName}");
-            Debug.Log($"- Usuario ID: {msg.userId}");
-            Debug.Log($"- Entorno: {msg.environmentName}");
-            Debug.Log($"- Is Online: {msg.isOnlineSession}");
-            Debug.Log($"- Display Mode: {msg.displayMode}");
-            Debug.Log($"- Browsing Mode: {msg.browsingMode}");
-            Debug.Log($"- Volumetric: {msg.volumetric}");
-            Debug.Log($"- Dimension: {msg.dimension}");
-            Debug.Log($"- Element Paths: {string.Join(", ", msg.elementPaths)}");
-            Debug.Log($"- Categor�as: {string.Join(", ", msg.categories)}");
 
-            // Actualizar SessionManager con los datos recibidos
             sessionName = msg.sessionName;
             userId = msg.userId;
-            // Normalizar el nombre del entorno
+
             if (msg.environmentName == "Circular Environment")
             {
                 environmentName = "Circular";
@@ -152,8 +121,6 @@ namespace Vortices
             dimension = msg.dimension;
             elementPaths = msg.elementPaths;
 
-            Debug.Log("Session Manager seteado al Crear Sesion");
-            // Actualizar categor�as en el controlador
             categoryController.UpdateCategoriesList(msg.categories);
         }
 
@@ -257,8 +224,7 @@ namespace Vortices
             {
                 if (!NetworkClient.isConnected)
                 {
-                    Debug.LogError("El cliente no est� conectado al servidor. Intentando conectar...");
-                    NetworkManager.singleton.networkAddress = "192.168.31.72"; // Cambia por la IP del servidor si no es local 192.168.31.72
+                    NetworkManager.singleton.networkAddress = "192.168.31.117"; // Cambia por la IP del servidor si no es local 192.168.31.72
                     NetworkManager.singleton.StartClient();
                     actualTransitionManager = GameObject.FindObjectOfType<SceneTransitionManager>(true);
                     categoryController = GameObject.FindObjectOfType<CategoryController>(true);
@@ -266,7 +232,6 @@ namespace Vortices
                     loggingController = GameObject.FindObjectOfType<LoggingController>(true);
                     righthandTools = GameObject.FindObjectOfType<RighthandTools>(true);
 
-                    // Esperar hasta que el cliente se conecte o exceda el tiempo de espera
                     float timeout = 10f;
                     while (!NetworkClient.isConnected && timeout > 0f)
                     {
@@ -276,30 +241,25 @@ namespace Vortices
 
                     if (!NetworkClient.isConnected)
                     {
-                        Debug.LogError("No se pudo conectar al servidor.");
                         sessionLaunchRunning = false;
                         yield break;
                     }
                 }
 
-                Debug.Log("Conexi�n establecida. Enviando datos de la sesi�n...");
-
-                // Crear datos de la sesi�n
                 SessionData sessionData = new SessionData
                 {
                     sessionName = sessionName,
                     userId = userId,
                     environmentName = environmentName,
                     elementPaths = elementPaths,
-                    categories = categoryController.GetCategories(), // M�todo para obtener las categor�as seleccionadas
-                    browsingMode = "Online" // Ignoramos archivos por ahora
+                    categories = categoryController.GetCategories(),
+                    browsingMode = "Online" 
                 };
 
-                // Enviar datos al servidor
+                StartCoroutine(ConnectToVoiceChatCoroutine(userId));
+
                 yield return SendSessionDataToServer(sessionData);
 
-                // Esperar confirmaci�n del servidor (si se implementa)
-                Debug.Log("Datos enviados al servidor.");
                 yield break;
             }
 
@@ -467,6 +427,9 @@ namespace Vortices
                 loggingController = GameObject.FindObjectOfType<LoggingController>(true);
                 righthandTools = GameObject.FindObjectOfType<RighthandTools>(true);
                 
+                // Conectar al canal de voz
+                StartCoroutine(ConnectToVoiceChatCoroutine(userId));
+    
                 // Esperar conexi�n y solicitar sesiones activas
                 StartCoroutine(WaitForConnectionAndJoinSession());
             }
@@ -498,7 +461,6 @@ namespace Vortices
 
         private void HandleActiveSessionResponse(ActiveSessionResponseMessage msg)
         {
-            Debug.Log("[Client] Recibido mensaje ActiveSessionResponseMessage");
             if (!msg.success)
             {
                 Debug.LogError("No se encontraron sesiones activas en el servidor.");
@@ -512,20 +474,12 @@ namespace Vortices
 
             if (msg.sessionData.elementPaths == null)
             {
-                msg.sessionData.elementPaths = new List<string>(); // Prevenir nulos
+                msg.sessionData.elementPaths = new List<string>(); 
             }
 
-            Debug.Log("Sesi�n activa encontrada. Configurando datos:");
-            Debug.Log($"- Nombre: {msg.sessionData.sessionName}");
-            Debug.Log($"- Usuario ID: {msg.sessionData.userId}");
-            Debug.Log($"- Entorno: {msg.sessionData.environmentName}");
-            Debug.Log($"- Categor�as: {string.Join(", ", msg.sessionData.categories)}");
-            Debug.Log($"- Elementos: {string.Join(", ", msg.sessionData.elementPaths)}");
-
-            // Configurar datos en el SessionManager
             sessionName = msg.sessionData.sessionName;
             userId = msg.sessionData.userId;
-            // Normalizar el nombre del entorno
+
             if (msg.sessionData.environmentName == "Circular Environment")
             {
                 environmentName = "Circular";
@@ -543,14 +497,52 @@ namespace Vortices
             displayMode = msg.sessionData.displayMode;
             volumetric = msg.sessionData.volumetric;
             dimension = msg.sessionData.dimension;
-
-            Debug.Log("Session Manager seteado al Unirse a una Sesion");
-
         }
 
+        private IEnumerator ConnectToVoiceChatCoroutine(int userId)
+        {
+            bool loginSuccess = false;
+            bool channelJoinSuccess = false;
 
+            // Intentar iniciar sesión en Vivox
+            VivoxVoiceManager.Instance.LoginAsync(userId.ToString()).ContinueWith(task =>
+            {
+                if (task.IsCompletedSuccessfully)
+                {
+                    loginSuccess = true;
+                    Debug.Log($"[VoiceChat] Usuario {userId} conectado a Vivox.");
+                }
+                else
+                {
+                    Debug.LogError($"[VoiceChat] Error al iniciar sesión en Vivox: {task.Exception?.Message}");
+                }
+            });
 
+            // Esperar que el login termine
+            yield return new WaitUntil(() => loginSuccess);
 
+            // Intentar unirse al canal de voz
+            VivoxVoiceManager.Instance.JoinChannelAsync("VoRTIcESVoiceChat").ContinueWith(task =>
+            {
+                if (task.IsCompletedSuccessfully)
+                {
+                    channelJoinSuccess = true;
+                    Debug.Log("[VoiceChat] Usuario unido al canal de voz: VoRTIcESVoiceChat");
+                }
+                else
+                {
+                    Debug.LogError($"[VoiceChat] Error al unirse al canal de voz: {task.Exception?.Message}");
+                }
+            });
+
+            // Esperar que se conecte al canal
+            yield return new WaitUntil(() => channelJoinSuccess);
+
+            if (loginSuccess && channelJoinSuccess)
+            {
+                Debug.Log("[VoiceChat] Usuario conectado exitosamente al chat de voz.");
+            }
+        }
 
         #endregion
     }

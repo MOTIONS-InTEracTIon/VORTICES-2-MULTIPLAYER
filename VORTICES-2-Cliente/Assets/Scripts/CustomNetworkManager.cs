@@ -18,6 +18,16 @@ public class CustomNetworkManager : NetworkManager
     {
         base.Start();
         Debug.Log("CustomNetworkManager - Start");
+        VivoxVoiceManager vivoxManager = FindObjectOfType<VivoxVoiceManager>();
+        if (vivoxManager != null)
+        {
+            Debug.Log("[CustomNetworkManager] Inicializando VivoxVoiceManager...");
+            StartCoroutine(InitializeVivox(vivoxManager));
+        }
+        else
+        {
+            Debug.LogError("[CustomNetworkManager] No se encontró VivoxVoiceManager en la escena.");
+        }
     }
 
     public override void OnStartServer()
@@ -75,8 +85,10 @@ public class CustomNetworkManager : NetworkManager
         }
     }
 
-
-
-
+    private IEnumerator InitializeVivox(VivoxVoiceManager vivoxManager)
+    {
+        yield return vivoxManager.EnsureVivoxInitialized(); // Asegúrate de inicializar correctamente
+        Debug.Log("[CustomNetworkManager] VivoxVoiceManager inicializado correctamente.");
+    }
 
 }

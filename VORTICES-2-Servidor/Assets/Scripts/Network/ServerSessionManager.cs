@@ -33,25 +33,7 @@ public class ServerSessionManager : NetworkBehaviour
 
         _instance = this;
         DontDestroyOnLoad(gameObject);
-        Debug.Log("ServerSessionManager inicializado.");
-        NetworkManager activeManager = NetworkManager.singleton;
-        if (activeManager == null)
-        {
-            Debug.LogWarning("No hay un NetworkManager activo.");
-        }
-        else
-        {
-            Debug.Log($"NetworkManager activo: {activeManager.name}, tipo: {activeManager.GetType()}");
 
-            if (activeManager is CustomNetworkManager)
-            {
-                Debug.Log("El NetworkManager activo es CustomNetworkManager.");
-            }
-            else
-            {
-                Debug.LogWarning("El NetworkManager activo NO es CustomNetworkManager.");
-            }
-        }
     }
 
     private void Start()
@@ -92,26 +74,7 @@ public class ServerSessionManager : NetworkBehaviour
 
     private void HandleCreateSessionMessage(NetworkConnectionToClient conn, CreateSessionMessage msg)
     {
-        Debug.Log($"Recibido mensaje para crear sesi�n: {msg.sessionName}");
 
-        // Log de los datos iniciales del mensaje
-        Debug.Log($"Datos iniciales del mensaje:\n" +
-                  $"- ElementPaths: {string.Join(", ", msg.elementPaths ?? new List<string>())}\n" +
-                  $"- Categor�as: {string.Join(", ", msg.categories ?? new List<string>())}");
-
-        // Log de los datos de la sesi�n recibidos
-        Debug.Log($"Datos de la sesi�n recibidos:\n" +
-                  $"- Nombre: {msg.sessionName}\n" +
-                  $"- Usuario ID: {msg.userId}\n" +
-                  $"- Entorno: {msg.environmentName}\n" +
-                  $"- DisplayMode: {msg.displayMode}\n" +
-                  $"- Volumetric: {msg.volumetric}\n" +
-                  $"- Dimension: {msg.dimension}\n" +
-                  $"- ElementPaths: {string.Join(", ", msg.elementPaths)}\n" +
-                  $"- Categor�as: {string.Join(", ", msg.categories)}\n" +
-                  $"- Modo de navegaci�n: {msg.browsingMode}");
-
-        // Verificar si ya existe la sesi�n
         if (activeSessions.ContainsKey(msg.sessionName))
         {
             Debug.LogWarning($"Sesi�n '{msg.sessionName}' ya existe.");
@@ -122,10 +85,9 @@ public class ServerSessionManager : NetworkBehaviour
             return;
         }
 
-        // Ajustar el nombre de la escena si es necesario
         if (msg.environmentName == "Museum")
         {
-            msg.environmentName = "Museum Environment"; // Nombre exacto de la escena en el proyecto
+            msg.environmentName = "Museum Environment";
         }
         else if (msg.environmentName == "Circular")
         {
@@ -141,7 +103,6 @@ public class ServerSessionManager : NetworkBehaviour
             return;
         }
 
-        // Crear y guardar la sesi�n
         var sessionData = new SessionData
         {
             sessionName = msg.sessionName,
@@ -157,22 +118,6 @@ public class ServerSessionManager : NetworkBehaviour
         };
         activeSessions[msg.sessionName] = sessionData;
 
-        Debug.Log($"Sesi�n '{msg.sessionName}' creada con �xito.");
-
-        Debug.Log($"SessionData creado:\n" +
-                  $"- Nombre: {sessionData.sessionName}\n" +
-                  $"- Usuario ID: {sessionData.userId}\n" +
-                  $"- Entorno: {sessionData.environmentName}\n" +
-                  $"- DisplayMode: {sessionData.displayMode}\n" +
-                  $"- Volumetric: {sessionData.volumetric}\n" +
-                  $"- Dimension: {sessionData.dimension}\n" +
-                  $"- Categor�as: {string.Join(", ", sessionData.categories)}\n" +
-                  $"- ElementPaths: {string.Join(", ", sessionData.elementPaths)}");
-
-        Debug.Log("[Server] Enviando mensaje: SessionCreatedMessage");
-
-
-        // Enviar datos al cliente
         conn.Send(new SessionCreatedMessage
         {
             success = true,
@@ -188,7 +133,6 @@ public class ServerSessionManager : NetworkBehaviour
             elementPaths = sessionData.elementPaths
         });
 
-        // Cambiar a la escena correspondiente
         NetworkManager.singleton.ServerChangeScene(msg.environmentName);
     }
 
