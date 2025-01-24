@@ -224,7 +224,7 @@ namespace Vortices
             {
                 if (!NetworkClient.isConnected)
                 {
-                    NetworkManager.singleton.networkAddress = "192.168.31.117"; // Cambia por la IP del servidor si no es local 192.168.31.72
+                    NetworkManager.singleton.networkAddress = "127.0.0.1"; // Cambia por la IP del servidor si no es local 192.168.31.72(maquina virtual) 192.168.31.117(notebook)
                     NetworkManager.singleton.StartClient();
                     actualTransitionManager = GameObject.FindObjectOfType<SceneTransitionManager>(true);
                     categoryController = GameObject.FindObjectOfType<CategoryController>(true);

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3843954485353269638}
   - component: {fileID: 3843954485353269639}
   - component: {fileID: 3843954485353269632}
+  - component: {fileID: 5472196847465117637}
   m_Layer: 0
   m_Name: Museum Element
   m_TagString: Untagged
@@ -46,10 +47,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20d2623ee7dde354bace824b25cae7a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  filePaths: []
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0.1
+  elementPaths: []
   globalIndex: 0
-  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193,
-    type: 3}
+  isSelected: 0
+  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193, type: 3}
 --- !u!114 &3843954485353269632
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -66,6 +70,23 @@ MonoBehaviour:
   fadeDuration: 1
   isRunning: 0
   fadeOps: 0
+--- !u!114 &5472196847465117637
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3843954485353269637}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  _assetId: 2675886468
+  serverOnly: 0
+  visible: 0
+  hasSpawned: 0
 --- !u!1 &3843954485405068668
 GameObject:
   m_ObjectHideFlags: 0
@@ -77,6 +98,7 @@ GameObject:
   - component: {fileID: 3843954485405068669}
   - component: {fileID: 3843954485405068670}
   - component: {fileID: 3843954485405068671}
+  - component: {fileID: 3558701550228433802}
   m_Layer: 0
   m_Name: Museum Element
   m_TagString: Untagged
@@ -112,10 +134,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20d2623ee7dde354bace824b25cae7a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  filePaths: []
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0.1
+  elementPaths: []
   globalIndex: 0
-  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193,
-    type: 3}
+  isSelected: 0
+  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193, type: 3}
 --- !u!114 &3843954485405068671
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -132,6 +157,23 @@ MonoBehaviour:
   fadeDuration: 1
   isRunning: 0
   fadeOps: 0
+--- !u!114 &3558701550228433802
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3843954485405068668}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  _assetId: 2675886468
+  serverOnly: 0
+  visible: 0
+  hasSpawned: 0
 --- !u!1 &3843954485529874287
 GameObject:
   m_ObjectHideFlags: 0
@@ -143,6 +185,7 @@ GameObject:
   - component: {fileID: 3843954485529874280}
   - component: {fileID: 3843954485529874281}
   - component: {fileID: 3843954485529874282}
+  - component: {fileID: 8686330642095881570}
   m_Layer: 0
   m_Name: Museum Element
   m_TagString: Untagged
@@ -178,10 +221,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20d2623ee7dde354bace824b25cae7a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  filePaths: []
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0.1
+  elementPaths: []
   globalIndex: 0
-  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193,
-    type: 3}
+  isSelected: 0
+  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193, type: 3}
 --- !u!114 &3843954485529874282
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -198,6 +244,23 @@ MonoBehaviour:
   fadeDuration: 1
   isRunning: 0
   fadeOps: 0
+--- !u!114 &8686330642095881570
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3843954485529874287}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  _assetId: 2675886468
+  serverOnly: 0
+  visible: 0
+  hasSpawned: 0
 --- !u!1 &3843954485531148225
 GameObject:
   m_ObjectHideFlags: 0
@@ -458,6 +521,7 @@ GameObject:
   - component: {fileID: 3843954485583385749}
   - component: {fileID: 3843954485583385750}
   - component: {fileID: 3843954485583385751}
+  - component: {fileID: 8429243614199987999}
   m_Layer: 0
   m_Name: Museum Element
   m_TagString: Untagged
@@ -493,10 +557,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20d2623ee7dde354bace824b25cae7a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  filePaths: []
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0.1
+  elementPaths: []
   globalIndex: 0
-  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193,
-    type: 3}
+  isSelected: 0
+  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193, type: 3}
 --- !u!114 &3843954485583385751
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -513,6 +580,23 @@ MonoBehaviour:
   fadeDuration: 1
   isRunning: 0
   fadeOps: 0
+--- !u!114 &8429243614199987999
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3843954485583385748}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  _assetId: 2675886468
+  serverOnly: 0
+  visible: 0
+  hasSpawned: 0
 --- !u!1 &3843954485586017082
 GameObject:
   m_ObjectHideFlags: 0
@@ -524,6 +608,7 @@ GameObject:
   - component: {fileID: 3843954485586017083}
   - component: {fileID: 3843954485586017060}
   - component: {fileID: 3843954485586017061}
+  - component: {fileID: 6001517016072324459}
   m_Layer: 0
   m_Name: Museum Element
   m_TagString: Untagged
@@ -559,10 +644,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20d2623ee7dde354bace824b25cae7a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  filePaths: []
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0.1
+  elementPaths: []
   globalIndex: 0
-  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193,
-    type: 3}
+  isSelected: 0
+  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193, type: 3}
 --- !u!114 &3843954485586017061
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -579,6 +667,23 @@ MonoBehaviour:
   fadeDuration: 1
   isRunning: 0
   fadeOps: 0
+--- !u!114 &6001517016072324459
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3843954485586017082}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  _assetId: 2675886468
+  serverOnly: 0
+  visible: 0
+  hasSpawned: 0
 --- !u!1 &3843954485608937005
 GameObject:
   m_ObjectHideFlags: 0
@@ -590,6 +695,7 @@ GameObject:
   - component: {fileID: 3843954485608937006}
   - component: {fileID: 3843954485608937007}
   - component: {fileID: 3843954485608937000}
+  - component: {fileID: 372059995331492779}
   m_Layer: 0
   m_Name: Museum Element
   m_TagString: Untagged
@@ -625,10 +731,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20d2623ee7dde354bace824b25cae7a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  filePaths: []
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0.1
+  elementPaths: []
   globalIndex: 0
-  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193,
-    type: 3}
+  isSelected: 0
+  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193, type: 3}
 --- !u!114 &3843954485608937000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -645,6 +754,23 @@ MonoBehaviour:
   fadeDuration: 1
   isRunning: 0
   fadeOps: 0
+--- !u!114 &372059995331492779
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3843954485608937005}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  _assetId: 2675886468
+  serverOnly: 0
+  visible: 0
+  hasSpawned: 0
 --- !u!1 &3843954485618996861
 GameObject:
   m_ObjectHideFlags: 0
@@ -656,6 +782,7 @@ GameObject:
   - component: {fileID: 3843954485618996862}
   - component: {fileID: 3843954485618996863}
   - component: {fileID: 3843954485618996856}
+  - component: {fileID: 8443700466643171804}
   m_Layer: 0
   m_Name: Museum Element
   m_TagString: Untagged
@@ -691,10 +818,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20d2623ee7dde354bace824b25cae7a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  filePaths: []
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0.1
+  elementPaths: []
   globalIndex: 0
-  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193,
-    type: 3}
+  isSelected: 0
+  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193, type: 3}
 --- !u!114 &3843954485618996856
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -711,6 +841,23 @@ MonoBehaviour:
   fadeDuration: 1
   isRunning: 0
   fadeOps: 0
+--- !u!114 &8443700466643171804
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3843954485618996861}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  _assetId: 2675886468
+  serverOnly: 0
+  visible: 0
+  hasSpawned: 0
 --- !u!1 &3843954485620384849
 GameObject:
   m_ObjectHideFlags: 0
@@ -722,6 +869,7 @@ GameObject:
   - component: {fileID: 3843954485620384850}
   - component: {fileID: 3843954485620384851}
   - component: {fileID: 3843954485620384860}
+  - component: {fileID: 5089969978605556251}
   m_Layer: 0
   m_Name: Museum Element
   m_TagString: Untagged
@@ -757,10 +905,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20d2623ee7dde354bace824b25cae7a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  filePaths: []
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0.1
+  elementPaths: []
   globalIndex: 0
-  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193,
-    type: 3}
+  isSelected: 0
+  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193, type: 3}
 --- !u!114 &3843954485620384860
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -777,6 +928,23 @@ MonoBehaviour:
   fadeDuration: 1
   isRunning: 0
   fadeOps: 0
+--- !u!114 &5089969978605556251
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3843954485620384849}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  _assetId: 2675886468
+  serverOnly: 0
+  visible: 0
+  hasSpawned: 0
 --- !u!1 &3843954485625116804
 GameObject:
   m_ObjectHideFlags: 0
@@ -1203,6 +1371,7 @@ GameObject:
   - component: {fileID: 3843954485653740981}
   - component: {fileID: 3843954485653740982}
   - component: {fileID: 3843954485653740983}
+  - component: {fileID: 6214800847648375230}
   m_Layer: 0
   m_Name: Museum Element
   m_TagString: Untagged
@@ -1238,10 +1407,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20d2623ee7dde354bace824b25cae7a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  filePaths: []
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0.1
+  elementPaths: []
   globalIndex: 0
-  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193,
-    type: 3}
+  isSelected: 0
+  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193, type: 3}
 --- !u!114 &3843954485653740983
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1258,6 +1430,23 @@ MonoBehaviour:
   fadeDuration: 1
   isRunning: 0
   fadeOps: 0
+--- !u!114 &6214800847648375230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3843954485653740980}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  _assetId: 2675886468
+  serverOnly: 0
+  visible: 0
+  hasSpawned: 0
 --- !u!1 &3843954485662424136
 GameObject:
   m_ObjectHideFlags: 0
@@ -1269,6 +1458,7 @@ GameObject:
   - component: {fileID: 3843954485662424137}
   - component: {fileID: 3843954485662424138}
   - component: {fileID: 3843954485662424139}
+  - component: {fileID: 1382986690226415201}
   m_Layer: 0
   m_Name: Museum Element
   m_TagString: Untagged
@@ -1304,10 +1494,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20d2623ee7dde354bace824b25cae7a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  filePaths: []
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0.1
+  elementPaths: []
   globalIndex: 0
-  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193,
-    type: 3}
+  isSelected: 0
+  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193, type: 3}
 --- !u!114 &3843954485662424139
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1324,6 +1517,23 @@ MonoBehaviour:
   fadeDuration: 1
   isRunning: 0
   fadeOps: 0
+--- !u!114 &1382986690226415201
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3843954485662424136}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  _assetId: 2675886468
+  serverOnly: 0
+  visible: 0
+  hasSpawned: 0
 --- !u!1 &3843954485666009564
 GameObject:
   m_ObjectHideFlags: 0
@@ -1335,6 +1545,7 @@ GameObject:
   - component: {fileID: 3843954485666009565}
   - component: {fileID: 3843954485666009566}
   - component: {fileID: 3843954485666009567}
+  - component: {fileID: 7864504998563456468}
   m_Layer: 0
   m_Name: Museum Element
   m_TagString: Untagged
@@ -1370,10 +1581,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20d2623ee7dde354bace824b25cae7a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  filePaths: []
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0.1
+  elementPaths: []
   globalIndex: 0
-  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193,
-    type: 3}
+  isSelected: 0
+  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193, type: 3}
 --- !u!114 &3843954485666009567
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1390,6 +1604,23 @@ MonoBehaviour:
   fadeDuration: 1
   isRunning: 0
   fadeOps: 0
+--- !u!114 &7864504998563456468
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3843954485666009564}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  _assetId: 2675886468
+  serverOnly: 0
+  visible: 0
+  hasSpawned: 0
 --- !u!1 &3843954485679193448
 GameObject:
   m_ObjectHideFlags: 0
@@ -1401,6 +1632,7 @@ GameObject:
   - component: {fileID: 3843954485679193449}
   - component: {fileID: 3843954485679193450}
   - component: {fileID: 3843954485679193451}
+  - component: {fileID: 1106107919313324360}
   m_Layer: 0
   m_Name: Museum Element
   m_TagString: Untagged
@@ -1436,10 +1668,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20d2623ee7dde354bace824b25cae7a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  filePaths: []
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0.1
+  elementPaths: []
   globalIndex: 0
-  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193,
-    type: 3}
+  isSelected: 0
+  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193, type: 3}
 --- !u!114 &3843954485679193451
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1456,6 +1691,23 @@ MonoBehaviour:
   fadeDuration: 1
   isRunning: 0
   fadeOps: 0
+--- !u!114 &1106107919313324360
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3843954485679193448}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  _assetId: 2675886468
+  serverOnly: 0
+  visible: 0
+  hasSpawned: 0
 --- !u!1 &3843954485689338367
 GameObject:
   m_ObjectHideFlags: 0
@@ -1467,6 +1719,7 @@ GameObject:
   - component: {fileID: 3843954485689338360}
   - component: {fileID: 3843954485689338361}
   - component: {fileID: 3843954485689338362}
+  - component: {fileID: 8228223180976235237}
   m_Layer: 0
   m_Name: Museum Element
   m_TagString: Untagged
@@ -1502,10 +1755,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20d2623ee7dde354bace824b25cae7a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  filePaths: []
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0.1
+  elementPaths: []
   globalIndex: 0
-  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193,
-    type: 3}
+  isSelected: 0
+  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193, type: 3}
 --- !u!114 &3843954485689338362
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1522,6 +1778,23 @@ MonoBehaviour:
   fadeDuration: 1
   isRunning: 0
   fadeOps: 0
+--- !u!114 &8228223180976235237
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3843954485689338367}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  _assetId: 2675886468
+  serverOnly: 0
+  visible: 0
+  hasSpawned: 0
 --- !u!1 &3843954485736095229
 GameObject:
   m_ObjectHideFlags: 0
@@ -1865,6 +2138,7 @@ GameObject:
   - component: {fileID: 3843954485799069342}
   - component: {fileID: 3843954485799069343}
   - component: {fileID: 3843954485799069336}
+  - component: {fileID: 3163893815086832780}
   m_Layer: 0
   m_Name: Museum Element
   m_TagString: Untagged
@@ -1900,10 +2174,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20d2623ee7dde354bace824b25cae7a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  filePaths: []
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0.1
+  elementPaths: []
   globalIndex: 0
-  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193,
-    type: 3}
+  isSelected: 0
+  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193, type: 3}
 --- !u!114 &3843954485799069336
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1920,6 +2197,23 @@ MonoBehaviour:
   fadeDuration: 1
   isRunning: 0
   fadeOps: 0
+--- !u!114 &3163893815086832780
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3843954485799069341}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  _assetId: 2675886468
+  serverOnly: 0
+  visible: 0
+  hasSpawned: 0
 --- !u!1 &3843954485801833658
 GameObject:
   m_ObjectHideFlags: 0
@@ -1931,6 +2225,7 @@ GameObject:
   - component: {fileID: 3843954485801833659}
   - component: {fileID: 3843954485801833636}
   - component: {fileID: 3843954485801833637}
+  - component: {fileID: 1556593808900151215}
   m_Layer: 0
   m_Name: Museum Element
   m_TagString: Untagged
@@ -1966,10 +2261,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20d2623ee7dde354bace824b25cae7a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  filePaths: []
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0.1
+  elementPaths: []
   globalIndex: 0
-  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193,
-    type: 3}
+  isSelected: 0
+  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193, type: 3}
 --- !u!114 &3843954485801833637
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1986,6 +2284,23 @@ MonoBehaviour:
   fadeDuration: 1
   isRunning: 0
   fadeOps: 0
+--- !u!114 &1556593808900151215
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3843954485801833658}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  _assetId: 2675886468
+  serverOnly: 0
+  visible: 0
+  hasSpawned: 0
 --- !u!1 &3843954485819901212
 GameObject:
   m_ObjectHideFlags: 0
@@ -1997,6 +2312,7 @@ GameObject:
   - component: {fileID: 3843954485819901213}
   - component: {fileID: 3843954485819901214}
   - component: {fileID: 3843954485819901215}
+  - component: {fileID: 3127366282697044071}
   m_Layer: 0
   m_Name: Museum Element
   m_TagString: Untagged
@@ -2032,10 +2348,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20d2623ee7dde354bace824b25cae7a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  filePaths: []
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0.1
+  elementPaths: []
   globalIndex: 0
-  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193,
-    type: 3}
+  isSelected: 0
+  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193, type: 3}
 --- !u!114 &3843954485819901215
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2052,6 +2371,23 @@ MonoBehaviour:
   fadeDuration: 1
   isRunning: 0
   fadeOps: 0
+--- !u!114 &3127366282697044071
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3843954485819901212}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  _assetId: 2675886468
+  serverOnly: 0
+  visible: 0
+  hasSpawned: 0
 --- !u!1 &3843954485841830035
 GameObject:
   m_ObjectHideFlags: 0
@@ -2229,6 +2565,7 @@ GameObject:
   - component: {fileID: 3843954485842999215}
   - component: {fileID: 3843954485842999208}
   - component: {fileID: 3843954485842999209}
+  - component: {fileID: 391190291857553123}
   m_Layer: 0
   m_Name: Museum Element
   m_TagString: Untagged
@@ -2264,10 +2601,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20d2623ee7dde354bace824b25cae7a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  filePaths: []
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0.1
+  elementPaths: []
   globalIndex: 0
-  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193,
-    type: 3}
+  isSelected: 0
+  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193, type: 3}
 --- !u!114 &3843954485842999209
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2284,6 +2624,23 @@ MonoBehaviour:
   fadeDuration: 1
   isRunning: 0
   fadeOps: 0
+--- !u!114 &391190291857553123
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3843954485842999214}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  _assetId: 2675886468
+  serverOnly: 0
+  visible: 0
+  hasSpawned: 0
 --- !u!1 &3843954485858363810
 GameObject:
   m_ObjectHideFlags: 0
@@ -2378,6 +2735,7 @@ GameObject:
   - component: {fileID: 3843954485863060069}
   - component: {fileID: 3843954485863060070}
   - component: {fileID: 3843954485863060071}
+  - component: {fileID: 4350921635117521115}
   m_Layer: 0
   m_Name: Museum Element
   m_TagString: Untagged
@@ -2413,10 +2771,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20d2623ee7dde354bace824b25cae7a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  filePaths: []
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0.1
+  elementPaths: []
   globalIndex: 0
-  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193,
-    type: 3}
+  isSelected: 0
+  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193, type: 3}
 --- !u!114 &3843954485863060071
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2433,6 +2794,23 @@ MonoBehaviour:
   fadeDuration: 1
   isRunning: 0
   fadeOps: 0
+--- !u!114 &4350921635117521115
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3843954485863060068}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  _assetId: 2675886468
+  serverOnly: 0
+  visible: 0
+  hasSpawned: 0
 --- !u!1 &3843954485911279218
 GameObject:
   m_ObjectHideFlags: 0
@@ -2444,6 +2822,7 @@ GameObject:
   - component: {fileID: 3843954485911279219}
   - component: {fileID: 3843954485911279228}
   - component: {fileID: 3843954485911279229}
+  - component: {fileID: 5891939390918415937}
   m_Layer: 0
   m_Name: Museum Element
   m_TagString: Untagged
@@ -2479,10 +2858,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20d2623ee7dde354bace824b25cae7a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  filePaths: []
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0.1
+  elementPaths: []
   globalIndex: 0
-  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193,
-    type: 3}
+  isSelected: 0
+  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193, type: 3}
 --- !u!114 &3843954485911279229
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2499,6 +2881,23 @@ MonoBehaviour:
   fadeDuration: 1
   isRunning: 0
   fadeOps: 0
+--- !u!114 &5891939390918415937
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3843954485911279218}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  _assetId: 2675886468
+  serverOnly: 0
+  visible: 0
+  hasSpawned: 0
 --- !u!1 &3843954485928402657
 GameObject:
   m_ObjectHideFlags: 0
@@ -2842,6 +3241,7 @@ GameObject:
   - component: {fileID: 3843954485960181596}
   - component: {fileID: 3843954485960181597}
   - component: {fileID: 3843954485960181598}
+  - component: {fileID: 4810453305128277451}
   m_Layer: 0
   m_Name: Museum Element
   m_TagString: Untagged
@@ -2877,10 +3277,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20d2623ee7dde354bace824b25cae7a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  filePaths: []
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0.1
+  elementPaths: []
   globalIndex: 0
-  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193,
-    type: 3}
+  isSelected: 0
+  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193, type: 3}
 --- !u!114 &3843954485960181598
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2897,6 +3300,23 @@ MonoBehaviour:
   fadeDuration: 1
   isRunning: 0
   fadeOps: 0
+--- !u!114 &4810453305128277451
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3843954485960181587}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  _assetId: 2675886468
+  serverOnly: 0
+  visible: 0
+  hasSpawned: 0
 --- !u!1 &3843954485979749945
 GameObject:
   m_ObjectHideFlags: 0
@@ -2908,6 +3328,7 @@ GameObject:
   - component: {fileID: 3843954485979749946}
   - component: {fileID: 3843954485979749947}
   - component: {fileID: 3843954485979749924}
+  - component: {fileID: 3855325753983282478}
   m_Layer: 0
   m_Name: Museum Element
   m_TagString: Untagged
@@ -2943,10 +3364,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20d2623ee7dde354bace824b25cae7a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  filePaths: []
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0.1
+  elementPaths: []
   globalIndex: 0
-  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193,
-    type: 3}
+  isSelected: 0
+  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193, type: 3}
 --- !u!114 &3843954485979749924
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2963,6 +3387,23 @@ MonoBehaviour:
   fadeDuration: 1
   isRunning: 0
   fadeOps: 0
+--- !u!114 &3855325753983282478
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3843954485979749945}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  _assetId: 2675886468
+  serverOnly: 0
+  visible: 0
+  hasSpawned: 0
 --- !u!1 &3843954485995411491
 GameObject:
   m_ObjectHideFlags: 0
@@ -2974,6 +3415,7 @@ GameObject:
   - component: {fileID: 3843954485995411500}
   - component: {fileID: 3843954485995411501}
   - component: {fileID: 3843954485995411502}
+  - component: {fileID: 1399649301461117900}
   m_Layer: 0
   m_Name: Museum Element
   m_TagString: Untagged
@@ -3009,10 +3451,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20d2623ee7dde354bace824b25cae7a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  filePaths: []
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0.1
+  elementPaths: []
   globalIndex: 0
-  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193,
-    type: 3}
+  isSelected: 0
+  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193, type: 3}
 --- !u!114 &3843954485995411502
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3029,6 +3474,23 @@ MonoBehaviour:
   fadeDuration: 1
   isRunning: 0
   fadeOps: 0
+--- !u!114 &1399649301461117900
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3843954485995411491}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  _assetId: 2675886468
+  serverOnly: 0
+  visible: 0
+  hasSpawned: 0
 --- !u!1 &3843954486021842810
 GameObject:
   m_ObjectHideFlags: 0
@@ -3455,6 +3917,7 @@ GameObject:
   - component: {fileID: 3843954486176650107}
   - component: {fileID: 3843954486176650084}
   - component: {fileID: 3843954486176650085}
+  - component: {fileID: 912852741872340203}
   m_Layer: 0
   m_Name: Museum Element
   m_TagString: Untagged
@@ -3490,10 +3953,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20d2623ee7dde354bace824b25cae7a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  filePaths: []
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0.1
+  elementPaths: []
   globalIndex: 0
-  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193,
-    type: 3}
+  isSelected: 0
+  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193, type: 3}
 --- !u!114 &3843954486176650085
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3510,6 +3976,23 @@ MonoBehaviour:
   fadeDuration: 1
   isRunning: 0
   fadeOps: 0
+--- !u!114 &912852741872340203
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3843954486176650106}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  _assetId: 2675886468
+  serverOnly: 0
+  visible: 0
+  hasSpawned: 0
 --- !u!1 &3843954486188026553
 GameObject:
   m_ObjectHideFlags: 0
@@ -3853,6 +4336,7 @@ GameObject:
   - component: {fileID: 3843954486242763902}
   - component: {fileID: 3843954486242763903}
   - component: {fileID: 3843954486242763896}
+  - component: {fileID: 2333096859396388472}
   m_Layer: 0
   m_Name: Museum Element
   m_TagString: Untagged
@@ -3888,10 +4372,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20d2623ee7dde354bace824b25cae7a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  filePaths: []
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0.1
+  elementPaths: []
   globalIndex: 0
-  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193,
-    type: 3}
+  isSelected: 0
+  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193, type: 3}
 --- !u!114 &3843954486242763896
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3908,6 +4395,23 @@ MonoBehaviour:
   fadeDuration: 1
   isRunning: 0
   fadeOps: 0
+--- !u!114 &2333096859396388472
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3843954486242763901}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  _assetId: 2675886468
+  serverOnly: 0
+  visible: 0
+  hasSpawned: 0
 --- !u!1 &3843954486258486393
 GameObject:
   m_ObjectHideFlags: 0
@@ -3918,6 +4422,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3843954486258486395}
   - component: {fileID: 3843954486258486394}
+  - component: {fileID: 7914579609973255902}
+  - component: {fileID: 7641794693501972270}
   m_Layer: 0
   m_Name: Museum Base
   m_TagString: Untagged
@@ -4015,7 +4521,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b35d97b52bf5b3d419583c7ceffc1619, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  filePaths: []
+  elementPaths: []
   defaultPicture: {fileID: 0}
   elementList:
   - {fileID: 3843954486618395566}
@@ -4081,6 +4587,38 @@ MonoBehaviour:
   - {fileID: 3843954485995411491}
   - {fileID: 3843954485863060068}
   - {fileID: 3843954487067949778}
+--- !u!114 &7914579609973255902
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3843954486258486393}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  _assetId: 2675886468
+  serverOnly: 0
+  visible: 0
+  hasSpawned: 0
+--- !u!114 &7641794693501972270
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3843954486258486393}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb1c44191233780449aa9aea7de84412, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0.1
 --- !u!1 &3843954486262148809
 GameObject:
   m_ObjectHideFlags: 0
@@ -4258,6 +4796,7 @@ GameObject:
   - component: {fileID: 3843954486319975246}
   - component: {fileID: 3843954486319975247}
   - component: {fileID: 3843954486319975240}
+  - component: {fileID: 8362578486485439570}
   m_Layer: 0
   m_Name: Museum Element
   m_TagString: Untagged
@@ -4293,10 +4832,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20d2623ee7dde354bace824b25cae7a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  filePaths: []
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0.1
+  elementPaths: []
   globalIndex: 0
-  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193,
-    type: 3}
+  isSelected: 0
+  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193, type: 3}
 --- !u!114 &3843954486319975240
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4313,6 +4855,23 @@ MonoBehaviour:
   fadeDuration: 1
   isRunning: 0
   fadeOps: 0
+--- !u!114 &8362578486485439570
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3843954486319975245}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  _assetId: 2675886468
+  serverOnly: 0
+  visible: 0
+  hasSpawned: 0
 --- !u!1 &3843954486336295817
 GameObject:
   m_ObjectHideFlags: 0
@@ -4573,6 +5132,7 @@ GameObject:
   - component: {fileID: 3843954486404814958}
   - component: {fileID: 3843954486404814959}
   - component: {fileID: 3843954486404814952}
+  - component: {fileID: 6313988315821765398}
   m_Layer: 0
   m_Name: Museum Element
   m_TagString: Untagged
@@ -4608,10 +5168,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20d2623ee7dde354bace824b25cae7a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  filePaths: []
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0.1
+  elementPaths: []
   globalIndex: 0
-  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193,
-    type: 3}
+  isSelected: 0
+  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193, type: 3}
 --- !u!114 &3843954486404814952
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4628,6 +5191,23 @@ MonoBehaviour:
   fadeDuration: 1
   isRunning: 0
   fadeOps: 0
+--- !u!114 &6313988315821765398
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3843954486404814957}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  _assetId: 2675886468
+  serverOnly: 0
+  visible: 0
+  hasSpawned: 0
 --- !u!1 &3843954486406948346
 GameObject:
   m_ObjectHideFlags: 0
@@ -4639,6 +5219,7 @@ GameObject:
   - component: {fileID: 3843954486406948347}
   - component: {fileID: 3843954486406948324}
   - component: {fileID: 3843954486406948325}
+  - component: {fileID: 1965595039122508040}
   m_Layer: 0
   m_Name: Museum Element
   m_TagString: Untagged
@@ -4674,10 +5255,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20d2623ee7dde354bace824b25cae7a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  filePaths: []
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0.1
+  elementPaths: []
   globalIndex: 0
-  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193,
-    type: 3}
+  isSelected: 0
+  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193, type: 3}
 --- !u!114 &3843954486406948325
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4694,6 +5278,23 @@ MonoBehaviour:
   fadeDuration: 1
   isRunning: 0
   fadeOps: 0
+--- !u!114 &1965595039122508040
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3843954486406948346}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  _assetId: 2675886468
+  serverOnly: 0
+  visible: 0
+  hasSpawned: 0
 --- !u!1 &3843954486443561671
 GameObject:
   m_ObjectHideFlags: 0
@@ -4788,6 +5389,7 @@ GameObject:
   - component: {fileID: 3843954486476849271}
   - component: {fileID: 3843954486476849264}
   - component: {fileID: 3843954486476849265}
+  - component: {fileID: 623430553247922361}
   m_Layer: 0
   m_Name: Museum Element
   m_TagString: Untagged
@@ -4823,10 +5425,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20d2623ee7dde354bace824b25cae7a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  filePaths: []
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0.1
+  elementPaths: []
   globalIndex: 0
-  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193,
-    type: 3}
+  isSelected: 0
+  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193, type: 3}
 --- !u!114 &3843954486476849265
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4843,6 +5448,23 @@ MonoBehaviour:
   fadeDuration: 1
   isRunning: 0
   fadeOps: 0
+--- !u!114 &623430553247922361
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3843954486476849270}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  _assetId: 2675886468
+  serverOnly: 0
+  visible: 0
+  hasSpawned: 0
 --- !u!1 &3843954486499310343
 GameObject:
   m_ObjectHideFlags: 0
@@ -4854,6 +5476,7 @@ GameObject:
   - component: {fileID: 3843954486499310336}
   - component: {fileID: 3843954486499310337}
   - component: {fileID: 3843954486499310338}
+  - component: {fileID: 4194870415516152090}
   m_Layer: 0
   m_Name: Museum Element
   m_TagString: Untagged
@@ -4889,10 +5512,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20d2623ee7dde354bace824b25cae7a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  filePaths: []
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0.1
+  elementPaths: []
   globalIndex: 0
-  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193,
-    type: 3}
+  isSelected: 0
+  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193, type: 3}
 --- !u!114 &3843954486499310338
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4909,6 +5535,23 @@ MonoBehaviour:
   fadeDuration: 1
   isRunning: 0
   fadeOps: 0
+--- !u!114 &4194870415516152090
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3843954486499310343}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  _assetId: 2675886468
+  serverOnly: 0
+  visible: 0
+  hasSpawned: 0
 --- !u!1 &3843954486503810209
 GameObject:
   m_ObjectHideFlags: 0
@@ -5003,6 +5646,7 @@ GameObject:
   - component: {fileID: 3843954486521922053}
   - component: {fileID: 3843954486521922054}
   - component: {fileID: 3843954486521922055}
+  - component: {fileID: 6662070308022424793}
   m_Layer: 0
   m_Name: Museum Element
   m_TagString: Untagged
@@ -5038,10 +5682,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20d2623ee7dde354bace824b25cae7a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  filePaths: []
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0.1
+  elementPaths: []
   globalIndex: 0
-  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193,
-    type: 3}
+  isSelected: 0
+  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193, type: 3}
 --- !u!114 &3843954486521922055
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5058,6 +5705,23 @@ MonoBehaviour:
   fadeDuration: 1
   isRunning: 0
   fadeOps: 0
+--- !u!114 &6662070308022424793
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3843954486521922052}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  _assetId: 2675886468
+  serverOnly: 0
+  visible: 0
+  hasSpawned: 0
 --- !u!1 &3843954486533291415
 GameObject:
   m_ObjectHideFlags: 0
@@ -5152,6 +5816,7 @@ GameObject:
   - component: {fileID: 3843954486538434028}
   - component: {fileID: 3843954486538434029}
   - component: {fileID: 3843954486538434030}
+  - component: {fileID: 2464502369731991264}
   m_Layer: 0
   m_Name: Museum Element
   m_TagString: Untagged
@@ -5187,10 +5852,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20d2623ee7dde354bace824b25cae7a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  filePaths: []
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0.1
+  elementPaths: []
   globalIndex: 0
-  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193,
-    type: 3}
+  isSelected: 0
+  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193, type: 3}
 --- !u!114 &3843954486538434030
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5207,6 +5875,23 @@ MonoBehaviour:
   fadeDuration: 1
   isRunning: 0
   fadeOps: 0
+--- !u!114 &2464502369731991264
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3843954486538434019}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  _assetId: 2675886468
+  serverOnly: 0
+  visible: 0
+  hasSpawned: 0
 --- !u!1 &3843954486559851564
 GameObject:
   m_ObjectHideFlags: 0
@@ -5301,6 +5986,7 @@ GameObject:
   - component: {fileID: 3843954486586422653}
   - component: {fileID: 3843954486586422654}
   - component: {fileID: 3843954486586422655}
+  - component: {fileID: 7015515392510471993}
   m_Layer: 0
   m_Name: Museum Element
   m_TagString: Untagged
@@ -5336,10 +6022,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20d2623ee7dde354bace824b25cae7a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  filePaths: []
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0.1
+  elementPaths: []
   globalIndex: 0
-  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193,
-    type: 3}
+  isSelected: 0
+  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193, type: 3}
 --- !u!114 &3843954486586422655
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5356,6 +6045,23 @@ MonoBehaviour:
   fadeDuration: 1
   isRunning: 0
   fadeOps: 0
+--- !u!114 &7015515392510471993
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3843954486586422652}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  _assetId: 2675886468
+  serverOnly: 0
+  visible: 0
+  hasSpawned: 0
 --- !u!1 &3843954486598702304
 GameObject:
   m_ObjectHideFlags: 0
@@ -5450,6 +6156,7 @@ GameObject:
   - component: {fileID: 3843954486618395565}
   - component: {fileID: 3843954486618395560}
   - component: {fileID: 3843954486618395561}
+  - component: {fileID: 8178797287420293315}
   m_Layer: 0
   m_Name: Museum Element
   m_TagString: Untagged
@@ -5485,10 +6192,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20d2623ee7dde354bace824b25cae7a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  filePaths: []
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0.1
+  elementPaths: []
   globalIndex: 0
-  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193,
-    type: 3}
+  isSelected: 0
+  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193, type: 3}
 --- !u!114 &3843954486618395561
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5505,6 +6215,23 @@ MonoBehaviour:
   fadeDuration: 1
   isRunning: 0
   fadeOps: 0
+--- !u!114 &8178797287420293315
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3843954486618395566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  _assetId: 2675886468
+  serverOnly: 0
+  visible: 0
+  hasSpawned: 0
 --- !u!1 &3843954486622028036
 GameObject:
   m_ObjectHideFlags: 0
@@ -5599,6 +6326,7 @@ GameObject:
   - component: {fileID: 3843954486628190879}
   - component: {fileID: 3843954486628190872}
   - component: {fileID: 3843954486628190873}
+  - component: {fileID: 4254044501957751404}
   m_Layer: 0
   m_Name: Museum Element
   m_TagString: Untagged
@@ -5634,10 +6362,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20d2623ee7dde354bace824b25cae7a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  filePaths: []
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0.1
+  elementPaths: []
   globalIndex: 0
-  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193,
-    type: 3}
+  isSelected: 0
+  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193, type: 3}
 --- !u!114 &3843954486628190873
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5654,6 +6385,23 @@ MonoBehaviour:
   fadeDuration: 1
   isRunning: 0
   fadeOps: 0
+--- !u!114 &4254044501957751404
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3843954486628190878}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  _assetId: 2675886468
+  serverOnly: 0
+  visible: 0
+  hasSpawned: 0
 --- !u!1 &3843954486647632862
 GameObject:
   m_ObjectHideFlags: 0
@@ -5831,6 +6579,7 @@ GameObject:
   - component: {fileID: 3843954486653196154}
   - component: {fileID: 3843954486653196155}
   - component: {fileID: 3843954486653196132}
+  - component: {fileID: 3969650035002294362}
   m_Layer: 0
   m_Name: Museum Element
   m_TagString: Untagged
@@ -5866,10 +6615,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20d2623ee7dde354bace824b25cae7a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  filePaths: []
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0.1
+  elementPaths: []
   globalIndex: 0
-  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193,
-    type: 3}
+  isSelected: 0
+  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193, type: 3}
 --- !u!114 &3843954486653196132
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5886,6 +6638,23 @@ MonoBehaviour:
   fadeDuration: 1
   isRunning: 0
   fadeOps: 0
+--- !u!114 &3969650035002294362
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3843954486653196153}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  _assetId: 2675886468
+  serverOnly: 0
+  visible: 0
+  hasSpawned: 0
 --- !u!1 &3843954486655588487
 GameObject:
   m_ObjectHideFlags: 0
@@ -5980,6 +6749,7 @@ GameObject:
   - component: {fileID: 3843954486673479646}
   - component: {fileID: 3843954486673479647}
   - component: {fileID: 3843954486673479640}
+  - component: {fileID: 8343190200524976380}
   m_Layer: 0
   m_Name: Museum Element
   m_TagString: Untagged
@@ -6015,10 +6785,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20d2623ee7dde354bace824b25cae7a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  filePaths: []
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0.1
+  elementPaths: []
   globalIndex: 0
-  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193,
-    type: 3}
+  isSelected: 0
+  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193, type: 3}
 --- !u!114 &3843954486673479640
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6035,6 +6808,23 @@ MonoBehaviour:
   fadeDuration: 1
   isRunning: 0
   fadeOps: 0
+--- !u!114 &8343190200524976380
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3843954486673479645}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  _assetId: 2675886468
+  serverOnly: 0
+  visible: 0
+  hasSpawned: 0
 --- !u!1 &3843954486685967466
 GameObject:
   m_ObjectHideFlags: 0
@@ -6295,6 +7085,7 @@ GameObject:
   - component: {fileID: 3843954486763526195}
   - component: {fileID: 3843954486763526204}
   - component: {fileID: 3843954486763526205}
+  - component: {fileID: 4002480772698474734}
   m_Layer: 0
   m_Name: Museum Element
   m_TagString: Untagged
@@ -6330,10 +7121,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20d2623ee7dde354bace824b25cae7a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  filePaths: []
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0.1
+  elementPaths: []
   globalIndex: 0
-  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193,
-    type: 3}
+  isSelected: 0
+  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193, type: 3}
 --- !u!114 &3843954486763526205
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6350,6 +7144,23 @@ MonoBehaviour:
   fadeDuration: 1
   isRunning: 0
   fadeOps: 0
+--- !u!114 &4002480772698474734
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3843954486763526194}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  _assetId: 2675886468
+  serverOnly: 0
+  visible: 0
+  hasSpawned: 0
 --- !u!1 &3843954486785482181
 GameObject:
   m_ObjectHideFlags: 0
@@ -6361,6 +7172,7 @@ GameObject:
   - component: {fileID: 3843954486785482182}
   - component: {fileID: 3843954486785482183}
   - component: {fileID: 3843954486785482176}
+  - component: {fileID: 4568335751322944602}
   m_Layer: 0
   m_Name: Museum Element
   m_TagString: Untagged
@@ -6396,10 +7208,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20d2623ee7dde354bace824b25cae7a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  filePaths: []
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0.1
+  elementPaths: []
   globalIndex: 0
-  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193,
-    type: 3}
+  isSelected: 0
+  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193, type: 3}
 --- !u!114 &3843954486785482176
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6416,6 +7231,23 @@ MonoBehaviour:
   fadeDuration: 1
   isRunning: 0
   fadeOps: 0
+--- !u!114 &4568335751322944602
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3843954486785482181}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  _assetId: 2675886468
+  serverOnly: 0
+  visible: 0
+  hasSpawned: 0
 --- !u!1 &3843954486814016478
 GameObject:
   m_ObjectHideFlags: 0
@@ -6510,6 +7342,7 @@ GameObject:
   - component: {fileID: 3843954486819074974}
   - component: {fileID: 3843954486819074975}
   - component: {fileID: 3843954486819074968}
+  - component: {fileID: 557357276861870005}
   m_Layer: 0
   m_Name: Museum Element
   m_TagString: Untagged
@@ -6545,10 +7378,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20d2623ee7dde354bace824b25cae7a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  filePaths: []
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0.1
+  elementPaths: []
   globalIndex: 0
-  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193,
-    type: 3}
+  isSelected: 0
+  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193, type: 3}
 --- !u!114 &3843954486819074968
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6565,6 +7401,23 @@ MonoBehaviour:
   fadeDuration: 1
   isRunning: 0
   fadeOps: 0
+--- !u!114 &557357276861870005
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3843954486819074973}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  _assetId: 2675886468
+  serverOnly: 0
+  visible: 0
+  hasSpawned: 0
 --- !u!1 &3843954486822999203
 GameObject:
   m_ObjectHideFlags: 0
@@ -6659,6 +7512,7 @@ GameObject:
   - component: {fileID: 3843954486826949447}
   - component: {fileID: 3843954486826949440}
   - component: {fileID: 3843954486826949441}
+  - component: {fileID: 7266531490847271351}
   m_Layer: 0
   m_Name: Museum Element
   m_TagString: Untagged
@@ -6694,10 +7548,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20d2623ee7dde354bace824b25cae7a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  filePaths: []
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0.1
+  elementPaths: []
   globalIndex: 0
-  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193,
-    type: 3}
+  isSelected: 0
+  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193, type: 3}
 --- !u!114 &3843954486826949441
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6714,6 +7571,23 @@ MonoBehaviour:
   fadeDuration: 1
   isRunning: 0
   fadeOps: 0
+--- !u!114 &7266531490847271351
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3843954486826949446}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  _assetId: 2675886468
+  serverOnly: 0
+  visible: 0
+  hasSpawned: 0
 --- !u!1 &3843954486833021172
 GameObject:
   m_ObjectHideFlags: 0
@@ -6808,6 +7682,7 @@ GameObject:
   - component: {fileID: 3843954486837955130}
   - component: {fileID: 3843954486837955131}
   - component: {fileID: 3843954486837955108}
+  - component: {fileID: 4108686113336389946}
   m_Layer: 0
   m_Name: Museum Element
   m_TagString: Untagged
@@ -6843,10 +7718,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20d2623ee7dde354bace824b25cae7a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  filePaths: []
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0.1
+  elementPaths: []
   globalIndex: 0
-  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193,
-    type: 3}
+  isSelected: 0
+  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193, type: 3}
 --- !u!114 &3843954486837955108
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6863,6 +7741,23 @@ MonoBehaviour:
   fadeDuration: 1
   isRunning: 0
   fadeOps: 0
+--- !u!114 &4108686113336389946
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3843954486837955129}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  _assetId: 2675886468
+  serverOnly: 0
+  visible: 0
+  hasSpawned: 0
 --- !u!1 &3843954486843722313
 GameObject:
   m_ObjectHideFlags: 0
@@ -6874,6 +7769,7 @@ GameObject:
   - component: {fileID: 3843954486843722314}
   - component: {fileID: 3843954486843722315}
   - component: {fileID: 3843954486843722420}
+  - component: {fileID: 5349052559351021167}
   m_Layer: 0
   m_Name: Museum Element
   m_TagString: Untagged
@@ -6909,10 +7805,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20d2623ee7dde354bace824b25cae7a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  filePaths: []
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0.1
+  elementPaths: []
   globalIndex: 0
-  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193,
-    type: 3}
+  isSelected: 0
+  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193, type: 3}
 --- !u!114 &3843954486843722420
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6929,6 +7828,23 @@ MonoBehaviour:
   fadeDuration: 1
   isRunning: 0
   fadeOps: 0
+--- !u!114 &5349052559351021167
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3843954486843722313}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  _assetId: 2675886468
+  serverOnly: 0
+  visible: 0
+  hasSpawned: 0
 --- !u!1 &3843954486851005316
 GameObject:
   m_ObjectHideFlags: 0
@@ -6940,6 +7856,7 @@ GameObject:
   - component: {fileID: 3843954486851005317}
   - component: {fileID: 3843954486851005318}
   - component: {fileID: 3843954486851005319}
+  - component: {fileID: 7787424003838811671}
   m_Layer: 0
   m_Name: Museum Element
   m_TagString: Untagged
@@ -6975,10 +7892,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20d2623ee7dde354bace824b25cae7a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  filePaths: []
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0.1
+  elementPaths: []
   globalIndex: 0
-  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193,
-    type: 3}
+  isSelected: 0
+  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193, type: 3}
 --- !u!114 &3843954486851005319
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6995,6 +7915,23 @@ MonoBehaviour:
   fadeDuration: 1
   isRunning: 0
   fadeOps: 0
+--- !u!114 &7787424003838811671
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3843954486851005316}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  _assetId: 2675886468
+  serverOnly: 0
+  visible: 0
+  hasSpawned: 0
 --- !u!1 &3843954486865606543
 GameObject:
   m_ObjectHideFlags: 0
@@ -7172,6 +8109,7 @@ GameObject:
   - component: {fileID: 3843954486920681102}
   - component: {fileID: 3843954486920681103}
   - component: {fileID: 3843954486920681096}
+  - component: {fileID: 1949214035789912819}
   m_Layer: 0
   m_Name: Museum Element
   m_TagString: Untagged
@@ -7207,10 +8145,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20d2623ee7dde354bace824b25cae7a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  filePaths: []
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0.1
+  elementPaths: []
   globalIndex: 0
-  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193,
-    type: 3}
+  isSelected: 0
+  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193, type: 3}
 --- !u!114 &3843954486920681096
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7227,6 +8168,23 @@ MonoBehaviour:
   fadeDuration: 1
   isRunning: 0
   fadeOps: 0
+--- !u!114 &1949214035789912819
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3843954486920681101}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  _assetId: 2675886468
+  serverOnly: 0
+  visible: 0
+  hasSpawned: 0
 --- !u!1 &3843954486933107632
 GameObject:
   m_ObjectHideFlags: 0
@@ -7238,6 +8196,7 @@ GameObject:
   - component: {fileID: 3843954486933107633}
   - component: {fileID: 3843954486933107634}
   - component: {fileID: 3843954486933107635}
+  - component: {fileID: 5205754414204782963}
   m_Layer: 0
   m_Name: Museum Element
   m_TagString: Untagged
@@ -7273,10 +8232,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20d2623ee7dde354bace824b25cae7a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  filePaths: []
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0.1
+  elementPaths: []
   globalIndex: 0
-  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193,
-    type: 3}
+  isSelected: 0
+  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193, type: 3}
 --- !u!114 &3843954486933107635
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7293,6 +8255,23 @@ MonoBehaviour:
   fadeDuration: 1
   isRunning: 0
   fadeOps: 0
+--- !u!114 &5205754414204782963
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3843954486933107632}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  _assetId: 2675886468
+  serverOnly: 0
+  visible: 0
+  hasSpawned: 0
 --- !u!1 &3843954486936491459
 GameObject:
   m_ObjectHideFlags: 0
@@ -7304,6 +8283,7 @@ GameObject:
   - component: {fileID: 3843954486936491468}
   - component: {fileID: 3843954486936491469}
   - component: {fileID: 3843954486936491470}
+  - component: {fileID: 3039642759255601644}
   m_Layer: 0
   m_Name: Museum Element
   m_TagString: Untagged
@@ -7339,10 +8319,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20d2623ee7dde354bace824b25cae7a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  filePaths: []
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0.1
+  elementPaths: []
   globalIndex: 0
-  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193,
-    type: 3}
+  isSelected: 0
+  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193, type: 3}
 --- !u!114 &3843954486936491470
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7359,6 +8342,23 @@ MonoBehaviour:
   fadeDuration: 1
   isRunning: 0
   fadeOps: 0
+--- !u!114 &3039642759255601644
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3843954486936491459}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  _assetId: 2675886468
+  serverOnly: 0
+  visible: 0
+  hasSpawned: 0
 --- !u!1 &3843954486956090566
 GameObject:
   m_ObjectHideFlags: 0
@@ -7536,6 +8536,7 @@ GameObject:
   - component: {fileID: 3843954487002908430}
   - component: {fileID: 3843954487002908431}
   - component: {fileID: 3843954487002908424}
+  - component: {fileID: 2973070247456963111}
   m_Layer: 0
   m_Name: Museum Element
   m_TagString: Untagged
@@ -7571,10 +8572,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20d2623ee7dde354bace824b25cae7a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  filePaths: []
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0.1
+  elementPaths: []
   globalIndex: 0
-  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193,
-    type: 3}
+  isSelected: 0
+  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193, type: 3}
 --- !u!114 &3843954487002908424
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7591,6 +8595,23 @@ MonoBehaviour:
   fadeDuration: 1
   isRunning: 0
   fadeOps: 0
+--- !u!114 &2973070247456963111
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3843954487002908429}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  _assetId: 2675886468
+  serverOnly: 0
+  visible: 0
+  hasSpawned: 0
 --- !u!1 &3843954487015608750
 GameObject:
   m_ObjectHideFlags: 0
@@ -7602,6 +8623,7 @@ GameObject:
   - component: {fileID: 3843954487015608751}
   - component: {fileID: 3843954487015608744}
   - component: {fileID: 3843954487015608745}
+  - component: {fileID: 1176982493533241325}
   m_Layer: 0
   m_Name: Museum Element
   m_TagString: Untagged
@@ -7637,10 +8659,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20d2623ee7dde354bace824b25cae7a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  filePaths: []
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0.1
+  elementPaths: []
   globalIndex: 0
-  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193,
-    type: 3}
+  isSelected: 0
+  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193, type: 3}
 --- !u!114 &3843954487015608745
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7657,6 +8682,23 @@ MonoBehaviour:
   fadeDuration: 1
   isRunning: 0
   fadeOps: 0
+--- !u!114 &1176982493533241325
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3843954487015608750}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  _assetId: 2675886468
+  serverOnly: 0
+  visible: 0
+  hasSpawned: 0
 --- !u!1 &3843954487027025447
 GameObject:
   m_ObjectHideFlags: 0
@@ -7751,6 +8793,7 @@ GameObject:
   - component: {fileID: 3843954487067949779}
   - component: {fileID: 3843954487067949788}
   - component: {fileID: 3843954487067949789}
+  - component: {fileID: 4452569534861705432}
   m_Layer: 0
   m_Name: Museum Element
   m_TagString: Untagged
@@ -7786,10 +8829,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20d2623ee7dde354bace824b25cae7a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  filePaths: []
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0.1
+  elementPaths: []
   globalIndex: 0
-  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193,
-    type: 3}
+  isSelected: 0
+  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193, type: 3}
 --- !u!114 &3843954487067949789
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7806,6 +8852,23 @@ MonoBehaviour:
   fadeDuration: 1
   isRunning: 0
   fadeOps: 0
+--- !u!114 &4452569534861705432
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3843954487067949778}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  _assetId: 2675886468
+  serverOnly: 0
+  visible: 0
+  hasSpawned: 0
 --- !u!1 &3843954487081470138
 GameObject:
   m_ObjectHideFlags: 0
@@ -7817,6 +8880,7 @@ GameObject:
   - component: {fileID: 3843954487081470139}
   - component: {fileID: 3843954487081470116}
   - component: {fileID: 3843954487081470117}
+  - component: {fileID: 7915202726172734405}
   m_Layer: 0
   m_Name: Museum Element
   m_TagString: Untagged
@@ -7852,10 +8916,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20d2623ee7dde354bace824b25cae7a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  filePaths: []
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0.1
+  elementPaths: []
   globalIndex: 0
-  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193,
-    type: 3}
+  isSelected: 0
+  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193, type: 3}
 --- !u!114 &3843954487081470117
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7872,6 +8939,23 @@ MonoBehaviour:
   fadeDuration: 1
   isRunning: 0
   fadeOps: 0
+--- !u!114 &7915202726172734405
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3843954487081470138}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  _assetId: 2675886468
+  serverOnly: 0
+  visible: 0
+  hasSpawned: 0
 --- !u!1 &3843954487157252955
 GameObject:
   m_ObjectHideFlags: 0
@@ -8049,6 +9133,7 @@ GameObject:
   - component: {fileID: 3843954487178039620}
   - component: {fileID: 3843954487178039621}
   - component: {fileID: 3843954487178039622}
+  - component: {fileID: 4074872777528894096}
   m_Layer: 0
   m_Name: Museum Element
   m_TagString: Untagged
@@ -8084,10 +9169,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20d2623ee7dde354bace824b25cae7a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  filePaths: []
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0.1
+  elementPaths: []
   globalIndex: 0
-  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193,
-    type: 3}
+  isSelected: 0
+  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193, type: 3}
 --- !u!114 &3843954487178039622
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8104,6 +9192,23 @@ MonoBehaviour:
   fadeDuration: 1
   isRunning: 0
   fadeOps: 0
+--- !u!114 &4074872777528894096
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3843954487178039643}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  _assetId: 2675886468
+  serverOnly: 0
+  visible: 0
+  hasSpawned: 0
 --- !u!1 &3843954487178198188
 GameObject:
   m_ObjectHideFlags: 0
@@ -8115,6 +9220,7 @@ GameObject:
   - component: {fileID: 3843954487178198189}
   - component: {fileID: 3843954487178198190}
   - component: {fileID: 3843954487178198191}
+  - component: {fileID: 4893942430258242890}
   m_Layer: 0
   m_Name: Museum Element
   m_TagString: Untagged
@@ -8150,10 +9256,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20d2623ee7dde354bace824b25cae7a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  filePaths: []
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0.1
+  elementPaths: []
   globalIndex: 0
-  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193,
-    type: 3}
+  isSelected: 0
+  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193, type: 3}
 --- !u!114 &3843954487178198191
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8170,6 +9279,23 @@ MonoBehaviour:
   fadeDuration: 1
   isRunning: 0
   fadeOps: 0
+--- !u!114 &4893942430258242890
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3843954487178198188}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  _assetId: 2675886468
+  serverOnly: 0
+  visible: 0
+  hasSpawned: 0
 --- !u!1 &3843954487198766738
 GameObject:
   m_ObjectHideFlags: 0
@@ -8347,6 +9473,7 @@ GameObject:
   - component: {fileID: 3843954487269940293}
   - component: {fileID: 3843954487269940294}
   - component: {fileID: 3843954487269940295}
+  - component: {fileID: 6493879719611420975}
   m_Layer: 0
   m_Name: Museum Element
   m_TagString: Untagged
@@ -8382,10 +9509,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20d2623ee7dde354bace824b25cae7a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  filePaths: []
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0.1
+  elementPaths: []
   globalIndex: 0
-  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193,
-    type: 3}
+  isSelected: 0
+  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193, type: 3}
 --- !u!114 &3843954487269940295
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8402,6 +9532,23 @@ MonoBehaviour:
   fadeDuration: 1
   isRunning: 0
   fadeOps: 0
+--- !u!114 &6493879719611420975
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3843954487269940292}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  _assetId: 2675886468
+  serverOnly: 0
+  visible: 0
+  hasSpawned: 0
 --- !u!1 &3843954487302299022
 GameObject:
   m_ObjectHideFlags: 0
@@ -8496,6 +9643,7 @@ GameObject:
   - component: {fileID: 3843954487324985872}
   - component: {fileID: 3843954487324985873}
   - component: {fileID: 3843954487324985874}
+  - component: {fileID: 8884059795540106934}
   m_Layer: 0
   m_Name: Museum Element
   m_TagString: Untagged
@@ -8531,10 +9679,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20d2623ee7dde354bace824b25cae7a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  filePaths: []
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0.1
+  elementPaths: []
   globalIndex: 0
-  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193,
-    type: 3}
+  isSelected: 0
+  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193, type: 3}
 --- !u!114 &3843954487324985874
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8551,6 +9702,23 @@ MonoBehaviour:
   fadeDuration: 1
   isRunning: 0
   fadeOps: 0
+--- !u!114 &8884059795540106934
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3843954487324985879}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  _assetId: 2675886468
+  serverOnly: 0
+  visible: 0
+  hasSpawned: 0
 --- !u!1 &3843954487356743977
 GameObject:
   m_ObjectHideFlags: 0
@@ -8728,6 +9896,7 @@ GameObject:
   - component: {fileID: 3843954487363786266}
   - component: {fileID: 3843954487363786267}
   - component: {fileID: 3843954487363786244}
+  - component: {fileID: 81662667254472145}
   m_Layer: 0
   m_Name: Museum Element
   m_TagString: Untagged
@@ -8763,10 +9932,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20d2623ee7dde354bace824b25cae7a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  filePaths: []
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0.1
+  elementPaths: []
   globalIndex: 0
-  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193,
-    type: 3}
+  isSelected: 0
+  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193, type: 3}
 --- !u!114 &3843954487363786244
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8783,6 +9955,23 @@ MonoBehaviour:
   fadeDuration: 1
   isRunning: 0
   fadeOps: 0
+--- !u!114 &81662667254472145
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3843954487363786265}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  _assetId: 2675886468
+  serverOnly: 0
+  visible: 0
+  hasSpawned: 0
 --- !u!1 &3843954487388669533
 GameObject:
   m_ObjectHideFlags: 0
@@ -8794,6 +9983,7 @@ GameObject:
   - component: {fileID: 3843954487388669534}
   - component: {fileID: 3843954487388669535}
   - component: {fileID: 3843954487388669528}
+  - component: {fileID: 332741898570209346}
   m_Layer: 0
   m_Name: Museum Element
   m_TagString: Untagged
@@ -8829,10 +10019,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20d2623ee7dde354bace824b25cae7a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  filePaths: []
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0.1
+  elementPaths: []
   globalIndex: 0
-  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193,
-    type: 3}
+  isSelected: 0
+  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193, type: 3}
 --- !u!114 &3843954487388669528
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8849,6 +10042,23 @@ MonoBehaviour:
   fadeDuration: 1
   isRunning: 0
   fadeOps: 0
+--- !u!114 &332741898570209346
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3843954487388669533}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  _assetId: 2675886468
+  serverOnly: 0
+  visible: 0
+  hasSpawned: 0
 --- !u!1 &3843954487399843853
 GameObject:
   m_ObjectHideFlags: 0
@@ -8860,6 +10070,7 @@ GameObject:
   - component: {fileID: 3843954487399843854}
   - component: {fileID: 3843954487399843855}
   - component: {fileID: 3843954487399843848}
+  - component: {fileID: 7404929929059673762}
   m_Layer: 0
   m_Name: Museum Element
   m_TagString: Untagged
@@ -8895,10 +10106,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20d2623ee7dde354bace824b25cae7a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  filePaths: []
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0.1
+  elementPaths: []
   globalIndex: 0
-  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193,
-    type: 3}
+  isSelected: 0
+  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193, type: 3}
 --- !u!114 &3843954487399843848
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8915,6 +10129,23 @@ MonoBehaviour:
   fadeDuration: 1
   isRunning: 0
   fadeOps: 0
+--- !u!114 &7404929929059673762
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3843954487399843853}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  _assetId: 2675886468
+  serverOnly: 0
+  visible: 0
+  hasSpawned: 0
 --- !u!1 &3843954487405097211
 GameObject:
   m_ObjectHideFlags: 0
@@ -8926,6 +10157,7 @@ GameObject:
   - component: {fileID: 3843954487405097188}
   - component: {fileID: 3843954487405097189}
   - component: {fileID: 3843954487405097190}
+  - component: {fileID: 2329737929280360589}
   m_Layer: 0
   m_Name: Museum Element
   m_TagString: Untagged
@@ -8961,10 +10193,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20d2623ee7dde354bace824b25cae7a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  filePaths: []
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0.1
+  elementPaths: []
   globalIndex: 0
-  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193,
-    type: 3}
+  isSelected: 0
+  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193, type: 3}
 --- !u!114 &3843954487405097190
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8981,6 +10216,23 @@ MonoBehaviour:
   fadeDuration: 1
   isRunning: 0
   fadeOps: 0
+--- !u!114 &2329737929280360589
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3843954487405097211}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  _assetId: 2675886468
+  serverOnly: 0
+  visible: 0
+  hasSpawned: 0
 --- !u!1 &3843954487408928201
 GameObject:
   m_ObjectHideFlags: 0
@@ -8992,6 +10244,7 @@ GameObject:
   - component: {fileID: 3843954487408928202}
   - component: {fileID: 3843954487408928203}
   - component: {fileID: 3843954487408928308}
+  - component: {fileID: 779284637328562264}
   m_Layer: 0
   m_Name: Museum Element
   m_TagString: Untagged
@@ -9027,10 +10280,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20d2623ee7dde354bace824b25cae7a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  filePaths: []
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0.1
+  elementPaths: []
   globalIndex: 0
-  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193,
-    type: 3}
+  isSelected: 0
+  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193, type: 3}
 --- !u!114 &3843954487408928308
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9047,6 +10303,23 @@ MonoBehaviour:
   fadeDuration: 1
   isRunning: 0
   fadeOps: 0
+--- !u!114 &779284637328562264
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3843954487408928201}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  _assetId: 2675886468
+  serverOnly: 0
+  visible: 0
+  hasSpawned: 0
 --- !u!1 &3843954487413465380
 GameObject:
   m_ObjectHideFlags: 0
@@ -9058,6 +10331,7 @@ GameObject:
   - component: {fileID: 3843954487413465381}
   - component: {fileID: 3843954487413465382}
   - component: {fileID: 3843954487413465383}
+  - component: {fileID: 8708275745192787532}
   m_Layer: 0
   m_Name: Museum Element
   m_TagString: Untagged
@@ -9093,10 +10367,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20d2623ee7dde354bace824b25cae7a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  filePaths: []
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0.1
+  elementPaths: []
   globalIndex: 0
-  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193,
-    type: 3}
+  isSelected: 0
+  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193, type: 3}
 --- !u!114 &3843954487413465383
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9113,6 +10390,23 @@ MonoBehaviour:
   fadeDuration: 1
   isRunning: 0
   fadeOps: 0
+--- !u!114 &8708275745192787532
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3843954487413465380}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  _assetId: 2675886468
+  serverOnly: 0
+  visible: 0
+  hasSpawned: 0
 --- !u!1 &3843954487450946614
 GameObject:
   m_ObjectHideFlags: 0
@@ -9124,6 +10418,7 @@ GameObject:
   - component: {fileID: 3843954487450946615}
   - component: {fileID: 3843954487450946608}
   - component: {fileID: 3843954487450946609}
+  - component: {fileID: 5606398111930340444}
   m_Layer: 0
   m_Name: Museum Element
   m_TagString: Untagged
@@ -9159,10 +10454,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20d2623ee7dde354bace824b25cae7a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  filePaths: []
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0.1
+  elementPaths: []
   globalIndex: 0
-  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193,
-    type: 3}
+  isSelected: 0
+  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193, type: 3}
 --- !u!114 &3843954487450946609
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9179,6 +10477,23 @@ MonoBehaviour:
   fadeDuration: 1
   isRunning: 0
   fadeOps: 0
+--- !u!114 &5606398111930340444
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3843954487450946614}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  _assetId: 2675886468
+  serverOnly: 0
+  visible: 0
+  hasSpawned: 0
 --- !u!1 &3843954487454671602
 GameObject:
   m_ObjectHideFlags: 0
@@ -9273,6 +10588,7 @@ GameObject:
   - component: {fileID: 6934470109644693620}
   - component: {fileID: 6934470109644693617}
   - component: {fileID: 6934470109644693618}
+  - component: {fileID: 3910877024947278217}
   m_Layer: 0
   m_Name: Museum Element
   m_TagString: Untagged
@@ -9308,10 +10624,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20d2623ee7dde354bace824b25cae7a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  filePaths: []
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0.1
+  elementPaths: []
   globalIndex: 0
-  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193,
-    type: 3}
+  isSelected: 0
+  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193, type: 3}
 --- !u!114 &6934470109644693618
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9328,6 +10647,23 @@ MonoBehaviour:
   fadeDuration: 1
   isRunning: 0
   fadeOps: 0
+--- !u!114 &3910877024947278217
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6934470109644693623}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  _assetId: 2675886468
+  serverOnly: 0
+  visible: 0
+  hasSpawned: 0
 --- !u!1 &6934470109737771294
 GameObject:
   m_ObjectHideFlags: 0
@@ -9505,6 +10841,7 @@ GameObject:
   - component: {fileID: 6934470111650862851}
   - component: {fileID: 6934470111650862854}
   - component: {fileID: 6934470111650862860}
+  - component: {fileID: 4935368444188785441}
   m_Layer: 0
   m_Name: Museum Element
   m_TagString: Untagged
@@ -9540,10 +10877,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20d2623ee7dde354bace824b25cae7a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  filePaths: []
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0.1
+  elementPaths: []
   globalIndex: 0
-  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193,
-    type: 3}
+  isSelected: 0
+  renderManager: {fileID: 2979524873638265696, guid: 760921f21669d8a42a1f2f5c074d7193, type: 3}
 --- !u!114 &6934470111650862860
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9560,3 +10900,20 @@ MonoBehaviour:
   fadeDuration: 1
   isRunning: 0
   fadeOps: 0
+--- !u!114 &4935368444188785441
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6934470111650862848}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  _assetId: 2675886468
+  serverOnly: 0
+  visible: 0
+  hasSpawned: 0

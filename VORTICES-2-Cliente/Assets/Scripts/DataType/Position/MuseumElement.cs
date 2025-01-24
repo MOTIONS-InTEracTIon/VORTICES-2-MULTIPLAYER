@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
 namespace Vortices
 {
-    public class MuseumElement : MonoBehaviour
+    public class MuseumElement : NetworkBehaviour
     {
         // Other references
         private GameObject elementFrame;
@@ -19,6 +20,21 @@ namespace Vortices
         private List<GameObject> loadObjects;
         private Fade fader;
         private int spawnedHandlingCoroutinesRunning;
+        
+        [SyncVar]
+        public bool isSelected;
+
+        public void SetSelected(bool selected)
+        {
+            isSelected = selected;
+            UpdateVisualState(); // Método que actualiza el estado visual del cuadro
+        }
+
+        private void UpdateVisualState()
+        {
+            Renderer renderer = GetComponent<Renderer>();
+            renderer.material.color = isSelected ? Color.yellow : Color.white;
+        }
 
         // Auxiliary Task Class
         [SerializeField] private GameObject renderManager;

@@ -62,8 +62,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20d2623ee7dde354bace824b25cae7a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  elementFrame: {fileID: 0}
-  filePaths: []
+  elementPaths: []
   globalIndex: 0
   renderManager: {fileID: 0}
 --- !u!1 &3387136947922226378

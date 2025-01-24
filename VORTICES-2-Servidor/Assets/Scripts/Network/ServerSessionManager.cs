@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using Mirror;
+using Vortices;
 
 public class ServerSessionManager : NetworkBehaviour
 {
@@ -10,6 +11,9 @@ public class ServerSessionManager : NetworkBehaviour
     private Dictionary<string, SessionData> activeSessions = new Dictionary<string, SessionData>();
 
     private static ServerSessionManager _instance;
+
+    [SerializeField]
+    private GameObject museumBasePrefab;
 
     public static ServerSessionManager Instance
     {
@@ -134,6 +138,12 @@ public class ServerSessionManager : NetworkBehaviour
         });
 
         NetworkManager.singleton.ServerChangeScene(msg.environmentName);
+
+        if (msg.environmentName == "Museum Environment"){
+            Debug.Log("Iniciando Museum Base");
+            InitializeMuseumBase(sessionData.elementPaths);
+
+        }
     }
 
 
@@ -217,6 +227,30 @@ public class ServerSessionManager : NetworkBehaviour
         {
             //Debug.Log("No hay sesiones activas que eliminar.");
         }
+    }
+
+    public void InitializeMuseumBase(List<string> urls)
+    {
+        // Verificar si ya existe un MuseumBase
+        if (FindObjectOfType<MuseumBase>() != null)
+        {
+            Debug.LogWarning("Ya existe un Museum Base. No se creará otro.");
+            return;
+        }
+
+        // Instanciar el prefab
+        GameObject museumBase = Instantiate(museumBasePrefab);
+
+        // Configurar las URLs en el prefab
+        MuseumBase museumBaseComponent = museumBase.GetComponent<MuseumBase>();
+        museumBaseComponent.Initialize(urls);
+
+        // Asegurar que el objeto persista en los cambios de escena
+        DontDestroyOnLoad(museumBase);
+
+        // Sincronizar el prefab con los clientes
+        NetworkServer.Spawn(museumBase);
+        Debug.Log($"Museum Base spawneado con Network Identity ID: {museumBase.GetComponent<NetworkIdentity>().netId}");
     }
 
     #endregion

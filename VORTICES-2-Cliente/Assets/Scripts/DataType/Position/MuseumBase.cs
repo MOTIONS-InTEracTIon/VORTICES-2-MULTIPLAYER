@@ -11,6 +11,11 @@ namespace Vortices
 
         #region Element Spawn
 
+        public void Initialize(List<string> urls)
+        {
+            elementPaths = urls;
+        }
+
         public override IEnumerator StartGenerateSpawnElements()
         {
             int fadeCoroutinesRunning = 0;
