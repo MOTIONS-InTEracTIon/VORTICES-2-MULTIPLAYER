@@ -11,10 +11,11 @@ using UnityEngine.XR.Interaction.Toolkit;
 using TMPro;
 using System;
 using UnityEngine.InputSystem.XR;
+using Mirror;
 
 namespace Vortices
 {
-    public class Element : MonoBehaviour
+    public class Element : NetworkBehaviour
     {
         // Other references
         [SerializeField] private GameObject dummyPrefab;
@@ -37,7 +38,6 @@ namespace Vortices
         private RighthandTools righthandTools;
 
         // Settings
-        public string url;
         private string browsingMode;
         private string displayMode;
         private float selectionTime = 3.0f;
@@ -53,6 +53,9 @@ namespace Vortices
         // Auxiliary references
         private SessionManager sessionManager;
 
+        [SyncVar(hook = nameof(OnUrlChanged))]
+        public string url;
+
         private void OnDisable()
         {
             if (sessionManager.elementCategoryController.elementGameObjects.Contains(this))
@@ -61,7 +64,7 @@ namespace Vortices
             }
         }
 
-        public void Initialize(string browsingMode, string displayMode, string url, CanvasWebViewPrefab canvas)
+        public void Initialize(string browsingMode, string displayMode, string url, CanvasWebViewPrefab canvas, string initialUrl)
         {
             sessionManager = GameObject.FindObjectOfType<SessionManager>();
             righthandTools = GameObject.FindObjectOfType<RighthandTools>();
@@ -79,6 +82,7 @@ namespace Vortices
             browserControls.SetActive(true);
             this.browsingMode = browsingMode;
             this.url = url;
+            this.url = initialUrl;
             this.displayMode = displayMode;
 
             // Add element to list of all element for easy access
@@ -151,6 +155,11 @@ namespace Vortices
                 selectionRendererColor.g,
                 selectionRendererColor.b, 0f);
 
+            if (isServer)
+            {
+                url = initialUrl; // Solo el servidor puede cambiar el valor inicial
+            }
+
             initialized = true;
         }
 
@@ -209,6 +218,22 @@ namespace Vortices
             {
                 categorizedNo.SetActive(true);
                 categorizedYes.SetActive(false);
+            }
+        }
+
+        private void OnUrlChanged(string oldUrl, string newUrl)
+        {
+            // Lógica para actualizar la URL en el CanvasWebView
+            UpdateCanvasWebView(newUrl);
+        }
+
+        private void UpdateCanvasWebView(string newUrl)
+        {
+            var canvasWebView = GetComponentInChildren<CanvasWebViewPrefab>();
+            if (canvasWebView != null)
+            {
+                Debug.Log($"Actualizando CanvasWebView con la URL: {newUrl}");
+                canvasWebView.WebView.LoadUrl(newUrl);
             }
         }
 
