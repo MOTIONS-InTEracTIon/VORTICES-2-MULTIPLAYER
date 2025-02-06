@@ -5,7 +5,6 @@ using UnityEngine;
 using System.IO;
 using System.Linq;
 using Unity.VisualScripting;
-using Mirror;
 
 namespace Vortices
 { 
@@ -26,22 +25,13 @@ namespace Vortices
 
         private void Start()
         {
-            if(NetworkServer.active && !NetworkClient.active)
-            {
-                Debug.Log("ElementCategoryController desactivado en el servidor.");
-                return;
-            }
-
-            sessionManager = GameObject.Find("SessionManager")?.GetComponent<SessionManager>();
-            if (sessionManager == null)
-            {
-                Debug.Log("SessionManager no encontrado en la escena.");
-            }
+            sessionManager = GameObject.Find("SessionManager").GetComponent<SessionManager>();
         }
 
         public void Initialize()
         {
             allSessionElementCategory = new List<SessionElementCategory>(); // All sessions
+            Debug.Log("ElementCategoryController inicializado.");
             elementCategoriesList = new List<ElementCategory>();
             elementGameObjects = new List<Element>();
 
@@ -147,6 +137,10 @@ namespace Vortices
 
         private void UpdateSessionCategoryList(List<ElementCategory> updatedElementCategoryList)
         {
+            if(allSessionElementCategory == null)
+            {
+                Initialize();
+            }
             SessionElementCategory oldSessionElementCategory = allSessionElementCategory.FirstOrDefault<SessionElementCategory>(session => session.sessionName == this.sessionName && session.userId == this.userId);
             if(oldSessionElementCategory != null)
             {

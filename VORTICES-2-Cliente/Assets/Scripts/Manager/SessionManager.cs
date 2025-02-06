@@ -33,6 +33,8 @@ namespace Vortices
         public List<string> elementPaths;
         // Session Manager settings
         public float initializeTime = 2.0f;
+        private bool sessionDataReceived = false;
+
 
         // Controllers
         [SerializeField] private SceneTransitionManager actualTransitionManager;
@@ -221,54 +223,83 @@ namespace Vortices
             actualTransitionManager.returnToMain = false;
 
             if (isOnlineSession)
-            {
-                if (!NetworkClient.isConnected)
                 {
-                    NetworkManager.singleton.networkAddress = "134.65.228.226"; // Cambia por la IP del servidor si no es local 192.168.31.72(maquina virtual) 192.168.31.117(notebook)
-                    NetworkManager.singleton.StartClient();
+                    if (!NetworkClient.isConnected)
+                    {
+                        NetworkManager.singleton.networkAddress = "127.0.0.1"; // Cambia según la IP del servidor
+                        NetworkManager.singleton.StartClient();
+
+                        float timeout = 10f;
+                        while (!NetworkClient.isConnected && timeout > 0f)
+                        {
+                            timeout -= Time.deltaTime;
+                            yield return null;
+                        }
+
+                        if (!NetworkClient.isConnected)
+                        {
+                            Debug.LogError("[SessionManager] No se pudo conectar al servidor.");
+                            sessionLaunchRunning = false;
+                            yield break;
+                        }
+                    }
+
+                    SessionData sessionData = new SessionData
+                    {
+                        sessionName = sessionName,
+                        userId = userId,
+                        environmentName = environmentName,
+                        elementPaths = elementPaths,
+                        categories = categoryController.GetCategories(),
+                        browsingMode = "Online"
+                    };
+
+                    yield return StartCoroutine(SendSessionDataToServer(sessionData));
+
+                    
+                    if (environmentName == "Circular")
+                    {
+                        environmentName = "Circular Environment";
+                    }
+                    else if (environmentName == "Museum")
+                    {
+                        environmentName = "Museum Environment";
+                    }
+
+                    yield return StartCoroutine(actualTransitionManager.GoToSceneRoutine());
+            
+                    yield return new WaitForSeconds(initializeTime);
+
+
+
+                    //  AHORA BUSCAMOS TODOS LOS OBJETOS NECESARIOS 
                     actualTransitionManager = GameObject.FindObjectOfType<SceneTransitionManager>(true);
                     categoryController = GameObject.FindObjectOfType<CategoryController>(true);
                     elementCategoryController = GameObject.FindObjectOfType<ElementCategoryController>(true);
                     loggingController = GameObject.FindObjectOfType<LoggingController>(true);
+                    spawnController = GameObject.FindObjectOfType<SpawnController>(true);
                     righthandTools = GameObject.FindObjectOfType<RighthandTools>(true);
 
-                    float timeout = 10f;
-                    while (!NetworkClient.isConnected && timeout > 0f)
-                    {
-                        timeout -= Time.deltaTime;
-                        yield return null;
-                    }
+                    elementCategoryController.Initialize();
+                    loggingController.Initialize();
+                    spawnController.Initialize();
+                    inputController.RestartInputs();
 
-                    if (!NetworkClient.isConnected)
-                    {
-                        sessionLaunchRunning = false;
-                        yield break;
-                    }
+                    sessionLaunchRunning = false;
+
+                    StartCoroutine(ConnectToVoiceChatCoroutine(userId));
+                    Debug.Log("Se envió la data al servidor.");
+                    yield break;
                 }
 
-                SessionData sessionData = new SessionData
-                {
-                    sessionName = sessionName,
-                    userId = userId,
-                    environmentName = environmentName,
-                    elementPaths = elementPaths,
-                    categories = categoryController.GetCategories(),
-                    browsingMode = "Online" 
-                };
-
-                StartCoroutine(ConnectToVoiceChatCoroutine(userId));
-
-                yield return SendSessionDataToServer(sessionData);
-
-                yield break;
-            }
-
+            Debug.Log("Empeze GoTo Offline");
             yield return StartCoroutine(actualTransitionManager.GoToSceneRoutine());
             
-
+            Debug.Log("Sali GoTo Offline");
             yield return new WaitForSeconds(initializeTime);
 
             // When done, configure controllers of the scene
+            Debug.Log("Busco Offline");
             actualTransitionManager = GameObject.FindObjectOfType<SceneTransitionManager>(true);
             categoryController = GameObject.FindObjectOfType<CategoryController>(true);
             elementCategoryController = GameObject.FindObjectOfType<ElementCategoryController>(true);
@@ -284,6 +315,7 @@ namespace Vortices
 
 
             sessionLaunchRunning = false;
+            Debug.Log("Termino Offline");
         }
 
         public IEnumerator SendSessionDataToServer(SessionData sessionData)
@@ -311,7 +343,6 @@ namespace Vortices
 
             yield return new WaitForSeconds(1.0f);
         }
-
 
         public IEnumerator StopSessionCoroutine()
         {
@@ -421,23 +452,52 @@ namespace Vortices
             {
                 NetworkManager.singleton.networkAddress = ipAddress;
                 NetworkManager.singleton.StartClient();
-                actualTransitionManager = GameObject.FindObjectOfType<SceneTransitionManager>(true);
-                categoryController = GameObject.FindObjectOfType<CategoryController>(true);
-                elementCategoryController = GameObject.FindObjectOfType<ElementCategoryController>(true);
-                loggingController = GameObject.FindObjectOfType<LoggingController>(true);
-                righthandTools = GameObject.FindObjectOfType<RighthandTools>(true);
-                
-                // Conectar al canal de voz
-                StartCoroutine(ConnectToVoiceChatCoroutine(userId));
-    
-                // Esperar conexi�n y solicitar sesiones activas
-                StartCoroutine(WaitForConnectionAndJoinSession());
+                StartCoroutine(WaitForConnectionAndJoinSession()); // Primero conectamos
+
+                isOnlineSession = true;
+
+                // Esperamos a que se reciba la sesión antes de proceder
+                StartCoroutine(WaitForSessionDataAndLoadScene());
             }
             else
             {
-                Debug.LogWarning("La direcci�n IP est� vac�a.");
+                Debug.LogWarning("La dirección IP está vacía.");
             }
         }
+
+
+        private IEnumerator JoinSessionRoutine()
+        {
+            Debug.Log("[DEBUG] Iniciando carga de escena para sesión online...");
+        
+            // Cambiar a la escena correspondiente
+            yield return StartCoroutine(actualTransitionManager.GoToSceneRoutine());
+
+            Debug.Log("[DEBUG] Esperando tiempo de inicialización...");
+            yield return new WaitForSeconds(initializeTime);
+
+            //  AHORA BUSCAMOS TODOS LOS OBJETOS NECESARIOS 
+            Debug.Log("[DEBUG] Buscando y configurando controladores en la escena...");
+
+            actualTransitionManager = GameObject.FindObjectOfType<SceneTransitionManager>(true);
+            categoryController = GameObject.FindObjectOfType<CategoryController>(true);
+            elementCategoryController = GameObject.FindObjectOfType<ElementCategoryController>(true);
+            loggingController = GameObject.FindObjectOfType<LoggingController>(true);
+            spawnController = GameObject.FindObjectOfType<SpawnController>(true);
+            righthandTools = GameObject.FindObjectOfType<RighthandTools>(true);
+
+            elementCategoryController.Initialize();
+            loggingController.Initialize();
+            spawnController.Initialize();
+            inputController.RestartInputs();
+
+            sessionLaunchRunning = false;
+
+            // Conectar al canal de voz
+            Debug.Log("[DEBUG] Conectando al canal de voz...");
+            StartCoroutine(ConnectToVoiceChatCoroutine(userId));
+        }
+
 
         private IEnumerator WaitForConnectionAndJoinSession()
         {
@@ -479,6 +539,7 @@ namespace Vortices
 
             sessionName = msg.sessionData.sessionName;
             userId = msg.sessionData.userId;
+            Debug.Log($"[DEBUG] Environment recibido del servidor: '{msg.sessionData.environmentName}'");
 
             if (msg.sessionData.environmentName == "Circular Environment")
             {
@@ -492,12 +553,81 @@ namespace Vortices
             {
                 environmentName = msg.sessionData.environmentName;
             }
+
             browsingMode = msg.sessionData.browsingMode;
-            elementPaths = msg.sessionData.elementPaths;
             displayMode = msg.sessionData.displayMode;
             volumetric = msg.sessionData.volumetric;
             dimension = msg.sessionData.dimension;
+
+            //  Agregamos logs para ver los `elementPaths` recibidos
+            Debug.Log($"[DEBUG] ElementPaths recibidos ({msg.sessionData.elementPaths.Count} elementos):");
+            foreach (string path in msg.sessionData.elementPaths)
+            {
+                Debug.Log($"  - {path}");
+            }
+
+            //  Asignamos los `elementPaths` al SessionManager
+            elementPaths = new List<string>(msg.sessionData.elementPaths);
+
+            //  Actualizamos el AddonsController con el environment correcto
+            AddonsController addonsController = AddonsController.instance;
+            if (addonsController != null)
+            {
+                foreach (var envObject in addonsController.environmentObjects)
+                {
+                    if (envObject.environmentName == msg.sessionData.environmentName)
+                    {
+                        addonsController.currentEnvironmentObject = envObject;
+                        Debug.Log($"[DEBUG] Se ha actualizado AddonsController con el environment: {envObject.environmentName}");
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                Debug.LogError("[ERROR] No se encontró AddonsController, no se pudo actualizar el environment.");
+            }
+
+            //  Confirmamos que los datos han sido recibidos
+            sessionDataReceived = true;
         }
+
+
+
+
+        private IEnumerator WaitForSessionDataAndLoadScene()
+        {
+            Debug.Log("[DEBUG] Esperando recibir los datos de la sesión...");
+
+            float timeout = 10f;
+            while (!sessionDataReceived && timeout > 0f)
+            {
+                timeout -= Time.deltaTime;
+                yield return null;
+            }
+
+            if (!sessionDataReceived)
+            {
+                Debug.LogError("No se recibieron los datos de la sesión dentro del tiempo límite.");
+                yield break;
+            }
+
+            // ✅ Verificamos que `elementPaths` tiene datos
+            if (elementPaths == null || elementPaths.Count == 0)
+            {
+                Debug.LogError("[ERROR] Los ElementPaths están VACÍOS después de recibir los datos de la sesión.");
+            }
+            else
+            {
+                Debug.Log($"[DEBUG] ElementPaths listos con {elementPaths.Count} elementos.");
+            }
+
+            Debug.Log("[DEBUG] Datos de sesión recibidos, cargando escena...");
+            StartCoroutine(JoinSessionRoutine());
+        }
+
+
+
 
         private IEnumerator ConnectToVoiceChatCoroutine(int userId)
         {

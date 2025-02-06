@@ -63,6 +63,15 @@ namespace Vortices
             {
                 sceneName = "Main Menu";
             }
+
+            Debug.Log($"[DEBUG] Intentando cargar la escena: '{sceneName}'");
+
+            if (string.IsNullOrEmpty(sceneName))
+            {
+                Debug.LogError("[ERROR] El nombre de la escena está vacío. Verifica que environmentName esté correctamente asignado.");
+                yield break;
+            }
+
             AsyncOperation operation = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Single);
             operation.allowSceneActivation = false;
 

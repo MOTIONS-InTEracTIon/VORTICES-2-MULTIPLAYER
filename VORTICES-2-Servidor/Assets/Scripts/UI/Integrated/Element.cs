@@ -11,11 +11,10 @@ using UnityEngine.XR.Interaction.Toolkit;
 using TMPro;
 using System;
 using UnityEngine.InputSystem.XR;
-using Mirror;
 
 namespace Vortices
 {
-    public class Element : NetworkBehaviour
+    public class Element : MonoBehaviour
     {
         // Other references
         [SerializeField] private GameObject dummyPrefab;
@@ -53,7 +52,6 @@ namespace Vortices
         // Auxiliary references
         private SessionManager sessionManager;
 
-        [SyncVar(hook = nameof(OnUrlChanged))]
         public string url;
 
         private void OnDisable()
@@ -64,7 +62,7 @@ namespace Vortices
             }
         }
 
-        public void Initialize(string browsingMode, string displayMode, string url, CanvasWebViewPrefab canvas, string initialUrl)
+        public void Initialize(string browsingMode, string displayMode, string url, CanvasWebViewPrefab canvas)
         {
             sessionManager = GameObject.FindObjectOfType<SessionManager>();
             righthandTools = GameObject.FindObjectOfType<RighthandTools>();
@@ -82,7 +80,6 @@ namespace Vortices
             browserControls.SetActive(true);
             this.browsingMode = browsingMode;
             this.url = url;
-            this.url = initialUrl;
             this.displayMode = displayMode;
 
             // Add element to list of all element for easy access
@@ -110,13 +107,32 @@ namespace Vortices
 
                 // Updates the url of the element if user interacts with web view, with new online mode this is no longer needed, activate if asked
                 // Add event so it updates categories when navigating
-                /*canvasWebView.UrlChanged += (sender, eventArgs) =>
+                canvasWebView.UrlChanged += (sender, eventArgs) =>
                 {
-                    this.url = canvasWebView.Url;
-                    sessionManager.loggingController.LogUrlChanged(url);
-                    righthandTools.UpdateCategorizeSubMenu(this);
+                    string newUrl = canvasWebView.Url;
+                    Debug.Log($"[Cliente] URL cambiada en CanvasWebView: {newUrl}");
+
+                    //   Buscar el MuseumElement en el abuelo (Frame → MuseumElement)
+                    var museumElement = transform.parent?.parent?.GetComponent<MuseumElement>();
+                    if (museumElement == null)
+                    {
+                        Debug.LogError("[Cliente] No se encontró el MuseumElement en el abuelo de Element.");
+                        return;
+                    }
+
+                    int globalIndex = museumElement.globalIndex;
+
+                    //   Notificar a MuseumBaseNetworkHandler
+                    if (MuseumBaseNetworkHandler.Instance != null)
+                    {
+                        MuseumBaseNetworkHandler.Instance.OnElementUrlChanged(globalIndex, newUrl);
+                    }
+                    else
+                    {
+                        Debug.LogError("[Cliente] No se encontró MuseumBaseNetworkHandler.");
+                    }
                 };
-                */
+                
                 // Add event for upper controls
                 Button goBackButton = goBack.GetComponent<Button>();
                 goBackButton.onClick.AddListener(delegate { GoBackOnline(); });
@@ -154,11 +170,6 @@ namespace Vortices
             selectionBoxRenderer.material.color = new Color(selectionRendererColor.r,
                 selectionRendererColor.g,
                 selectionRendererColor.b, 0f);
-
-            if (isServer)
-            {
-                url = initialUrl; // Solo el servidor puede cambiar el valor inicial
-            }
 
             initialized = true;
         }
@@ -221,44 +232,31 @@ namespace Vortices
             }
         }
 
-        private void OnUrlChanged(string oldUrl, string newUrl)
-        {
-            // Lógica para actualizar la URL en el CanvasWebView
-            UpdateCanvasWebView(newUrl);
-        }
-
-        private void UpdateCanvasWebView(string newUrl)
-        {
-            var canvasWebView = GetComponentInChildren<CanvasWebViewPrefab>();
-            if (canvasWebView != null)
-            {
-                Debug.Log($"Actualizando CanvasWebView con la URL: {newUrl}");
-                canvasWebView.WebView.LoadUrl(newUrl);
-            }
-        }
-
         #endregion
 
         #region Selection
 
         public void HoverElement(bool activate)
         {
+            Debug.Log($"[HoverElement] Activar: {activate} - Elemento: {name}");
+
             if (sessionManager != null && !spawnController.movingOperationRunning)
             {
                 if (activate)
                 {
+                    Debug.Log("[HoverElement] Hover activado.");
+
                     if (!selected)
                     {
-                        // Send element to controller for it to be selected when A is pressed
+                        Debug.Log("[HoverElement] Seleccionando elemento.");
+
                         GameObject.Find("RightHand Controller").GetComponent<HandController>().selectElement = this;
 
-                        //Show box
+                        // Mostrar box
                         Renderer selectionBoxRenderer = headInteractor.GetComponent<Renderer>();
                         selectionBoxRenderer.material.color = Color.yellow;
-
                         Color selectionRendererColor = selectionBoxRenderer.material.color;
 
-                        // If out of hover it becomes invisible
                         selectionBoxRenderer.material.color = new Color(selectionRendererColor.r,
                             selectionRendererColor.g,
                             selectionRendererColor.b, 1f);
@@ -266,19 +264,16 @@ namespace Vortices
                         if (sessionManager.environmentName == "Museum")
                         {
                             Renderer frameRenderer = transform.parent.GetComponent<Renderer>();
-                            Color frameRendererColor = frameRenderer.material.color;
-
-                            frameRenderer.material.color = new Color(frameRendererColor.r,
-                                frameRendererColor.g,
-                                frameRendererColor.b, 0f);
-
+                            frameRenderer.material.color = new Color(0, 0, 0, 0f);
                         }
                     }
+
                     spawnController.elementsHovered++;
                 }
-                else 
+                else
                 {
-                    // Return element when hiding
+                    Debug.Log("[HoverElement] Hover desactivado.");
+
                     if (GameObject.Find("RightHand Controller").GetComponent<HandController>().selectElement != null)
                     {
                         GameObject.Find("RightHand Controller").GetComponent<HandController>().selectElement = null;
@@ -286,31 +281,28 @@ namespace Vortices
 
                     if (!selected)
                     {
-                        // Hide box
+                        // Ocultar box
                         Renderer selectionBoxRenderer = headInteractor.GetComponent<Renderer>();
                         selectionBoxRenderer.material.color = Color.yellow;
                         Color selectionRendererColor = selectionBoxRenderer.material.color;
 
-                        // If out of hover it becomes invisible
                         selectionBoxRenderer.material.color = new Color(selectionRendererColor.r,
                             selectionRendererColor.g,
                             selectionRendererColor.b, 0f);
 
-
                         if (sessionManager.environmentName == "Museum")
                         {
                             Renderer frameRenderer = transform.parent.GetComponent<Renderer>();
-                            Color frameRendererColor = frameRenderer.material.color;
-
-                            frameRenderer.material.color = new Color(frameRendererColor.r,
-                                frameRendererColor.g,
-                                frameRendererColor.b, 1f);
+                            frameRenderer.material.color = new Color(1, 1, 1, 1f);
                         }
                     }
-                    
+
                     spawnController.elementsHovered--;
                 }
-
+            }
+            else
+            {
+                Debug.LogWarning("[HoverElement] Hover no procesado: sessionManager es NULL o spawnController está moviendo elementos.");
             }
         }
 

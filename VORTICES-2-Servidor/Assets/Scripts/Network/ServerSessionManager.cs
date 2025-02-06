@@ -13,7 +13,7 @@ public class ServerSessionManager : NetworkBehaviour
     private static ServerSessionManager _instance;
 
     [SerializeField]
-    private GameObject museumBasePrefab;
+    public GameObject museumBaseNetworkPrefab;
 
     public static ServerSessionManager Instance
     {
@@ -137,13 +137,13 @@ public class ServerSessionManager : NetworkBehaviour
             elementPaths = sessionData.elementPaths
         });
 
-        NetworkManager.singleton.ServerChangeScene(msg.environmentName);
+        Debug.Log("[Servidor] Creando MuseumBaseNetworkHandler para sincronización.");
 
-        if (msg.environmentName == "Museum Environment"){
-            Debug.Log("Iniciando Museum Base");
-            InitializeMuseumBase(sessionData.elementPaths);
+        GameObject museumBaseNetwork = Instantiate(museumBaseNetworkPrefab);
+        NetworkServer.Spawn(museumBaseNetwork);
 
-        }
+        Debug.Log($"[Servidor] MuseumBaseNetworkHandler spawneado con Net ID: {museumBaseNetwork.GetComponent<NetworkIdentity>().netId}");
+
     }
 
 
@@ -174,7 +174,6 @@ public class ServerSessionManager : NetworkBehaviour
         });
         Debug.Log($"Mensaje enviado al cliente {conn.connectionId}: {sessionData.sessionName}, {sessionData.environmentName}, {string.Join(", ", sessionData.categories)}, {sessionData.dimension}");
     }
-
 
     // Comando para unirse a una sesi�n existente
     [Command]
@@ -227,30 +226,6 @@ public class ServerSessionManager : NetworkBehaviour
         {
             //Debug.Log("No hay sesiones activas que eliminar.");
         }
-    }
-
-    public void InitializeMuseumBase(List<string> urls)
-    {
-        // Verificar si ya existe un MuseumBase
-        if (FindObjectOfType<MuseumBase>() != null)
-        {
-            Debug.LogWarning("Ya existe un Museum Base. No se creará otro.");
-            return;
-        }
-
-        // Instanciar el prefab
-        GameObject museumBase = Instantiate(museumBasePrefab);
-
-        // Configurar las URLs en el prefab
-        MuseumBase museumBaseComponent = museumBase.GetComponent<MuseumBase>();
-        museumBaseComponent.Initialize(urls);
-
-        // Asegurar que el objeto persista en los cambios de escena
-        DontDestroyOnLoad(museumBase);
-
-        // Sincronizar el prefab con los clientes
-        NetworkServer.Spawn(museumBase);
-        Debug.Log($"Museum Base spawneado con Network Identity ID: {museumBase.GetComponent<NetworkIdentity>().netId}");
     }
 
     #endregion

@@ -10,7 +10,6 @@ namespace Vortices
     public class SpawnController : MonoBehaviour
     {
         // Auxiliary references
-        [SerializeField]
         private SessionManager sessionManager;
 
         // Display (Prefabs for every base and a list for every environment)
@@ -32,11 +31,7 @@ namespace Vortices
 
         public void Initialize()
         {
-            if (sessionManager == null)
-            {
-                Debug.LogError("SessionManager no está asignado en el SpawnController.");
-            }
-            Debug.Log("Inicializando Spawn Controller");
+            sessionManager = GameObject.Find("SessionManager").GetComponent<SessionManager>();
             spawnGroup = GameObject.Find("Information Object Group");
             righthandTools = GameObject.FindObjectOfType<RighthandTools>(true);
         }
@@ -44,25 +39,12 @@ namespace Vortices
         #region Base Spawn
         public void StartSession(bool asSortingBase, List<string> customUrls)
         {
-            if (spawnGroup == null || righthandTools == null)
-            {
-                Debug.Log("SpawnController no estaba inicializado. Llamando a Initialize...");
-                Initialize();
-            }
-            Debug.Log("Esta iniciado SpawnController y/o el RightHandTools");
             if (!asSortingBase)
             {
                 righthandTools = GameObject.FindObjectOfType<RighthandTools>(true);
                 righthandTools.Initialize();
             }
 
-            if (sessionManager == null)
-            {
-                Debug.LogError("SessionManager no está inicializado en SpawnController.");
-                return;
-            }
-
-            Debug.Log($"Iniciando sesión con environmentName: {sessionManager.environmentName}");
 
             // A fork for every environment possible
             if (sessionManager.environmentName == "Circular")
@@ -89,22 +71,6 @@ namespace Vortices
                     }
                     else
                     {
-                        Debug.Log($"spawnGroup: {spawnGroup?.name ?? "null"}");
-                        if (spawnGroup == null)
-                        {
-                            Debug.LogError("spawnGroup no está asignado. Revisa el método Initialize o la jerarquía de la escena.");
-                        }
-
-                        Debug.Log($"placementCircularBasePrefabs count: {placementCircularBasePrefabs.Count}");
-                        if (placementCircularBasePrefabs.Count > 0)
-                        {
-                            Debug.Log($"placementCircularBasePrefabs[0]: {placementCircularBasePrefabs[0].name}");
-                        }
-                        else
-                        {
-                            Debug.LogError("placementCircularBasePrefabs está vacío. Asegúrate de asignar los prefabs en el inspector.");
-                        }
-
                         placementBase = Instantiate(placementCircularBasePrefabs[0], spawnGroup.transform.position + positionOffset, placementCircularBasePrefabs[0].transform.rotation, spawnGroup.transform);
 
                         spawnBase = placementBase.GetComponent<CircularSpawnBase>();
@@ -181,6 +147,17 @@ namespace Vortices
                     {
                         // This base wont be instantiated as it has a premade spatial distribution (This can be changed to create more multimedia arrangements
                         MuseumSpawnBase spawnBase = GameObject.FindObjectOfType<MuseumBase>();
+
+                        if (spawnBase == null)
+                        {
+                            Debug.LogError("[SpawnController] No se encontrÃ³ MuseumBase en la escena.");
+                            return; // Evita el error deteniendo la ejecuciÃ³n aquÃ­.
+                        }
+                        else
+                        {
+                            Debug.Log($"[SpawnController] MuseumBase encontrado: {spawnBase.gameObject.name}");
+                        }
+
                         placementBase = spawnBase.gameObject;
 
                         spawnBase.elementPaths = sessionManager.elementPaths;
@@ -235,25 +212,7 @@ namespace Vortices
         public IEnumerator StopSession()
         {
             sessionManager = GameObject.Find("SessionManager").GetComponent<SessionManager>();
-            if (sessionManager == null)
-            {
-                Debug.LogError("No se encontro el SessionManager en el StopSession");
-            }
-            else
-            {
-                Debug.Log("SessionManager encontrado");
-            }
-            Debug.Log("Se entro al StopSession");
-            if (sessionManager.sessionLaunchRunning == null)
-            {
-                Debug.Log("Es nulo la sesión");
-            }
-            else
-            {
-                Debug.Log("El valor del booleano es: " + sessionManager.sessionLaunchRunning);
-            }
-
-            if (sessionManager.sessionLaunchRunning)
+            if (!sessionManager.sessionLaunchRunning)
             {
                 /*if (placementBase != null)
                 {

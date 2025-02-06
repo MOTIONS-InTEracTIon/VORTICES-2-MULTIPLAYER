@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Mirror;
 
 using System.Linq;
 using TMPro;
@@ -15,7 +16,8 @@ namespace Vortices
         Base = 0,   
         CategorizeEmpty = 1,
         Categorize = 2,
-        Sort = 3
+        Sort = 3,
+        Chat = 4
     }
 
     public class RighthandTools : MonoBehaviour
@@ -64,6 +66,7 @@ namespace Vortices
 
         // Auxiliary References
         private SessionManager sessionManager;
+        public NewChatManager chatManager;
 
 
         private void Update()
@@ -310,6 +313,7 @@ namespace Vortices
             }
         }
 
+
         #endregion
 
         #region Data Operations
@@ -479,6 +483,7 @@ namespace Vortices
                 }
             }
         }
+
         // Extracts categories from elementCategoryController of all elements and counts them
         public void GetAllCategoryCount()
         {
@@ -559,6 +564,52 @@ namespace Vortices
                 }
             }
         }
+
+        public void OnChatToggleChanged(bool isOn)
+        {
+            Debug.Log("[OnChatToggleChanged] Iniciando búsqueda de NewChatManager...");
+
+            if (chatManager == null)
+            {
+                GameObject chatCanvas = null;
+
+                // Buscar entre objetos desactivados
+                GameObject[] allObjects = Resources.FindObjectsOfTypeAll<GameObject>();
+                foreach (GameObject obj in allObjects)
+                {
+                    if (obj.name == "ChatCanvas(Clone)" && obj.hideFlags == HideFlags.None)
+                    {
+                        chatCanvas = obj;
+                        Debug.Log("[OnChatToggleChanged] ChatCanvas encontrado entre objetos desactivados.");
+                        break;
+                    }
+                }
+
+                if (chatCanvas == null)
+                {
+                    Debug.LogError("[OnChatToggleChanged] ChatCanvas global no encontrado.");
+                    return;
+                }
+
+                // Obtener el NewChatManager del ChatCanvas
+                chatManager = chatCanvas.GetComponent<NewChatManager>();
+                if (chatManager == null)
+                {
+                    Debug.LogError("[OnChatToggleChanged] NewChatManager no encontrado en el ChatCanvas.");
+                    return;
+                }
+
+                Debug.Log("[OnChatToggleChanged] NewChatManager asignado correctamente.");
+            }
+
+            // Alternar el chat
+            chatManager.ToggleChat();
+        }
+
+
+        
+
+
         #endregion
     }
 }

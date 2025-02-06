@@ -12,13 +12,25 @@ public class HandController : MonoBehaviour
 {
     // Other references
     public Element selectElement;
+    private RighthandTools righthandTools;
 
     // Input
     [SerializeField] InputActionProperty aPress;
+    [SerializeField] InputActionProperty bPress;
+
 
 
     private void Start()
     {
+        righthandTools = FindObjectOfType<RighthandTools>();
+
+        if (righthandTools == null)
+        {
+            Debug.LogError("[HandController] No se encontró el script RightHandTools.");
+            return;
+        }
+
+        //bPress.action.started += OpenChat;
         aPress.action.started += SelectElement;
 
     }
@@ -26,6 +38,7 @@ public class HandController : MonoBehaviour
     private void OnDisable()
     {
         aPress.action.started -= SelectElement;
+       // bPress.action.started -= OpenChat;
 
     }
 
@@ -37,6 +50,15 @@ public class HandController : MonoBehaviour
         if(selectElement != null)
         {
             selectElement.GetComponent<Element>().SelectElement();
+        }
+    }
+
+    private void OpenChat(InputAction.CallbackContext context)
+    {
+        Debug.Log("[HandController] Botón B presionado: Abrir/Cerrar Chat.");
+        if (righthandTools != null)
+        {
+            righthandTools.OnChatToggleChanged(true); // Abre el chat
         }
     }
 

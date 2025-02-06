@@ -16,6 +16,8 @@ public class PlayerChatController : NetworkBehaviour
         {
             Debug.LogError("[PlayerChatController] SessionManager no encontrado en la escena.");
         }
+
+        DontDestroyOnLoad(gameObject);
     }
 
     [Command]

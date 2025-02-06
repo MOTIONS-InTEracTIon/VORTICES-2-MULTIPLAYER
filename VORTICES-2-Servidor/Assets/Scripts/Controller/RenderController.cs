@@ -174,7 +174,6 @@ namespace Vortices
             rectTransform.offsetMax = Vector2.zero;
             canvas.transform.localScale = Vector3.one;
             canvasWebView.Resolution = 640;
-
             yield return StartCoroutine(canvasWebView.WaitUntilInitialized().AsIEnumerator());
 
             bool finished = false;
@@ -191,46 +190,38 @@ namespace Vortices
                 }
             };
 
-            // Decide la URL dependiendo del modo de navegación
             string url = "";
-            if (!string.IsNullOrEmpty(loadPath)) // Usar loadPath si está disponible
+
+            // Local mode is used for sorting too so if the element is a webpage it has to be put as it is
+            if (browsingMode == "Local")
             {
-                if (browsingMode == "Local")
-                {
-                    if (loadPath.Contains("://"))
-                    {
-                        url = loadPath;
-                    }
-                    else
-                    {
-                        url = loadPath.Replace(@"\", "/");
-                        url = url.Replace(" ", "%20");
-                        url = @"file://" + url;
-                    }
-                }
-                else if (browsingMode == "Online")
+                if (loadPath.Contains("://"))
                 {
                     url = loadPath;
                 }
+                else
+                {
+                    url = loadPath.Replace(@"\", "/");
+                    url = url.Replace(" ", "%20");
+                    url = @"file://" + url;
+                }
             }
-            else
+            else if (browsingMode == "Online")
             {
-                // Si loadPath no está disponible, usa una URL predeterminada o sincronizada
-                url = elementCanvas.GetComponent<Element>().url;
-                Debug.Log($"Usando URL sincronizada: {url}");
+                url = loadPath;
             }
 
-            // Carga la URL en el CanvasWebView
             canvasWebView.WebView.LoadUrl(url);
-
+           
             while (!finished)
             {
                 yield return null;
             }
 
-            // Configuración posterior a la carga
+            // After load configuration
+
             Element element = elementCanvas.GetComponent<Element>();
-            element.Initialize(browsingMode, displayMode, url, canvasWebView, url);
+            element.Initialize(browsingMode, displayMode, url, canvasWebView);
 
             if (browsingMode == "Local")
             {
@@ -238,10 +229,9 @@ namespace Vortices
             }
             else if (browsingMode == "Online")
             {
-                // canvasWebView.WebView.SetRenderingEnabled(false);
+                //canvasWebView.WebView.SetRenderingEnabled(false);
             }
         }
-
 
         public async Task PauseWebView(CanvasWebViewPrefab canvas)
         {

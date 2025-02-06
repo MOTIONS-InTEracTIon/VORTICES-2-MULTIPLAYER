@@ -5646,7 +5646,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh67390
+  m_Name: pb_Mesh171702
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -17226,7 +17226,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd58f9e1b73b8164dbc7b2143f9ad17e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sessionManager: {fileID: 1936390244}
   placementCircularBasePrefabs:
   - {fileID: 2350696912613660619, guid: f0ab360914b537f4184fbbf10b941879, type: 3}
   - {fileID: 432916518892542207, guid: e1d61db8ffdbd8f40a147a56f8e2a3d0, type: 3}
@@ -22220,8 +22219,7 @@ MonoBehaviour:
   playerSpawnMethod: 0
   spawnPrefabs:
   - {fileID: 8039182486620635618, guid: b7097add0faf9de419085d27da4d5341, type: 3}
-  - {fileID: 3843954486258486393, guid: 85f5030f35d2a76499f6938ec0097c33, type: 3}
-  - {fileID: 3387136947747360163, guid: 3595034d3fc5a6e45aa7cbbff6aef567, type: 3}
+  - {fileID: 3518092845463129470, guid: 41efbb882bc82ea409f4869e62ce4a36, type: 3}
   timeInterpolationGui: 0
   chatCanvasPrefab: {fileID: 8039182486620635618, guid: b7097add0faf9de419085d27da4d5341, type: 3}
 --- !u!114 &1488218970
@@ -26640,7 +26638,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh48830
+  m_Name: pb_Mesh35756
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2

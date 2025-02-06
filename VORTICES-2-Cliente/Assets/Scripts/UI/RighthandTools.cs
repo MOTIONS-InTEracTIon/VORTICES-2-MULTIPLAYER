@@ -483,6 +483,7 @@ namespace Vortices
                 }
             }
         }
+
         // Extracts categories from elementCategoryController of all elements and counts them
         public void GetAllCategoryCount()
         {

@@ -147,6 +147,17 @@ namespace Vortices
                     {
                         // This base wont be instantiated as it has a premade spatial distribution (This can be changed to create more multimedia arrangements
                         MuseumSpawnBase spawnBase = GameObject.FindObjectOfType<MuseumBase>();
+
+                        if (spawnBase == null)
+                        {
+                            Debug.LogError("[SpawnController] No se encontró MuseumBase en la escena.");
+                            return; // Evita el error deteniendo la ejecución aquí.
+                        }
+                        else
+                        {
+                            Debug.Log($"[SpawnController] MuseumBase encontrado: {spawnBase.gameObject.name}");
+                        }
+
                         placementBase = spawnBase.gameObject;
 
                         spawnBase.elementPaths = sessionManager.elementPaths;

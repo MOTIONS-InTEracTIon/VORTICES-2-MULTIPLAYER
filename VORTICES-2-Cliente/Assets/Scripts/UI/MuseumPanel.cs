@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using SimpleFileBrowser;
+using System.IO;
 
 enum MuseumId
 {
@@ -167,7 +168,7 @@ namespace Vortices
                 () => {/* Handle closing*/
                     ChangeVisibleComponent((int)CircularId.BrowsingOnline);
                 },
-                FileBrowser.PickMode.FilesAndFolders, true, Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), null, "Load", "Select");
+                FileBrowser.PickMode.FilesAndFolders,true,Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Prueba Vortices"),null,"Load","Select");
 
         }
 
