@@ -4,6 +4,7 @@ using System.ComponentModel;
 using UnityEngine;
 using Mirror;
 using TMPro;
+using System.Linq;
 
 using UnityEngine.UI;
 
@@ -79,8 +80,85 @@ namespace Vortices
         // Changes to panel based on environment selection
         public void ChangePanelEnvironment()
         {
-            ChangeVisibleComponent(6 + currentEnvironmentId);
+            StartCoroutine(VerifyAndChangePanelEnvironment());
         }
+
+        private IEnumerator VerifyAndChangePanelEnvironment()
+        {
+            //  Cambiar al panel de selección del BrowsingMode
+            ChangeVisibleComponent(6 + currentEnvironmentId);
+
+            //  Obtener el nombre del entorno actual
+            string environmentName = SessionManager.instance.environmentName;
+
+            Debug.Log($"[DEBUG] Verificando panel de navegación para el entorno: {environmentName}");
+
+            float timeout = 5f; //  Evitar bucles infinitos con un tiempo límite
+
+            if (environmentName == "Museum")
+            {
+                MuseumPanel museumPanel = null;
+                while (museumPanel == null || !museumPanel.gameObject.activeInHierarchy)
+                {
+                    museumPanel = FindObjectsOfType<MuseumPanel>(true).FirstOrDefault();
+                    if (museumPanel != null && museumPanel.gameObject.activeInHierarchy)
+                    {
+                        break;
+                    }
+                    timeout -= Time.deltaTime;
+                    if (timeout <= 0)
+                    {
+                        Debug.LogError("[ERROR] Timeout esperando a que MuseumPanel se active.");
+                        yield break;
+                    }
+                    yield return null;
+                }
+
+                Debug.Log("[DEBUG] MuseumPanel activado correctamente.");
+
+                //  Verificar si la sesión es online
+                if (SessionManager.instance.isOnlineSession)
+                {
+                    Debug.Log("[DEBUG] Sesión online detectada. Forzando Browsing Mode a Online en MuseumPanel.");
+                    museumPanel.browsingMode = 1;
+                    museumPanel.ChangeComponentBrowserMode();
+                }
+            }
+            else if (environmentName == "Circular")
+            {
+                CircularPanel circularPanel = null;
+                while (circularPanel == null || !circularPanel.gameObject.activeInHierarchy)
+                {
+                    circularPanel = FindObjectsOfType<CircularPanel>(true).FirstOrDefault();
+                    if (circularPanel != null && circularPanel.gameObject.activeInHierarchy)
+                    {
+                        break;
+                    }
+                    timeout -= Time.deltaTime;
+                    if (timeout <= 0)
+                    {
+                        Debug.LogError("[ERROR] Timeout esperando a que CircularPanel se active.");
+                        yield break;
+                    }
+                    yield return null;
+                }
+
+                Debug.Log("[DEBUG] CircularPanel activado correctamente.");
+
+                //  Verificar si la sesión es online
+                if (SessionManager.instance.isOnlineSession)
+                {
+                    Debug.Log("[DEBUG] Sesión online detectada. Forzando Browsing Mode a Online en CircularPanel.");
+                    circularPanel.browsingMode = 1;
+                    circularPanel.ChangeComponentBrowserMode();
+                }
+            }
+            else
+            {
+                Debug.LogWarning($"[WARNING] Environment '{environmentName}' no reconocido. No se aplicará cambio automático de Browsing Mode.");
+            }
+        }
+
 
         public void ChangePanelToggle(Toggle toggle)
         {
@@ -165,7 +243,7 @@ namespace Vortices
             }
             else
             {
-                Debug.LogError("SessionManager no est� disponible.");
+                Debug.LogError("SessionManager no est� disponible.");
             }
         }
 
