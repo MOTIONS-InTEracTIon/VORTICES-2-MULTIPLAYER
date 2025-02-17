@@ -114,4 +114,59 @@ public class MuseumBaseNetworkHandler : NetworkBehaviour
 
         Debug.Log("[Cliente] MuseumBase encontrado. Sincronización lista.");
     }
+
+    [Command(requiresAuthority = false)]
+    public void CmdUpdateCategory(string elementUrl, string categoryName, bool isAdding)
+    {
+        Debug.Log($"[Servidor] Recibida actualización de categorización para {elementUrl}, categoría: {categoryName}, agregar: {isAdding}");
+
+        // Llamar al Rpc para propagar la actualización a todos los clientes
+        RpcUpdateCategory(elementUrl, categoryName, isAdding);
+    }
+
+    [ClientRpc]
+    void RpcUpdateCategory(string elementUrl, string categoryName, bool isAdding)
+    {
+        Debug.Log($"[Cliente] Intentando actualizar categoría '{categoryName}' en '{elementUrl}' (Agregar: {isAdding})");
+
+        //  Buscar la instancia de ElementCategoryController en la escena
+        ElementCategoryController elementCategoryController = FindObjectOfType<ElementCategoryController>();
+
+        if (elementCategoryController == null)
+        {
+            Debug.LogError("[Cliente] No se encontró ElementCategoryController en la escena.");
+            return;
+        }
+
+        // Obtener la categoría del elemento
+        var elementCategory = elementCategoryController.GetSelectedCategories(elementUrl);
+
+        //  Verificar si la categoría ya está para evitar duplicados
+        if (isAdding && elementCategory.elementCategories.Contains(categoryName))
+        {
+            Debug.Log($"[Cliente] La categoría '{categoryName}' ya existe en '{elementUrl}', no se vuelve a agregar.");
+            return;
+        }
+        else if (!isAdding && !elementCategory.elementCategories.Contains(categoryName))
+        {
+            Debug.Log($"[Cliente] La categoría '{categoryName}' no existe en '{elementUrl}', no se puede eliminar.");
+            return;
+        }
+
+        if (isAdding)
+        {
+            elementCategory.elementCategories.Add(categoryName);
+            Debug.Log($"[Cliente] Categoría '{categoryName}' agregada correctamente.");
+        }
+        else
+        {
+            elementCategory.elementCategories.Remove(categoryName);
+            Debug.Log($"[Cliente] Categoría '{categoryName}' eliminada correctamente.");
+        }
+
+        //  Ahora actualizamos en el ElementCategoryController correcto
+        elementCategoryController.UpdateElementCategoriesList(elementUrl, elementCategory);
+    }
+
+
 }

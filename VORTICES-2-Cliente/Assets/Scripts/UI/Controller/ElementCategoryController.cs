@@ -120,36 +120,77 @@ namespace Vortices
 
         public void UpdateElementCategoriesList(string url, ElementCategory updatedElementCategory)
         {
-            Debug.Log("Im updating");
-            ElementCategory oldElementCategory = elementCategoriesList.FirstOrDefault<ElementCategory>(elementCategories => elementCategories.elementUrl == url);
-            if(oldElementCategory != null)
+            Debug.Log($"[DEBUG] Intentando actualizar categorías para URL: {url}");
+
+            ElementCategory oldElementCategory = elementCategoriesList.FirstOrDefault(e => e.elementUrl == url);
+
+            if (oldElementCategory != null)
             {
                 int oldElementCategoryIndex = elementCategoriesList.IndexOf(oldElementCategory);
-                elementCategoriesList[oldElementCategoryIndex] = updatedElementCategory; // New elementCategoriesList
+
+                // 🚀 Verificamos si hay cambios reales antes de actualizar
+                if (!Enumerable.SequenceEqual(oldElementCategory.elementCategories.OrderBy(x => x), updatedElementCategory.elementCategories.OrderBy(x => x)))
+                {
+                    Debug.Log($"[DEBUG] Cambios detectados en categorías. Actualizando en índice {oldElementCategoryIndex}.");
+                    elementCategoriesList[oldElementCategoryIndex] = updatedElementCategory;
+                    
+                    // Solo actualizamos si hubo un cambio real
+                    UpdateSessionCategoryList(elementCategoriesList);
+                }
+                else
+                {
+                    Debug.Log("[DEBUG] No se detectaron cambios en las categorías. No se actualiza para evitar bucles.");
+                }
             }
             else
             {
+                Debug.Log($"[DEBUG] Nueva entrada para URL {url}. Agregando.");
                 elementCategoriesList.Add(updatedElementCategory);
-            }
 
-            UpdateSessionCategoryList(elementCategoriesList);
+                // Solo guardamos si hay cambios reales
+                UpdateSessionCategoryList(elementCategoriesList);
+            }
         }
 
         private void UpdateSessionCategoryList(List<ElementCategory> updatedElementCategoryList)
         {
-            if(allSessionElementCategory == null)
+            if (allSessionElementCategory == null)
             {
                 Initialize();
             }
-            SessionElementCategory oldSessionElementCategory = allSessionElementCategory.FirstOrDefault<SessionElementCategory>(session => session.sessionName == this.sessionName && session.userId == this.userId);
-            if(oldSessionElementCategory != null)
+
+            SessionElementCategory oldSessionElementCategory = allSessionElementCategory.FirstOrDefault(session => session.sessionName == this.sessionName && session.userId == this.userId);
+
+            if (oldSessionElementCategory != null)
             {
                 int oldSessionElementCategoryIndex = allSessionElementCategory.IndexOf(oldSessionElementCategory);
-                allSessionElementCategory[oldSessionElementCategoryIndex].elementCategoriesList = updatedElementCategoryList;
-            }
-            allSessionElementCategory = allSessionElementCategory.OrderBy(session => session.sessionName).ThenBy(session => session.userId).ToList();
 
-            SaveAllSessionElementCategories();
+                // 🚀 Verificamos si hay cambios antes de sobrescribir
+                if (!Enumerable.SequenceEqual(allSessionElementCategory[oldSessionElementCategoryIndex].elementCategoriesList.Select(e => e.elementCategories).SelectMany(x => x).OrderBy(x => x), 
+                                            updatedElementCategoryList.Select(e => e.elementCategories).SelectMany(x => x).OrderBy(x => x)))
+                {
+                    Debug.Log($"[DEBUG] Cambios detectados en sesión. Guardando actualización.");
+                    allSessionElementCategory[oldSessionElementCategoryIndex].elementCategoriesList = updatedElementCategoryList;
+                    SaveAllSessionElementCategories();
+                }
+                else
+                {
+                    Debug.Log("[DEBUG] No se detectaron cambios en la sesión. No se guarda para evitar escrituras innecesarias.");
+                }
+            }
+            else
+            {
+                Debug.Log($"[DEBUG] Nueva sesión detectada. Agregando nueva entrada.");
+                SessionElementCategory newSessionElementCategory = new SessionElementCategory
+                {
+                    sessionName = this.sessionName,
+                    userId = this.userId,
+                    elementCategoriesList = updatedElementCategoryList
+                };
+
+                allSessionElementCategory.Add(newSessionElementCategory);
+                SaveAllSessionElementCategories();
+            }
         }
 
         #endregion

@@ -509,6 +509,11 @@ namespace Vortices
                 sessionManager.elementCategoryController.UpdateElementCategoriesList(actualSelectedElement.url, elementCategory);
                 // Update Sorting counters
                 AddUISortingCategories();
+
+                if (sessionManager.isOnlineSession)
+                {
+                    MuseumBaseNetworkHandler.Instance.CmdUpdateCategory(actualSelectedElement.url, categoryName, true);
+                }
             }
         }
 
@@ -530,6 +535,11 @@ namespace Vortices
                 sessionManager.elementCategoryController.UpdateElementCategoriesList(actualSelectedElement.url, elementCategory);
                 // Update Sorting counters
                 AddUISortingCategories();
+
+                if (sessionManager.isOnlineSession)
+                {
+                    MuseumBaseNetworkHandler.Instance.CmdUpdateCategory(actualSelectedElement.url, categoryName, false);
+                }
             }
         }
 

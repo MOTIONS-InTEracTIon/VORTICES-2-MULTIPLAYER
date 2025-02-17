@@ -1,4 +1,17 @@
 Timestamp;Date;Type;Detail
-15:01:27.4573690;25-10-2024;Session Status;Start;Environment: Circular;Display Mode: Plane;Dimension: 2,2,1;Browsing Mode: Local;;
-15:01:56.4956537;25-10-2024;Session Status;Stop;;
-15:01:57.4138931;25-10-2024;Session Status;Stop;;
+17:17:09.0549589;17-02-2025;Session Status;Start;Environment: Museum;Display Mode: Museum;Browsing Mode: Online;;
+17:19:48.6134013;17-02-2025;User Movement;New position: (1,547634,9,536743E-07,-0,490609);;
+17:19:48.6199355;17-02-2025;User Movement;New position: (1,547634,9,536743E-07,-0,490609);;
+17:20:00.6075218;17-02-2025;User Movement;New position: (2,351545,8,34465E-07,-8,756417);;
+17:20:00.6177342;17-02-2025;User Movement;New position: (2,351545,8,34465E-07,-8,756417);;
+17:20:01.7213580;17-02-2025;User Movement;New position: (0,05182856,7,152557E-07,-8,1217);;
+17:20:01.7437321;17-02-2025;User Movement;New position: (0,05182856,7,152557E-07,-8,1217);;
+17:20:02.2892926;17-02-2025;User Movement;New position: (-2,219029,7,152557E-07,-7,448378);;
+17:20:02.2902945;17-02-2025;User Movement;New position: (-2,219029,7,152557E-07,-7,448378);;
+17:20:03.2869030;17-02-2025;User Movement;New position: (-5,254121,4,768372E-07,-6,426297);;
+17:20:03.2899546;17-02-2025;User Movement;New position: (-5,254121,4,768372E-07,-6,426297);;
+17:20:04.8042988;17-02-2025;User Movement;New position: (-6,658863,8,34465E-07,-8,415719);;
+17:20:04.8063286;17-02-2025;User Movement;New position: (-6,658863,8,34465E-07,-8,415719);;
+17:20:06.0987575;17-02-2025;User Movement;New position: (-8,537184,8,34465E-07,-8,581585);;
+17:20:06.1002608;17-02-2025;User Movement;New position: (-8,537184,8,34465E-07,-8,581585);;
+17:20:10.0630973;17-02-2025;Selection;Selected;Url: https://www.google.cl/?hl=es;
