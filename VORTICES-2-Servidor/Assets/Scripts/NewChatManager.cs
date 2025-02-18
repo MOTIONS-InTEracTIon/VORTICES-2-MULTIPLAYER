@@ -25,9 +25,22 @@ public class NewChatManager : NetworkBehaviour
 
         Debug.Log($"[NewChatManager] Inicializado en: {gameObject.name}. Es servidor: {isServer}");
 
+        // Asegurar que el ChatCanvas no se destruya al cambiar de escena
+        DontDestroyOnLoad(gameObject);
+
+        // Evitar duplicados: Si ya hay un ChatCanvas en la escena, eliminamos este
+        NewChatManager existingChat = FindObjectOfType<NewChatManager>();
+        if (existingChat != null && existingChat != this)
+        {
+            Debug.LogWarning("[NewChatManager] Ya existe un ChatCanvas, eliminando instancia duplicada.");
+            Destroy(gameObject);
+            return;
+        }
+
         // Vincular el botón de enviar
         sendButton.onClick.AddListener(OnSendButtonPressed);
     }
+
 
     public void ToggleChat()
     {
