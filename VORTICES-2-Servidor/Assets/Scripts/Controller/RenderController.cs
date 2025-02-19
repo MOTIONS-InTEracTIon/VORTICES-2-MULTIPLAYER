@@ -16,6 +16,7 @@ namespace Vortices
 
         // Auxiliary Components
         [SerializeField] GameObject loadManager;
+        private static int elementCounter = 0;
 
 
         // Coroutine
@@ -159,6 +160,9 @@ namespace Vortices
         {
             GameObject element = Instantiate(elementPrefab, placementObject.transform.position, elementPrefab.transform.rotation, placementObject.transform);
             element.transform.localRotation = placementObject.transform.localRotation;
+            Element elementScript = element.GetComponent<Element>();
+            elementScript.circularIndex = elementCounter;
+            elementCounter++;
             Canvas canvasHolder = element.GetComponent<Canvas>();
             canvasHolder.worldCamera = Camera.main;
             return canvasHolder;

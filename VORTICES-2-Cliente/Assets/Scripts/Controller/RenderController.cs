@@ -16,6 +16,7 @@ namespace Vortices
 
         // Auxiliary Components
         [SerializeField] GameObject loadManager;
+        private static int elementCounter = 0;
 
 
         // Coroutine
@@ -127,14 +128,13 @@ namespace Vortices
             // Spawning
             for (int i = 0; i < placementObjects.Count; i++)
             {
-                Debug.Log($"[DEBUG] Iteración {i}: placementObjects.Count={placementObjects.Count}, loadPaths.Count={loadPaths.Count}");
-
                 Canvas elementCanvas = new Canvas();
-                
+                // Plane
                 if (displayMode == "Plane")
                 {
                     elementCanvas = GenerateElement(placementObjects[i]);
                 }
+                // Radial
                 else if (displayMode == "Radial")
                 {
                     elementCanvas = GenerateElement(placementObjects[i]);
@@ -143,9 +143,6 @@ namespace Vortices
                     canvasHolderComponent.followName = "Information Object Group";
                     canvasHolderComponent.StartRotating(false);
                 }
-
-                Debug.Log($"[DEBUG] Intentando acceder a loadPaths[{i}] y placementObjects[{i}]");
-
                 TaskCoroutine spawnCoroutine = new TaskCoroutine(GenerateCanvasWebView(elementCanvas, loadPaths[i], placementObjects[i], browsingMode, displayMode));
                 spawnCoroutine.Finished += delegate (bool manual) { spawnCoroutinesRunning--; };
                 spawnCoroutinesRunning++;
@@ -163,6 +160,9 @@ namespace Vortices
         {
             GameObject element = Instantiate(elementPrefab, placementObject.transform.position, elementPrefab.transform.rotation, placementObject.transform);
             element.transform.localRotation = placementObject.transform.localRotation;
+            Element elementScript = element.GetComponent<Element>();
+            elementScript.circularIndex = elementCounter;
+            elementCounter++;
             Canvas canvasHolder = element.GetComponent<Canvas>();
             canvasHolder.worldCamera = Camera.main;
             return canvasHolder;

@@ -15,6 +15,9 @@ public class ServerSessionManager : NetworkBehaviour
     [SerializeField]
     public GameObject museumBaseNetworkPrefab;
 
+    [SerializeField]
+    public GameObject CircularNetworkPrefab;
+
     public static ServerSessionManager Instance
     {
         get
@@ -137,12 +140,26 @@ public class ServerSessionManager : NetworkBehaviour
             elementPaths = sessionData.elementPaths
         });
 
-        Debug.Log("[Servidor] Creando MuseumBaseNetworkHandler para sincronización.");
+        Debug.Log("[Servidor] Inicializando NetworkHandler...");
 
-        GameObject museumBaseNetwork = Instantiate(museumBaseNetworkPrefab);
-        NetworkServer.Spawn(museumBaseNetwork);
-
-        Debug.Log($"[Servidor] MuseumBaseNetworkHandler spawneado con Net ID: {museumBaseNetwork.GetComponent<NetworkIdentity>().netId}");
+        if (msg.environmentName == "Museum Environment")
+        {
+            Debug.Log("[Servidor] Creando MuseumBaseNetworkHandler para sincronización.");
+            GameObject museumBaseNetwork = Instantiate(museumBaseNetworkPrefab);
+            NetworkServer.Spawn(museumBaseNetwork);
+            Debug.Log($"[Servidor] MuseumBaseNetworkHandler spawneado con Net ID: {museumBaseNetwork.GetComponent<NetworkIdentity>().netId}");
+        }
+        else if (msg.environmentName == "Circular Environment")
+        {
+            Debug.Log("[Servidor] Creando CircularNetworkHandler para sincronización.");
+            GameObject circularNetwork = Instantiate(CircularNetworkPrefab);
+            NetworkServer.Spawn(circularNetwork);
+            Debug.Log($"[Servidor] CircularNetworkHandler spawneado con Net ID: {circularNetwork.GetComponent<NetworkIdentity>().netId}");
+        }
+        else
+        {
+            Debug.LogWarning("[Servidor] No se encontró un NetworkHandler válido para esta escena.");
+        }
 
     }
 

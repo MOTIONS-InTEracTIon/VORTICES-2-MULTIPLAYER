@@ -513,6 +513,7 @@ namespace Vortices
                 if (sessionManager.isOnlineSession)
                 {
                     MuseumBaseNetworkHandler.Instance.CmdUpdateCategory(actualSelectedElement.url, categoryName, true);
+                    CircularNetworkHandler.Instance.CmdUpdateCategory(actualSelectedElement.url, categoryName, true);
                 }
             }
         }
@@ -539,6 +540,7 @@ namespace Vortices
                 if (sessionManager.isOnlineSession)
                 {
                     MuseumBaseNetworkHandler.Instance.CmdUpdateCategory(actualSelectedElement.url, categoryName, false);
+                    CircularNetworkHandler.Instance.CmdUpdateCategory(actualSelectedElement.url, categoryName, false);
                 }
             }
         }

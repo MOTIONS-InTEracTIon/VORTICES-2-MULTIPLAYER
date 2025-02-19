@@ -44,6 +44,7 @@ namespace Vortices
         public bool selected;
         public float hapticIntensity = 3.0f;
         public float hapticDuration = 1.0f;
+        public int circularIndex = -1; 
 
         // Coroutine
         private bool toggleComponentRunning;
@@ -112,27 +113,40 @@ namespace Vortices
                     string newUrl = canvasWebView.Url;
                     Debug.Log($"[Cliente] URL cambiada en CanvasWebView: {newUrl}");
 
-                    //   Buscar el MuseumElement en el abuelo (Frame → MuseumElement)
-                    var museumElement = transform.parent?.parent?.GetComponent<MuseumElement>();
-                    if (museumElement == null)
+                    if (sessionManager.environmentName == "Museum")
                     {
-                        Debug.LogError("[Cliente] No se encontró el MuseumElement en el abuelo de Element.");
-                        return;
-                    }
+                        // Buscar el MuseumElement en el abuelo (Frame → MuseumElement)
+                        var museumElement = transform.parent?.parent?.GetComponent<MuseumElement>();
+                        if (museumElement == null)
+                        {
+                            Debug.LogError("[Cliente] No se encontró el MuseumElement en el abuelo de Element.");
+                            return;
+                        }
 
-                    int globalIndex = museumElement.globalIndex;
+                        int globalIndex = museumElement.globalIndex;
 
-                    //   Notificar a MuseumBaseNetworkHandler
-                    if (MuseumBaseNetworkHandler.Instance != null)
-                    {
-                        MuseumBaseNetworkHandler.Instance.OnElementUrlChanged(globalIndex, newUrl);
+                        if (MuseumBaseNetworkHandler.Instance != null)
+                        {
+                            MuseumBaseNetworkHandler.Instance.OnElementUrlChanged(globalIndex, newUrl);
+                        }
+                        else
+                        {
+                            Debug.LogError("[Cliente] No se encontró MuseumBaseNetworkHandler.");
+                        }
                     }
-                    else
+                    else if (sessionManager.environmentName == "Circular")
                     {
-                        Debug.LogError("[Cliente] No se encontró MuseumBaseNetworkHandler.");
+                        // Enviar al CircularNetworkHandler
+                        if (CircularNetworkHandler.Instance != null)
+                        {
+                            CircularNetworkHandler.Instance.OnElementUrlChanged(this, newUrl);
+                        }
+                        else
+                        {
+                            Debug.LogError("[Cliente] No se encontró CircularNetworkHandler.");
+                        }
                     }
-                };
-                
+                };   
                 // Add event for upper controls
                 Button goBackButton = goBack.GetComponent<Button>();
                 goBackButton.onClick.AddListener(delegate { GoBackOnline(); });

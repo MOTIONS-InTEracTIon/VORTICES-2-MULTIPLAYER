@@ -22220,6 +22220,7 @@ MonoBehaviour:
   spawnPrefabs:
   - {fileID: 8039182486620635618, guid: b7097add0faf9de419085d27da4d5341, type: 3}
   - {fileID: 3518092845463129470, guid: 41efbb882bc82ea409f4869e62ce4a36, type: 3}
+  - {fileID: 2997449883188453225, guid: 4cf04b7b09c0a1c48ab11583b2d8870e, type: 3}
   timeInterpolationGui: 0
   chatCanvasPrefab: {fileID: 8039182486620635618, guid: b7097add0faf9de419085d27da4d5341, type: 3}
 --- !u!114 &1488218970
