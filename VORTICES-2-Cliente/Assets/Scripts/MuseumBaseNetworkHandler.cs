@@ -129,19 +129,26 @@ public class MuseumBaseNetworkHandler : NetworkBehaviour
     {
         Debug.Log($"[Cliente] Intentando actualizar categoría '{categoryName}' en '{elementUrl}' (Agregar: {isAdding})");
 
-        //  Buscar la instancia de ElementCategoryController en la escena
+        // Obtener el controlador de categorías
         ElementCategoryController elementCategoryController = FindObjectOfType<ElementCategoryController>();
-
         if (elementCategoryController == null)
         {
             Debug.LogError("[Cliente] No se encontró ElementCategoryController en la escena.");
             return;
         }
 
+        // Obtener el elemento afectado
+        Element affectedElement = elementCategoryController.GetElementByUrl(elementUrl);
+        if (affectedElement == null)
+        {
+            Debug.LogWarning($"[Cliente] No se encontró un elemento con la URL '{elementUrl}'.");
+            return;
+        }
+
         // Obtener la categoría del elemento
         var elementCategory = elementCategoryController.GetSelectedCategories(elementUrl);
 
-        //  Verificar si la categoría ya está para evitar duplicados
+        // Verificar si la categoría ya está para evitar duplicados
         if (isAdding && elementCategory.elementCategories.Contains(categoryName))
         {
             Debug.Log($"[Cliente] La categoría '{categoryName}' ya existe en '{elementUrl}', no se vuelve a agregar.");
@@ -153,19 +160,33 @@ public class MuseumBaseNetworkHandler : NetworkBehaviour
             return;
         }
 
+        // Agregar o eliminar la categoría
         if (isAdding)
         {
             elementCategory.elementCategories.Add(categoryName);
-            Debug.Log($"[Cliente] Categoría '{categoryName}' agregada correctamente.");
+            elementCategory.elementCategories.Sort();  // Ordenar alfabéticamente
         }
         else
         {
             elementCategory.elementCategories.Remove(categoryName);
-            Debug.Log($"[Cliente] Categoría '{categoryName}' eliminada correctamente.");
         }
 
-        //  Ahora actualizamos en el ElementCategoryController correcto
+        // Actualizar la lista de categorías del elemento
         elementCategoryController.UpdateElementCategoriesList(elementUrl, elementCategory);
+
+        // Actualizar estado visual del elemento
+        affectedElement.SetCategorized(isAdding);
+
+        // Obtener referencia a RightHandTools y actualizar UI
+        RighthandTools rightHandTools = FindObjectOfType<RighthandTools>();
+        if (rightHandTools != null)
+        {
+            rightHandTools.AddUISortingCategories();
+        }
+        else
+        {
+            Debug.LogWarning("[Cliente] No se encontró RightHandTools para actualizar la UI.");
+        }
     }
 
 

@@ -86,6 +86,13 @@ public class CircularNetworkHandler : NetworkBehaviour
             return;
         }
 
+        Element affectedElement = elementCategoryController.GetElementByUrl(elementUrl);
+        if (affectedElement == null)
+        {
+            Debug.LogWarning($"[Cliente] No se encontró un elemento con la URL '{elementUrl}'.");
+            return;
+        }
+
         var elementCategory = elementCategoryController.GetSelectedCategories(elementUrl);
 
         if (isAdding && elementCategory.elementCategories.Contains(categoryName))
@@ -102,6 +109,7 @@ public class CircularNetworkHandler : NetworkBehaviour
         if (isAdding)
         {
             elementCategory.elementCategories.Add(categoryName);
+            elementCategory.elementCategories.Sort();
         }
         else
         {
@@ -109,6 +117,18 @@ public class CircularNetworkHandler : NetworkBehaviour
         }
 
         elementCategoryController.UpdateElementCategoriesList(elementUrl, elementCategory);
+
+        affectedElement.SetCategorized(isAdding);
+
+        RighthandTools rightHandTools = FindObjectOfType<RighthandTools>();
+        if (rightHandTools != null)
+        {
+            rightHandTools.AddUISortingCategories();
+        }
+        else
+        {
+            Debug.LogWarning("[Cliente] No se encontró RightHandTools para actualizar la UI.");
+        }
     }
 
     //  Método para obtener un `Element` por su `circularIndex`

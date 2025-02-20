@@ -238,10 +238,29 @@ public class ServerSessionManager : NetworkBehaviour
             Debug.Log("Eliminando todas las sesiones activas porque no hay clientes conectados.");
             activeSessions.Clear();
             Debug.Log("Todas las sesiones han sido eliminadas.");
+
+            // Eliminar todos los MuseumBaseNetworkHandler y CircularNetworkHandler activos
+            DestroyAllNetworkHandlers();
+
         }
-        else
+    }
+
+    private void DestroyAllNetworkHandlers()
+    {
+        Debug.Log("Buscando y eliminando todos los NetworkHandlers activos...");
+
+        // Buscar y destruir todos los MuseumBaseNetworkHandler
+        foreach (var handler in FindObjectsOfType<MuseumBaseNetworkHandler>())
         {
-            //Debug.Log("No hay sesiones activas que eliminar.");
+            Debug.Log($"Eliminando MuseumBaseNetworkHandler con Net ID: {handler.GetComponent<NetworkIdentity>().netId}");
+            NetworkServer.Destroy(handler.gameObject);
+        }
+
+        // Buscar y destruir todos los CircularNetworkHandler
+        foreach (var handler in FindObjectsOfType<CircularNetworkHandler>())
+        {
+            Debug.Log($"Eliminando CircularNetworkHandler con Net ID: {handler.GetComponent<NetworkIdentity>().netId}");
+            NetworkServer.Destroy(handler.gameObject);
         }
     }
 

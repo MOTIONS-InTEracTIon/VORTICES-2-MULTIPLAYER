@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
+using UnityEngine.SceneManagement;
 
 public class CustomNetworkManager : NetworkManager
 {
@@ -61,7 +62,17 @@ public class CustomNetworkManager : NetworkManager
     {
         Debug.Log($"[OnServerAddPlayer] Añadiendo jugador con connId: {conn.connectionId}...");
 
-        // Instanciar y añadir el jugador
+        // Obtener el nombre de la escena actual
+        string sceneName = SceneManager.GetActiveScene().name;
+
+        // Si la escena es "Circular", NO instanciamos el PlayerPrefab
+        if (sceneName == "Circular Environment")
+        {
+            Debug.Log("[OnServerAddPlayer] Escena Circular detectada, NO se instancia el Player.");
+            return;
+        }
+
+        // Instanciar y añadir el jugador SOLO en la escena Museo
         Transform startPos = GetStartPosition();
         GameObject player = startPos != null
             ? Instantiate(playerPrefab, startPos.position, startPos.rotation)
@@ -77,7 +88,7 @@ public class CustomNetworkManager : NetworkManager
         GameObject chatCanvas = GameObject.FindWithTag("ChatCanvas");
         if (chatCanvas != null)
         {
-           Debug.Log("[ChatCanvas] Se encontró el ChatCanvas en el servidor.");
+            Debug.Log("[ChatCanvas] Se encontró el ChatCanvas en el servidor.");
         }
         else
         {

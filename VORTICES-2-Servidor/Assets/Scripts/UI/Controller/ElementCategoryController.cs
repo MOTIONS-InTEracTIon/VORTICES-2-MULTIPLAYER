@@ -61,6 +61,11 @@ namespace Vortices
             }
         }
 
+        public Element GetElementByUrl(string url)
+        {
+            return elementGameObjects.FirstOrDefault(e => e.url == url);
+        }
+
         public List<List<string>> GetSessionCategoriesCount()
         {
             List<List<string>> listOfCategoriesCount = new List<List<string>>();
@@ -128,7 +133,7 @@ namespace Vortices
             {
                 int oldElementCategoryIndex = elementCategoriesList.IndexOf(oldElementCategory);
 
-                // 🚀 Verificamos si hay cambios reales antes de actualizar
+                //  Verificamos si hay cambios reales antes de actualizar
                 if (!Enumerable.SequenceEqual(oldElementCategory.elementCategories.OrderBy(x => x), updatedElementCategory.elementCategories.OrderBy(x => x)))
                 {
                     Debug.Log($"[DEBUG] Cambios detectados en categorías. Actualizando en índice {oldElementCategoryIndex}.");
@@ -165,7 +170,7 @@ namespace Vortices
             {
                 int oldSessionElementCategoryIndex = allSessionElementCategory.IndexOf(oldSessionElementCategory);
 
-                // 🚀 Verificamos si hay cambios antes de sobrescribir
+                //  Verificamos si hay cambios antes de sobrescribir
                 if (!Enumerable.SequenceEqual(allSessionElementCategory[oldSessionElementCategoryIndex].elementCategoriesList.Select(e => e.elementCategories).SelectMany(x => x).OrderBy(x => x), 
                                             updatedElementCategoryList.Select(e => e.elementCategories).SelectMany(x => x).OrderBy(x => x)))
                 {
@@ -465,7 +470,7 @@ namespace Vortices
         public string elementUrl; // This connects a file or a online url to its categories (If the name of file or page changes, its categories are lost with it)
         public List<string> elementCategories;
     }
-
+    
     #endregion
 }
 
