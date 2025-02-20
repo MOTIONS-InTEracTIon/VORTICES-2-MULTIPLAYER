@@ -565,7 +565,7 @@ namespace Vortices
             {
                 Debug.Log($"  - {path}");
             }
-
+            categoryController.Initialize();
             //  Asignamos los `elementPaths` al SessionManager
             elementPaths = new List<string>(msg.sessionData.elementPaths);
 
@@ -587,6 +587,25 @@ namespace Vortices
             {
                 Debug.LogError("[ERROR] No se encontró AddonsController, no se pudo actualizar el environment.");
             }
+
+            //  Sincronizar categorías en CategoryController
+            if (categoryController != null)
+            {
+                categoryController.UpdateCategoriesList(msg.sessionData.categories);
+
+                //  Ahora sincronizamos las categorías seleccionadas
+                if (msg.sessionData.categories.Count > 0)
+                {
+                    categoryController.UpdateSelectedCategoriesList(msg.sessionData.categories);
+                }
+
+                Debug.Log($"[DEBUG] Categorías sincronizadas: {string.Join(", ", msg.sessionData.categories)}");
+            }
+            else
+            {
+                Debug.LogError("[ERROR] No se encontró CategoryController, no se pudieron sincronizar las categorías.");
+            }
+
 
             //  Confirmamos que los datos han sido recibidos
             sessionDataReceived = true;
@@ -612,7 +631,7 @@ namespace Vortices
                 yield break;
             }
 
-            // ✅ Verificamos que `elementPaths` tiene datos
+            //  Verificamos que `elementPaths` tiene datos
             if (elementPaths == null || elementPaths.Count == 0)
             {
                 Debug.LogError("[ERROR] Los ElementPaths están VACÍOS después de recibir los datos de la sesión.");

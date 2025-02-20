@@ -5,6 +5,7 @@ using Mirror;
 using Vortices;
 using System.Linq;
 using Vuplex.WebView;
+using UnityEngine.UI;
 
 public class CircularNetworkHandler : NetworkBehaviour
 {
@@ -128,6 +129,44 @@ public class CircularNetworkHandler : NetworkBehaviour
         else
         {
             Debug.LogWarning("[Cliente] No se encontró RightHandTools para actualizar la UI.");
+        }
+
+        UIElementCategory[] categoryElements = Resources.FindObjectsOfTypeAll<UIElementCategory>();
+
+        foreach (UIElementCategory categoryElement in categoryElements)
+        {
+            if (categoryElement.categoryName == categoryName)
+            {
+                Debug.Log($"[Cliente] Sincronizando UI para categoría '{categoryName}' en '{elementUrl}'.");
+
+                // 🔹 Buscar el `Select Toggle` dentro del `UIElementCategory`
+                Transform toggleTransform = categoryElement.transform.Find("Select Toggle");
+
+                if (toggleTransform != null)
+                {
+                    Toggle toggle = toggleTransform.GetComponent<Toggle>();
+
+                    if (toggle != null)
+                    {
+                        // 🔹 Evitar que el cambio de `isOn` dispare `SelectedToggle()`
+                        toggle.onValueChanged.RemoveAllListeners();
+                        toggle.isOn = isAdding;
+                        toggle.onValueChanged.AddListener((value) => categoryElement.SelectedToggle());
+
+                        Debug.Log($"[Cliente] Toggle actualizado para '{categoryName}', isOn: {isAdding}");
+                    }
+                    else
+                    {
+                        Debug.LogError($"[Cliente] No se encontró un componente Toggle en 'Select Toggle' para '{categoryName}'");
+                    }
+                }
+                else
+                {
+                    Debug.LogError($"[Cliente] No se encontró el objeto 'Select Toggle' en '{categoryElement.name}'");
+                }
+
+                break;
+            }
         }
     }
 
