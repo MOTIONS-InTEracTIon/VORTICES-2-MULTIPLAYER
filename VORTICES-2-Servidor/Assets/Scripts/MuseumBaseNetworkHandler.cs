@@ -130,7 +130,6 @@ public class MuseumBaseNetworkHandler : NetworkBehaviour
     {
         Debug.Log($"[Cliente] Intentando actualizar categoría '{categoryName}' en '{elementUrl}' (Agregar: {isAdding})");
 
-        // Obtener el controlador de categorías
         ElementCategoryController elementCategoryController = FindObjectOfType<ElementCategoryController>();
         if (elementCategoryController == null)
         {
@@ -138,95 +137,35 @@ public class MuseumBaseNetworkHandler : NetworkBehaviour
             return;
         }
 
-        // Obtener el elemento afectado
-        Element affectedElement = elementCategoryController.GetElementByUrl(elementUrl);
-        if (affectedElement == null)
-        {
-            Debug.LogWarning($"[Cliente] No se encontró un elemento con la URL '{elementUrl}'.");
-            return;
-        }
-
-        // Obtener la categoría del elemento
         var elementCategory = elementCategoryController.GetSelectedCategories(elementUrl);
 
-        // Verificar si la categoría ya está para evitar duplicados
-        if (isAdding && elementCategory.elementCategories.Contains(categoryName))
-        {
-            Debug.Log($"[Cliente] La categoría '{categoryName}' ya existe en '{elementUrl}', no se vuelve a agregar.");
-            return;
-        }
-        else if (!isAdding && !elementCategory.elementCategories.Contains(categoryName))
-        {
-            Debug.Log($"[Cliente] La categoría '{categoryName}' no existe en '{elementUrl}', no se puede eliminar.");
-            return;
-        }
-
-        // Agregar o eliminar la categoría
         if (isAdding)
         {
-            elementCategory.elementCategories.Add(categoryName);
-            elementCategory.elementCategories.Sort();  // Ordenar alfabéticamente
-        }
-        else
-        {
-            elementCategory.elementCategories.Remove(categoryName);
-        }
-
-        // Actualizar la lista de categorías del elemento
-        elementCategoryController.UpdateElementCategoriesList(elementUrl, elementCategory);
-
-        // Actualizar estado visual del elemento
-        affectedElement.SetCategorized(isAdding);
-
-        // Obtener referencia a RightHandTools y actualizar UI
-        RighthandTools rightHandTools = FindObjectOfType<RighthandTools>();
-        if (rightHandTools != null)
-        {
-            rightHandTools.AddUISortingCategories();
-        }
-        else
-        {
-            Debug.LogWarning("[Cliente] No se encontró RightHandTools para actualizar la UI.");
-        }
-
-        UIElementCategory[] categoryElements = Resources.FindObjectsOfTypeAll<UIElementCategory>();
-
-        foreach (UIElementCategory categoryElement in categoryElements)
-        {
-            if (categoryElement.categoryName == categoryName)
+            if (!elementCategory.elementCategories.Contains(categoryName))
             {
-                Debug.Log($"[Cliente] Sincronizando UI para categoría '{categoryName}' en '{elementUrl}'.");
-
-                // 🔹 Buscar el `Select Toggle` dentro del `UIElementCategory`
-                Transform toggleTransform = categoryElement.transform.Find("Select Toggle");
-
-                if (toggleTransform != null)
-                {
-                    Toggle toggle = toggleTransform.GetComponent<Toggle>();
-
-                    if (toggle != null)
-                    {
-                        // 🔹 Evitar que el cambio de `isOn` dispare `SelectedToggle()`
-                        toggle.onValueChanged.RemoveAllListeners();
-                        toggle.isOn = isAdding;
-                        toggle.onValueChanged.AddListener((value) => categoryElement.SelectedToggle());
-
-                        Debug.Log($"[Cliente] Toggle actualizado para '{categoryName}', isOn: {isAdding}");
-                    }
-                    else
-                    {
-                        Debug.LogError($"[Cliente] No se encontró un componente Toggle en 'Select Toggle' para '{categoryName}'");
-                    }
-                }
-                else
-                {
-                    Debug.LogError($"[Cliente] No se encontró el objeto 'Select Toggle' en '{categoryElement.name}'");
-                }
-
-                break;
+                elementCategory.elementCategories.Add(categoryName);
+                Debug.Log($"[Cliente] Categoría '{categoryName}' agregada correctamente.");
+            }
+            else
+            {
+                Debug.Log($"[Cliente] La categoría '{categoryName}' ya existe en '{elementUrl}', no se vuelve a agregar.");
             }
         }
-    }
+        else
+        {
+            if (elementCategory.elementCategories.Contains(categoryName))
+            {
+                elementCategory.elementCategories.Remove(categoryName);
+                Debug.Log($"[Cliente] Categoría '{categoryName}' eliminada correctamente.");
+            }
+            else
+            {
+                Debug.Log($"[Cliente] La categoría '{categoryName}' no existe en '{elementUrl}', no se puede eliminar.");
+            }
+        }
 
+        // Ahora actualizamos en el ElementCategoryController correcto
+        elementCategoryController.UpdateElementCategoriesList(elementUrl, elementCategory);
+    }
 
 }
