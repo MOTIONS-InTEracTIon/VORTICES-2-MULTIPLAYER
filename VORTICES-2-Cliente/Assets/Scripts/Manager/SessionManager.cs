@@ -226,7 +226,7 @@ namespace Vortices
                 {
                     if (!NetworkClient.isConnected)
                     {
-                        NetworkManager.singleton.networkAddress = "127.0.0.1"; // Cambia según la IP del servidor
+                        NetworkManager.singleton.networkAddress = "192.168.31.72"; // Cambia según la IP del servidor
                         NetworkManager.singleton.StartClient();
 
                         float timeout = 10f;

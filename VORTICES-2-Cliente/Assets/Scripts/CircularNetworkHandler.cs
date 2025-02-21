@@ -78,44 +78,39 @@ public class CircularNetworkHandler : NetworkBehaviour
     [ClientRpc]
     void RpcUpdateCategory(string elementUrl, string categoryName, bool isAdding)
     {
-        Debug.Log($"[Cliente] Intentando actualizar categoría '{categoryName}' en '{elementUrl}' (Agregar: {isAdding})");
+        Debug.Log($"[Cliente] Sincronizando Toggle para categoría '{categoryName}' en '{elementUrl}', isAdding: {isAdding}");
 
-        ElementCategoryController elementCategoryController = FindObjectOfType<ElementCategoryController>();
-        if (elementCategoryController == null)
-        {
-            Debug.LogError("[Cliente] No se encontró ElementCategoryController en la escena.");
-            return;
-        }
+        UIElementCategory[] categoryElements = Resources.FindObjectsOfTypeAll<UIElementCategory>();
 
-        var elementCategory = elementCategoryController.GetSelectedCategories(elementUrl);
+        foreach (UIElementCategory categoryElement in categoryElements)
+        {
+            if (categoryElement.categoryName == categoryName)
+            {
+                Toggle toggle = categoryElement.GetComponentInChildren<Toggle>();
 
-        if (isAdding)
-        {
-            if (!elementCategory.elementCategories.Contains(categoryName))
-            {
-                elementCategory.elementCategories.Add(categoryName);
-                Debug.Log($"[Cliente] Categoría '{categoryName}' agregada correctamente.");
-            }
-            else
-            {
-                Debug.Log($"[Cliente] La categoría '{categoryName}' ya existe en '{elementUrl}', no se vuelve a agregar.");
-            }
-        }
-        else
-        {
-            if (elementCategory.elementCategories.Contains(categoryName))
-            {
-                elementCategory.elementCategories.Remove(categoryName);
-                Debug.Log($"[Cliente] Categoría '{categoryName}' eliminada correctamente.");
-            }
-            else
-            {
-                Debug.Log($"[Cliente] La categoría '{categoryName}' no existe en '{elementUrl}', no se puede eliminar.");
+                if (toggle != null)
+                {
+                    bool shouldBeOn = isAdding;
+
+                    // *** Evita el bucle infinito: Solo cambia si es necesario ***
+                    if (toggle.isOn != shouldBeOn)
+                    {
+                        toggle.isOn = shouldBeOn;
+                        Debug.Log($"[Cliente] Toggle actualizado correctamente para '{categoryName}', isOn: {toggle.isOn}");
+                    }
+                    else
+                    {
+                        Debug.Log($"[Cliente] Toggle ya estaba en el estado correcto para '{categoryName}', isOn: {toggle.isOn}");
+                    }
+                }
+                else
+                {
+                    Debug.LogError($"[Cliente] No se encontró el Toggle en UIElementCategory para '{categoryName}'.");
+                }
+
+                break; // No es necesario seguir buscando
             }
         }
-
-        // Ahora actualizamos en el ElementCategoryController correcto
-        elementCategoryController.UpdateElementCategoriesList(elementUrl, elementCategory);
     }
 
     //  Método para obtener un `Element` por su `circularIndex`
