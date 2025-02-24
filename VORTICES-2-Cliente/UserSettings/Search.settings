@@ -1,13 +1,13 @@
 trackSelection = true
 fetchPreview = true
-defaultFlags = 0
+defaultFlags = 8
 keepOpen = false
 queryFolder = "Assets"
 onBoardingDoNotAskAgain = true
 showPackageIndexes = false
 showStatusBar = false
 scopes = {
-	"last_search.2138236A" = ""
+	"last_search.2138236A" = "Assets"
 	"OpenInspectorPreview.2138236A" = "0"
 	"currentGroup.2138236A" = "asset"
 	"last_search.DD5CDD96" = ""
