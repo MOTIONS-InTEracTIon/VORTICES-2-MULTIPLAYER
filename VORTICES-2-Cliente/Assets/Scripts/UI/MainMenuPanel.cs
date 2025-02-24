@@ -28,6 +28,7 @@ namespace Vortices
         [SerializeField] public List<GameObject> optionScreenUiComponents;
         [SerializeField] public List<Toggle> panelToggles;
         [SerializeField] private TMP_InputField ipAddressInputField;
+        [SerializeField] private TMP_InputField userID;
 
         // Panel Properties
         public int actualComponentId { get; set; }
@@ -236,6 +237,18 @@ namespace Vortices
         public void OnJoinSessionClicked()
         {
             string ipAddress = ipAddressInputField.text;
+            string userIdText = userID.text;
+
+            if (int.TryParse(userIdText, out int userId))
+            {
+                
+                SessionManager.instance.userId = userId;
+                Debug.Log($"[UserID] Se ha establecido el UserId en: {userId}");
+            }
+            else
+            {
+                Debug.LogError("[UserID] El valor ingresado no es un número válido.");
+            }
 
             if (SessionManager.instance != null)
             {

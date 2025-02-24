@@ -226,7 +226,7 @@ namespace Vortices
                 {
                     if (!NetworkClient.isConnected)
                     {
-                        NetworkManager.singleton.networkAddress = "192.168.31.72"; // Cambia según la IP del servidor
+                        NetworkManager.singleton.networkAddress = "127.0.0.1"; // 134.65.228.226 Oracle
                         NetworkManager.singleton.StartClient();
 
                         float timeout = 10f;
@@ -348,6 +348,8 @@ namespace Vortices
         {
             sessionLaunchRunning = true;
 
+            yield return StartCoroutine(DisconnectFromVivoxCoroutine());
+
             if (NetworkClient.isConnected)
             {
                 Debug.Log("El cliente est� conectado a una sesi�n. Desconectando...");
@@ -452,11 +454,10 @@ namespace Vortices
             {
                 NetworkManager.singleton.networkAddress = ipAddress;
                 NetworkManager.singleton.StartClient();
-                StartCoroutine(WaitForConnectionAndJoinSession()); // Primero conectamos
+                StartCoroutine(WaitForConnectionAndJoinSession()); 
 
                 isOnlineSession = true;
 
-                // Esperamos a que se reciba la sesión antes de proceder
                 StartCoroutine(WaitForSessionDataAndLoadScene());
             }
             else
@@ -502,28 +503,25 @@ namespace Vortices
         private IEnumerator WaitForConnectionAndJoinSession()
         {
             float timeout = 10f;
-            while (!NetworkClient.isConnected && timeout > 0f)
+            float elapsedTime = 0f;
+
+            while (!NetworkClient.isConnected && elapsedTime < timeout)
             {
-                timeout -= Time.deltaTime;
+                elapsedTime += Time.deltaTime;
                 yield return null;
             }
 
             if (NetworkClient.isConnected)
             {
-                Debug.Log("Conexi�n establecida. Verificando sesiones activas...");
                 NetworkClient.Send(new RequestActiveSessionMessage());
             }
-            else
-            {
-                Debug.LogError("No se pudo conectar al servidor.");
-            }
+
         }
 
         private void HandleActiveSessionResponse(ActiveSessionResponseMessage msg)
         {
             if (!msg.success)
             {
-                Debug.LogError("No se encontraron sesiones activas en el servidor.");
                 return;
             }
 
@@ -538,8 +536,6 @@ namespace Vortices
             }
 
             sessionName = msg.sessionData.sessionName;
-            userId = msg.sessionData.userId;
-            Debug.Log($"[DEBUG] Environment recibido del servidor: '{msg.sessionData.environmentName}'");
 
             if (msg.sessionData.environmentName == "Circular Environment")
             {
@@ -559,8 +555,6 @@ namespace Vortices
             volumetric = msg.sessionData.volumetric;
             dimension = msg.sessionData.dimension;
 
-            //  Agregamos logs para ver los `elementPaths` recibidos
-            Debug.Log($"[DEBUG] ElementPaths recibidos ({msg.sessionData.elementPaths.Count} elementos):");
             foreach (string path in msg.sessionData.elementPaths)
             {
                 Debug.Log($"  - {path}");
@@ -578,14 +572,9 @@ namespace Vortices
                     if (envObject.environmentName == msg.sessionData.environmentName)
                     {
                         addonsController.currentEnvironmentObject = envObject;
-                        Debug.Log($"[DEBUG] Se ha actualizado AddonsController con el environment: {envObject.environmentName}");
                         break;
                     }
                 }
-            }
-            else
-            {
-                Debug.LogError("[ERROR] No se encontró AddonsController, no se pudo actualizar el environment.");
             }
 
             //  Sincronizar categorías en CategoryController
@@ -598,12 +587,6 @@ namespace Vortices
                 {
                     categoryController.UpdateSelectedCategoriesList(msg.sessionData.categories);
                 }
-
-                Debug.Log($"[DEBUG] Categorías sincronizadas: {string.Join(", ", msg.sessionData.categories)}");
-            }
-            else
-            {
-                Debug.LogError("[ERROR] No se encontró CategoryController, no se pudieron sincronizar las categorías.");
             }
 
 
@@ -616,7 +599,6 @@ namespace Vortices
 
         private IEnumerator WaitForSessionDataAndLoadScene()
         {
-            Debug.Log("[DEBUG] Esperando recibir los datos de la sesión...");
 
             float timeout = 10f;
             while (!sessionDataReceived && timeout > 0f)
@@ -627,21 +609,9 @@ namespace Vortices
 
             if (!sessionDataReceived)
             {
-                Debug.LogError("No se recibieron los datos de la sesión dentro del tiempo límite.");
                 yield break;
             }
 
-            //  Verificamos que `elementPaths` tiene datos
-            if (elementPaths == null || elementPaths.Count == 0)
-            {
-                Debug.LogError("[ERROR] Los ElementPaths están VACÍOS después de recibir los datos de la sesión.");
-            }
-            else
-            {
-                Debug.Log($"[DEBUG] ElementPaths listos con {elementPaths.Count} elementos.");
-            }
-
-            Debug.Log("[DEBUG] Datos de sesión recibidos, cargando escena...");
             StartCoroutine(JoinSessionRoutine());
         }
 
@@ -659,11 +629,6 @@ namespace Vortices
                 if (task.IsCompletedSuccessfully)
                 {
                     loginSuccess = true;
-                    Debug.Log($"[VoiceChat] Usuario {userId} conectado a Vivox.");
-                }
-                else
-                {
-                    Debug.LogError($"[VoiceChat] Error al iniciar sesión en Vivox: {task.Exception?.Message}");
                 }
             });
 
@@ -676,22 +641,54 @@ namespace Vortices
                 if (task.IsCompletedSuccessfully)
                 {
                     channelJoinSuccess = true;
-                    Debug.Log("[VoiceChat] Usuario unido al canal de voz: VoRTIcESVoiceChat");
-                }
-                else
-                {
-                    Debug.LogError($"[VoiceChat] Error al unirse al canal de voz: {task.Exception?.Message}");
                 }
             });
 
             // Esperar que se conecte al canal
             yield return new WaitUntil(() => channelJoinSuccess);
+        }
 
-            if (loginSuccess && channelJoinSuccess)
+        private IEnumerator DisconnectFromVivoxCoroutine()
+        {
+            Debug.Log("[VoiceChat] Iniciando desconexión de Vivox...");
+
+            if (VivoxVoiceManager.Instance != null)
             {
-                Debug.Log("[VoiceChat] Usuario conectado exitosamente al chat de voz.");
+                // Salir del canal de voz
+                if (VivoxVoiceManager.LobbyChannelName != null)
+                {
+                    Task leaveChannelTask = VivoxVoiceManager.Instance.LeaveChannelAsync(VivoxVoiceManager.LobbyChannelName);
+                    yield return new WaitUntil(() => leaveChannelTask.IsCompleted);
+
+                    if (leaveChannelTask.Exception != null)
+                    {
+                        Debug.LogError($"Error al salir del canal de voz: {leaveChannelTask.Exception.Message}");
+                    }
+                    else
+                    {
+                        Debug.Log("[VoiceChat] Desconectado del canal de voz.");
+                    }
+                }
+
+                // Cerrar sesión de Vivox
+                Task logoutTask = VivoxVoiceManager.Instance.LogoutAsync();
+                yield return new WaitUntil(() => logoutTask.IsCompleted);
+
+                if (logoutTask.Exception != null)
+                {
+                    Debug.LogError($"Error al cerrar sesión en Vivox: {logoutTask.Exception.Message}");
+                }
+                else
+                {
+                    Debug.Log("[VoiceChat] Sesión en Vivox cerrada.");
+                }
+            }
+            else
+            {
+                Debug.LogError("[VoiceChat] VivoxVoiceManager.Instance es NULL. No se pudo desconectar.");
             }
         }
+
 
         #endregion
     }

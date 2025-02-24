@@ -512,8 +512,12 @@ namespace Vortices
 
                 if (sessionManager.isOnlineSession)
                 {
-                    MuseumBaseNetworkHandler.Instance.CmdUpdateCategory(actualSelectedElement.url, categoryName, true);
-                    CircularNetworkHandler.Instance.CmdUpdateCategory(actualSelectedElement.url, categoryName, true);
+                    if(sessionManager.environmentName == "Museum"){
+                        MuseumBaseNetworkHandler.Instance.CmdUpdateCategory(actualSelectedElement.url, categoryName, true, actualSelectedElement.circularIndex);
+                    }
+                    else{
+                        CircularNetworkHandler.Instance.CmdUpdateCategory(actualSelectedElement.url, categoryName, true, actualSelectedElement.circularIndex);
+                    }
                 }
             }
         }
@@ -539,8 +543,12 @@ namespace Vortices
 
                 if (sessionManager.isOnlineSession)
                 {
-                    MuseumBaseNetworkHandler.Instance.CmdUpdateCategory(actualSelectedElement.url, categoryName, false);
-                    CircularNetworkHandler.Instance.CmdUpdateCategory(actualSelectedElement.url, categoryName, false);
+                    if(sessionManager.environmentName == "Museum"){
+                        MuseumBaseNetworkHandler.Instance.CmdUpdateCategory(actualSelectedElement.url, categoryName, false, actualSelectedElement.circularIndex);
+                    }
+                    else{
+                        CircularNetworkHandler.Instance.CmdUpdateCategory(actualSelectedElement.url, categoryName, false, actualSelectedElement.circularIndex);
+                    }
                 }
             }
         }

@@ -11,6 +11,7 @@ public class NewChatManager : NetworkBehaviour
 {
     [Header("Chat UI Components")]
     public GameObject chatCanvas;
+    public ScrollRect scrollRect;
     public TMP_InputField chatInputField;
     public TMP_Text chatDisplay;
     public Button sendButton;
@@ -103,7 +104,9 @@ public class NewChatManager : NetworkBehaviour
 
         if (chatDisplay != null)
         {
-            chatDisplay.text += $"{userId}: {message}\n";
+            chatDisplay.text += $"Usuario {userId}: {message}\n";
+            Canvas.ForceUpdateCanvases();
+            scrollRect.verticalNormalizedPosition = 0f;
         }
         else
         {

@@ -11,6 +11,8 @@ public class CircularNetworkHandler : NetworkBehaviour
 {
     public static CircularNetworkHandler Instance { get; private set; }
 
+    private RighthandTools righthandTools;
+
     private void Awake()
     {
         if (Instance == null) Instance = this;
@@ -69,16 +71,44 @@ public class CircularNetworkHandler : NetworkBehaviour
 
     //  Sincronización de categorías
     [Command(requiresAuthority = false)]
-    public void CmdUpdateCategory(string elementUrl, string categoryName, bool isAdding)
+    public void CmdUpdateCategory(string elementUrl, string categoryName, bool isAdding, int elementIndex)
     {
-        Debug.Log($"[Servidor] Recibida actualización de categorización para {elementUrl}, categoría: {categoryName}, agregar: {isAdding}");
-        RpcUpdateCategory(elementUrl, categoryName, isAdding);
+        Debug.Log($"[Servidor] Recibida actualización de categorización para {elementUrl}, categoría: {categoryName}, agregar: {isAdding}, Índice: {elementIndex}");
+        RpcUpdateCategory(elementUrl, categoryName, isAdding, elementIndex);
     }
 
     [ClientRpc]
-    void RpcUpdateCategory(string elementUrl, string categoryName, bool isAdding)
+    void RpcUpdateCategory(string elementUrl, string categoryName, bool isAdding, int elementIndex)
     {
-        Debug.Log($"[Cliente] Sincronizando Toggle para categoría '{categoryName}' en '{elementUrl}', isAdding: {isAdding}");
+        Debug.Log($"[Cliente] Sincronizando Toggle para categoría '{categoryName}' en '{elementUrl}', isAdding: {isAdding}, Índice: {elementIndex}");
+
+        GameObject infoObjectGroup = GameObject.Find("Information Object Group");
+
+        if (infoObjectGroup == null)
+        {
+            Debug.LogError("[Cliente] No se encontró el objeto 'Information Object Group' en la escena.");
+            return;
+        }
+
+        Element[] allElements = infoObjectGroup.GetComponentsInChildren<Element>(true); 
+
+        Element selectedElement = null;
+        foreach (Element element in allElements)
+        {
+            if (element.circularIndex == elementIndex) 
+            {
+                selectedElement = element;
+                break;
+            }
+        }
+
+        if (selectedElement == null)
+        {
+            Debug.LogError($"[Cliente] No se encontró el elemento con índice {elementIndex} en 'Information Object Group'. URL esperada: {elementUrl}");
+            return;
+        }
+
+        righthandTools.UpdateCategorizeSubMenu(selectedElement);
 
         UIElementCategory[] categoryElements = Resources.FindObjectsOfTypeAll<UIElementCategory>();
 
@@ -92,7 +122,6 @@ public class CircularNetworkHandler : NetworkBehaviour
                 {
                     bool shouldBeOn = isAdding;
 
-                    // *** Evita el bucle infinito: Solo cambia si es necesario ***
                     if (toggle.isOn != shouldBeOn)
                     {
                         toggle.isOn = shouldBeOn;
@@ -108,12 +137,11 @@ public class CircularNetworkHandler : NetworkBehaviour
                     Debug.LogError($"[Cliente] No se encontró el Toggle en UIElementCategory para '{categoryName}'.");
                 }
 
-                break; // No es necesario seguir buscando
+                break;
             }
         }
     }
 
-    //  Método para obtener un `Element` por su `circularIndex`
     Element GetElementByIndex(int circularIndex)
     {
         Element[] elements = FindObjectsOfType<Element>();
@@ -137,5 +165,6 @@ public class CircularNetworkHandler : NetworkBehaviour
             localCircularBase = FindObjectOfType<CircularSpawnBase>();
         }
         Debug.Log("[Cliente] CircularBase encontrado. Sincronización lista.");
+        righthandTools = GameObject.FindObjectOfType<RighthandTools>();
     }
 }

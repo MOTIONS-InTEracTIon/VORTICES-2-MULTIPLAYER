@@ -12,6 +12,8 @@ public class MuseumBaseNetworkHandler : NetworkBehaviour
     
     public static MuseumBaseNetworkHandler Instance { get; private set; }
 
+    private RighthandTools righthandTools;
+
     private void Awake()
     {
         if (Instance == null) Instance = this;
@@ -105,7 +107,7 @@ public class MuseumBaseNetworkHandler : NetworkBehaviour
     IEnumerator WaitForMuseumBase()
     {
         Debug.Log("[Cliente] Esperando a que MuseumBase cargue...");
-
+        
         MuseumBase localMuseumBase = null;
         while (localMuseumBase == null)
         {
@@ -114,21 +116,77 @@ public class MuseumBaseNetworkHandler : NetworkBehaviour
         }
 
         Debug.Log("[Cliente] MuseumBase encontrado. Sincronización lista.");
+
+        // Ahora buscamos ChatCanvas(Clone) entre los objetos desactivados
+        Debug.Log("[Cliente] Buscando ChatCanvas(Clone)...");
+
+        GameObject chatCanvas = null;
+        while (chatCanvas == null)
+        {
+            yield return null; // Espera un frame antes de volver a buscar
+
+            // Buscar entre objetos desactivados
+            GameObject[] allObjects = Resources.FindObjectsOfTypeAll<GameObject>();
+            foreach (GameObject obj in allObjects)
+            {
+                if (obj.name == "ChatCanvas(Clone)" && obj.hideFlags == HideFlags.None)
+                {
+                    chatCanvas = obj;
+                    Debug.Log("[Cliente] ChatCanvas(Clone) encontrado.");
+                    break;
+                }
+            }
+        }
+
+        // Ajustar posición y rotación cuando lo encuentre
+        chatCanvas.transform.position = new Vector3(-2f, 2.3f, -1.7f);
+        chatCanvas.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+
+        Debug.Log("[Cliente] ChatCanvas(Clone) posicionado correctamente.");
+        righthandTools = GameObject.FindObjectOfType<RighthandTools>();
     }
 
-    [Command(requiresAuthority = false)]
-    public void CmdUpdateCategory(string elementUrl, string categoryName, bool isAdding)
-    {
-        Debug.Log($"[Servidor] Recibida actualización de categorización para {elementUrl}, categoría: {categoryName}, agregar: {isAdding}");
 
-        // Llamar al Rpc para propagar la actualización a todos los clientes
-        RpcUpdateCategory(elementUrl, categoryName, isAdding);
+    //  Sincronización de categorías
+    [Command(requiresAuthority = false)]
+    public void CmdUpdateCategory(string elementUrl, string categoryName, bool isAdding, int elementIndex)
+    {
+        Debug.Log($"[Servidor] Recibida actualización de categorización para {elementUrl}, categoría: {categoryName}, agregar: {isAdding}, Índice: {elementIndex}");
+        RpcUpdateCategory(elementUrl, categoryName, isAdding, elementIndex);
     }
 
     [ClientRpc]
-    void RpcUpdateCategory(string elementUrl, string categoryName, bool isAdding)
+    void RpcUpdateCategory(string elementUrl, string categoryName, bool isAdding, int elementIndex)
     {
-        Debug.Log($"[Cliente] Sincronizando Toggle para categoría '{categoryName}' en '{elementUrl}', isAdding: {isAdding}");
+        Debug.Log($"[Cliente] Sincronizando Toggle para categoría '{categoryName}' en '{elementUrl}', isAdding: {isAdding}, Índice: {elementIndex}");
+        
+        GameObject infoObjectGroup = GameObject.Find("Information Object Group");
+
+        if (infoObjectGroup == null)
+        {
+            Debug.LogError("[Cliente] No se encontró el objeto 'Information Object Group' en la escena.");
+            return;
+        }
+
+        Element[] allElements = infoObjectGroup.GetComponentsInChildren<Element>(true); 
+
+        Element selectedElement = null;
+        foreach (Element element in allElements)
+        {
+            if (element.circularIndex == elementIndex) 
+            {
+                selectedElement = element;
+                break;
+            }
+        }
+
+        if (selectedElement == null)
+        {
+            Debug.LogError($"[Cliente] No se encontró el elemento con índice {elementIndex} en 'Information Object Group'. URL esperada: {elementUrl}");
+            return;
+        }
+
+        righthandTools.UpdateCategorizeSubMenu(selectedElement);
 
         UIElementCategory[] categoryElements = Resources.FindObjectsOfTypeAll<UIElementCategory>();
 
@@ -142,7 +200,6 @@ public class MuseumBaseNetworkHandler : NetworkBehaviour
                 {
                     bool shouldBeOn = isAdding;
 
-                    // *** Evita el bucle infinito: Solo cambia si es necesario ***
                     if (toggle.isOn != shouldBeOn)
                     {
                         toggle.isOn = shouldBeOn;
@@ -158,7 +215,7 @@ public class MuseumBaseNetworkHandler : NetworkBehaviour
                     Debug.LogError($"[Cliente] No se encontró el Toggle en UIElementCategory para '{categoryName}'.");
                 }
 
-                break; // No es necesario seguir buscando
+                break;
             }
         }
     }
